@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "node index.js",
-    "start" : "pm2 start index.js --watch",
-    "stop" : "pm2 stop index"
+    "start": "pm2 start index.js --watch",
+    "stop": "pm2 stop index",
+    "view": "pm2 log"
   },
   "repository": {
     "type": "git",
