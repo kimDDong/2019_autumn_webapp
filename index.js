@@ -1,6 +1,8 @@
 var engine = require('consolidate');
 var express = require('express');
+var mysql = require('mysql');
 var app = express();
+
 
 app.use(express.static(__dirname + '/public'));
 // html 파일 읽기위해 사용함
