@@ -10,7 +10,7 @@ app.set('view engine', 'html');
 // 여기까지
 
 app.get('/',function(req,res){
-    res.render('ex.html');
+    res.render('main.html');
 });
 
 
