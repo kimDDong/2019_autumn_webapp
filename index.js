@@ -19,10 +19,6 @@ app.get('/notice',function(req,res){
     res.render('notice.html');
 });
 
-app.get('/notice',function(req,res){
-    res.render('notice.html');
-});
-
 app.get('/courses',function(req,res){
     res.render('courses.html');
 });
