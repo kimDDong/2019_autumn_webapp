@@ -1,0 +1,26 @@
+{
+  "name": "2019_autumn_webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js",
+    "start" : "pm2 start index.js --watch",
+    "stop" : "pm2 stop index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gohdong/2019_autumn_webapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gohdong/2019_autumn_webapp/issues"
+  },
+  "homepage": "https://github.com/gohdong/2019_autumn_webapp#readme",
+  "dependencies": {
+    "consolidate": "^0.15.1",
+    "express": "^4.17.1",
+    "mustache": "^3.1.0"
+  }
+}
