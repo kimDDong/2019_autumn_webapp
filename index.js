@@ -1,7 +1,14 @@
 var engine = require('consolidate');
 var express = require('express');
 var mysql = require('mysql');
+var http = require('http');
+var fs = require('fs');
+var url = require('url');
+
+
 var app = express();
+
+
 
 
 app.use(express.static(__dirname + '/public'));
@@ -11,16 +18,39 @@ app.engine('html', engine.mustache);
 app.set('view engine', 'html');
 // 여기까지
 
+function templateHTML(title,list,feature) {
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <link href="css/main.css?ver=1" type="text/css" rel="stylesheet" />
+    </head>
 
-app.get('/',function(req,res){
-    if(req.query.id === undefined){
-        res.render('main.html');    
-    }
-    else{
-        res.render(req.query.id+'.html');
-    }
-});
+    <body>
+        <h1>This is ${title}</h1>
+        ${list}
+        <a href="?id=login">LOGIN</a>
+        <a href="?id=contact">CONTACT</a>
+        ${feature}
 
+    </body>
+    </html>
+
+    `;
+}
+
+function templateList(filelist) {
+    var list = '<ul>';
+    var i = 0;
+    while(i < filelist.length){
+        var title = filelist[i].split('.')[0];
+        list = list + `<li><a href="/?id=${title}">${title}</a></li>`;
+        i = i + 1;
+    }
+    list = list+'</ul>';
+    return list;
+}
 
 var connection = mysql.createConnection({
 	host: 'localhost',
@@ -30,6 +60,32 @@ var connection = mysql.createConnection({
 
 	password: '1234',
 	database: 'my_db'
+});
+
+app.get('/',function(req,res){
+    var _url = req.url;
+    var queryData = url.parse(_url, true).query;
+    fs.readdir('views', function(error, filelist){
+        var title = 'main';
+        var template;
+        var list;
+        if(req.query.id === undefined || req.query.id === 'main'){
+            list = templateList(filelist)
+            template = templateHTML(title,list,`<h2>${title}</h2>`);
+            res.end(template);
+        }
+        else{
+            fs.readFile(`views/${queryData.id}.html`, 'utf8', function(err, description){
+                title = queryData.id;
+                list = templateList(filelist)
+                template = templateHTML(title,list,description);
+                console.log(template);
+                res.end(template);                
+            });
+        }
+    })
+
+
 });
 
 
