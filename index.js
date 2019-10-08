@@ -11,41 +11,16 @@ app.engine('html', engine.mustache);
 app.set('view engine', 'html');
 // 여기까지
 
+
 app.get('/',function(req,res){
-    res.render('main.html');
+    if(req.query.id === undefined){
+        res.render('main.html');    
+    }
+    else{
+        res.render(req.query.id+'.html');
+    }
 });
 
-app.get('/notice',function(req,res){
-    res.render('notice.html');
-});
-
-app.get('/courses',function(req,res){
-    res.render('courses.html');
-});
-
-app.get('/contact',function(req,res){
-    res.render('contact.html');
-});
-
-app.get('/gallery',function(req,res){
-    res.render('gallery.html');
-});
-
-app.get('/login',function(req,res){
-    res.render('login.html');
-});
-
-app.get('/members',function(req,res){
-    res.render('members.html');
-});
-
-app.get('/publications',function(req,res){
-    res.render('publications.html');
-});
-
-app.get('/research',function(req,res){
-    res.render('research.html');
-});
 
 var connection = mysql.createConnection({
 	host: 'localhost',
