@@ -28,7 +28,7 @@ function templateHTML(title,list,feature) {
     </head>
 
     <body>
-        <h1>This is ${title}</h1>
+        <h1><a href="?id=main">This is ${title}</a></h1>
         ${list}
         <a href="?id=login">LOGIN</a>
         <a href="?id=contact">CONTACT</a>
