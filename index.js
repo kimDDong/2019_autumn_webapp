@@ -11,6 +11,10 @@ app.engine('html', engine.mustache);
 app.set('view engine', 'html');
 // 여기까지
 
+// app.get('/',function(req,res){
+//     res.render(req.query.id+'.html');
+// }); 나중에 정리하기 !
+
 app.get('/',function(req,res){
     res.render('main.html');
 });
@@ -53,7 +57,7 @@ var connection = mysql.createConnection({
 
 	post: 3306,
 
-	password: '1234',
+	password: 'oracle11',
 	database: 'my_db'
 });
 
