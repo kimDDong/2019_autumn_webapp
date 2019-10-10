@@ -12,6 +12,7 @@ var app = express();
 
 
 app.use(express.static(__dirname + '/public'));
+
 // html 파일 읽기위해 사용함
 app.set('views', __dirname + '/views');
 app.engine('html', engine.mustache);
@@ -36,7 +37,6 @@ function templateHTML(title,list,feature) {
 
     </body>
     </html>
-
     `;
 }
 
