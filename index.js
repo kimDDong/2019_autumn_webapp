@@ -1,7 +1,14 @@
 var engine = require('consolidate');
 var express = require('express');
 var mysql = require('mysql');
+var http = require('http');
+var fs = require('fs');
+var url = require('url');
+
+
 var app = express();
+
+
 
 
 app.use(express.static(__dirname + '/public'));
@@ -11,45 +18,39 @@ app.engine('html', engine.mustache);
 app.set('view engine', 'html');
 // 여기까지
 
-// app.get('/',function(req,res){
-//     res.render(req.query.id+'.html');
-// }); 나중에 정리하기 !
+function templateHTML(title,list,feature) {
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <link href="css/main.css?ver=1" type="text/css" rel="stylesheet" />
+    </head>
 
-app.get('/',function(req,res){
-    res.render('main.html');
-});
+    <body>
+        <h1><a href="">This is ${title}</a></h1>
+        ${list}
+        <a href="?id=login">LOGIN</a>
+        <a href="?id=contact">CONTACT</a>
+        ${feature}
 
-app.get('/notice',function(req,res){
-    res.render('notice.html');
-});
+    </body>
+    </html>
 
-app.get('/courses',function(req,res){
-    res.render('courses.html');
-});
+    `;
+}
 
-app.get('/contact',function(req,res){
-    res.render('contact.html');
-});
-
-app.get('/gallery',function(req,res){
-    res.render('gallery.html');
-});
-
-app.get('/login',function(req,res){
-    res.render('login.html');
-});
-
-app.get('/members',function(req,res){
-    res.render('members.html');
-});
-
-app.get('/publications',function(req,res){
-    res.render('publications.html');
-});
-
-app.get('/research',function(req,res){
-    res.render('research.html');
-});
+function templateList(filelist) {
+    var list = '<ul>';
+    var i = 0;
+    while(i < filelist.length){
+        var title = filelist[i].split('.')[0];
+        list = list + `<li><a href="/?id=${title}">${title}</a></li>`;
+        i = i + 1;
+    }
+    list = list+'</ul>';
+    return list;
+}
 
 var connection = mysql.createConnection({
 	host: 'localhost',
@@ -59,6 +60,31 @@ var connection = mysql.createConnection({
 
 	password: 'oracle11',
 	database: 'my_db'
+});
+
+app.get('/',function(req,res){
+    var _url = req.url;
+    var queryData = url.parse(_url, true).query;
+    fs.readdir('views', function(error, filelist){
+        var title = 'main';
+        var template;
+        var list;
+        if(req.query.id === undefined || req.query.id === 'main'){
+            list = templateList(filelist)
+            template = templateHTML(title,list,`<h2>${title}</h2>`);
+            res.end(template);
+        }
+        else{
+            fs.readFile(`views/${queryData.id}.html`, 'utf8', function(err, description){
+                title = queryData.id;
+                list = templateList(filelist)
+                template = templateHTML(title,list,description);
+                res.end(template);
+            });
+        }
+    })
+
+
 });
 
 

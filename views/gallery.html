@@ -1,22 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-</head>
 
-<body>
-	<h1>This is Gallery</h1>
-	<ul id="menu" class="inline-list pull-left">
-		<li><a href="notice" >NOTICE</a></li>
-		<li><a href="members" >MEMBERS</a></li>
-		<li><a href="research" >RESEARCH</a></li>
-		<li><a href="publications">PUBLICATIONS</a></li>
-		<li><a href="courses" >COURSES</a></li>
-		<li><a href="gallery" >GALLERY</a></li>
-	</ul>
-			<a href="login">LOGIN</a>
-			<a href="contact" >CONTACT</a>
+<!-- 수정중
+<script src="gallery.js"></script>
+
+<div id = "change_div">처음에 들어가있는 내용</div>
+<input type="button" value="All" onclick="change()">
+
+<script language="javascript">
+    var all = document.getElementById("gallery");
+        function change(){
+    document.all("change_div").innerHTML=all
+  }
+</script>
+ -->
 
 
-</body>
-</html>
+
+
+<div id="gallery">
+    <h1>GALLERY</h1>
+        <div id = "gallery_bar">
+            <input type = "button" value="All" onclick="change_all()">
+            <button> Social Activity</button>
+            <button> Conference</button>
+            <button> Etc</button>
+        </div>
+        
+    
+    
+        <div id="photo_all">
+            <ul>
+                <li><a href="images/pic_1.jpg">
+                    <img src="images/pic_t1.jpg" alt="사진1"/></a></li>
+                <li><a href="images/pic_2.jpg">
+                    <img src="images/pic_t2.jpg" alt="사진2"/></a></li>
+            </ul>
+        </div>
+
+        <div id="photo_social_activity">
+                <ul>
+                    <li><a href="images/pic_1.jpg">
+                        <img src="images/pic_t1.jpg" alt="사진1"/></a></li>
+                    <li><a href="images/pic_2.jpg">
+                        <img src="images/pic_t2.jpg" alt="사진2"/></a></li>
+                </ul>
+            </div>
+        <p class="btn_wrap">
+            <a href="#" id="before_btn">&lt;</a>
+            <a href="#" id="next_btn">&gt;</a>
+        </p>
+    </div>
+
+
+
+    
