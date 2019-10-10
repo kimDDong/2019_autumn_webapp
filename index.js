@@ -28,7 +28,7 @@ function templateHTML(title,list,feature) {
     </head>
 
     <body>
-        <h1><a href="?id=main">This is ${title}</a></h1>
+        <h1><a href="">This is ${title}</a></h1>
         ${list}
         <a href="?id=login">LOGIN</a>
         <a href="?id=contact">CONTACT</a>
@@ -58,7 +58,7 @@ var connection = mysql.createConnection({
 
 	post: 3306,
 
-	password: '1234',
+	password: 'oracle11',
 	database: 'my_db'
 });
 
@@ -79,8 +79,7 @@ app.get('/',function(req,res){
                 title = queryData.id;
                 list = templateList(filelist)
                 template = templateHTML(title,list,description);
-                console.log(template);
-                res.end(template);                
+                res.end(template);
             });
         }
     })
