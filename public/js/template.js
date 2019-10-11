@@ -5,12 +5,14 @@ module.exports = {
       <html>
       <head>
           <meta charset="utf-8" />
-          <link href="css/main.css?ver=1" type="text/css" rel="stylesheet" />
+          <link href="css/main.css" type="text/css" rel="stylesheet" />
       </head>
 
       <body>
           <h1><a href="">This is ${title}</a></h1>
+          <nav>
           ${list}
+          </nav>
           <a href="?id=login">LOGIN</a>
           <a href="?id=contact">CONTACT</a>
           ${feature}
