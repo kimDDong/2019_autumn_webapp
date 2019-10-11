@@ -49,3 +49,9 @@ create table Gallery
     title VARCHAR(50),
     uploadtime DATETIME default CURRENT_TIMESTAMP
 );
+
+create table nav
+  (
+    id int,
+    menu VARCHAr(20)
+  );

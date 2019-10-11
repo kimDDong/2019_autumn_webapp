@@ -31,3 +31,16 @@ INSERT INTO Courses(classcode,subject,course)
 VALUES ('CSE107','Undergraduate','Logical Fundamentals of Programming');
 INSERT INTO Courses(classcode,subject,course)
 VALUES ('CSE117','Undergraduate','Programming Fundamentals');
+
+INSERT INTO nav(id,menu)
+VALUES('1','notice');
+INSERT INTO nav(id,menu)
+VALUES('2','members');
+INSERT INTO nav(id,menu)
+VALUES('3','research');
+INSERT INTO nav(id,menu)
+VALUES('4','Publications');
+INSERT INTO nav(id,menu)
+VALUES('5','course');
+INSERT INTO nav(id,menu)
+VALUES('6','gallery');
