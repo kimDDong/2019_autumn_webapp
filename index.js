@@ -3,6 +3,7 @@ var express = require('express');
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
+var qs = require('querystring');
 var template = require('./public/js/template')
 var db = require('./public/js/db')
 
@@ -15,50 +16,6 @@ app.engine('html', engine.mustache);
 app.set('view engine', 'html');
 // 여기까지
 
-// function templateHTML(title,list,feature) {
-//     return `
-//     <!DOCTYPE html>
-//     <html>
-//     <head>
-//         <meta charset="utf-8" />
-//         <link href="css/main.css?ver=1" type="text/css" rel="stylesheet" />
-//     </head>
-//
-//     <body>
-//         <h1><a href="">This is ${title}</a></h1>
-//         ${list}
-//         <a href="?id=login">LOGIN</a>
-//         <a href="?id=contact">CONTACT</a>
-//         ${feature}
-//
-//     </body>
-//     </html>
-//
-//     `;
-// }
-
-// function templateList(filelist) {
-//     var list = '<ul>';
-//     var i = 0;
-//     while(i < filelist.length){
-//         var title = filelist[i].split('.')[0];
-//         list = list + `<li><a href="/?id=${title}">${title}</a></li>`;
-//         i = i + 1;
-//     }
-//     list = list+'</ul>';
-//     return list;
-// }
-
-// var connection = mysql.createConnection({
-// 	host: 'localhost',
-// 	user: 'root',
-//
-// 	post: 3306,
-//
-// 	password: 'oracle11',
-// 	database: 'my_db'
-// });
-
 app.get('/',function(req,res){
     var _url = req.url;
     var queryData = url.parse(_url, true).query;
@@ -66,10 +23,40 @@ app.get('/',function(req,res){
         var title = 'main';
         var _template = '';
         var _list = '';
-        if(req.query.id === undefined || req.query.id === 'main'){
+        if(req.query.id === undefined){
             _list = template.list(filelist)
             _template = template.HTML(title,_list,`<h2>${title}</h2>`);
             res.end(_template);
+        }
+        else if ( req.query.id === 'members'){
+          db.query('SELECT * FROM nav', function(error, nav) {
+            db.query('SELECT * FROM members', function(error, members) {
+              title = queryData.id;
+              _list = '<ul>';
+              var i = 0;
+              while(i < nav.length){
+                  _list = _list + `<li><a href="/?id=${nav[i].menu}">${nav[i].menu}</a></li>`;
+                  i = i + 1;
+              }
+              _list = _list+'</ul>';
+              _template = template.HTML(title,_list,`
+                <div class = "position">
+                  <h2> Professor </h2>
+                  <div class = "human">
+                    <img class="photo" src="https://selab.hanyang.ac.kr/members/photos/scott.jpg" alt= "not image">
+                    <ul>
+                      <li> Name  : ${members[0].name}</li>
+                      <li> E-mail : ${members[0].email}</li>
+                      <li> site : ${members[0].site}</li>
+                      <li> information : </li>
+                      <li> Career : ${members[0].etc}</li>
+                    </ul>
+                  </div>
+                </div>
+                `);
+              res.end(_template);
+          });
+          });
         }
         else{
             fs.readFile(`views/${queryData.id}.html`, 'utf8', function(err, description){
