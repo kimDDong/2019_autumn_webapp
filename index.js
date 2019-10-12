@@ -24,9 +24,11 @@ app.get('/',function(req,res){
         var _template = '';
         var _list = '';
         if(req.query.id === undefined){
+          fs.readFile(`views/main.html`,'utf8',function(err,description){
             _list = template.list(filelist)
-            _template = template.HTML(title,_list,`<h2>${title}</h2>`);
+            _template = template.HTML(title,_list,description);
             res.end(_template);
+          });
         }
         else if ( req.query.id === 'members'){
           db.query('SELECT * FROM nav', function(error, nav) {
