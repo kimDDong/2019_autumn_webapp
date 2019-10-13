@@ -75,8 +75,22 @@ app.get('/', function(req, res) {
 app.post("/create_process", function(req, res) {
     var title = req.body.title;
     var name = req.body.name;
-
     var description = req.body.description;
+
+
+
+
+    db.query(`insert into notice(title,name,contents) values("${title}","${name}","${description}")`, function(err, notice) {
+        if (err) {
+            console.log(err);
+
+        }
+        console.log(title);
+        console.log(name);
+        console.log(description);
+    });
+
+
     fs.writeFile(`data/${title}`, `name:${name}, description:${description}`, 'utf8', function(err) {
         res.writeHead(302, { 'Location': "/?id=notice" })
         res.end();
