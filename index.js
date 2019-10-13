@@ -1,8 +1,9 @@
 var engine = require('consolidate');
-var express = require('express');
+var express = require('express')
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
+var qs = require('querystring');
 var template = require('./public/js/template')
 var db = require('./public/js/db')
 var app = express();
@@ -57,9 +58,18 @@ app.get('/', function(req, res) {
                 res.end(_template);
             });
         }
-    })
+    });
+});
 
+app.post("/create_process",function(req,res){
+  var title=req.body.title;
+  var name = req.body.name;
 
+  var description = req.body.description;
+  fs.writeFile(`data/${title}`,`name:${name}, description:${description}`,'utf8',function(err){
+    res.writeHead(302,{'Location':"/?id=notice"})
+    res.end();
+  });
 });
 
 

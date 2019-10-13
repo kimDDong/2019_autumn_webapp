@@ -3,42 +3,12 @@ body {
     background-color: yellow;
 }
 
-.test {
+/* .test {
     border: solid 5px black;
-}
-
-
-/* #topMenu {
-    height: 30px;
-    width: 850px;
-}
-
-#topMenu ul li {
-    list-style: none;
-    color: white;
-    background-color: #2d2d2d;
-    float: left;
-    line-height: 30px;
-    vertical-align: middle;
-    text-align: center;
-}
-
-#topMenu .menuLink {
-    text-decoration: none;
-    color: white;
-    display: block;
-    width: 150px;
-    font-size: 12px;
-    font-weight: bold;
-    font-family: "Trebuchet MS", Dotum, Arial;
-}
-
-#topMenu .menuLink:hover {
-    color: red;
-    background-color: #4d4d4d;
 } */
 
-ul {
+
+#topMenu ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -46,11 +16,11 @@ ul {
     background-color: #333;
 }
 
-li {
+#topMenu li {
     float: left;
 }
 
-li a {
+#topMenu li a {
     display: block;
     color: white;
     text-align: center;
@@ -58,6 +28,6 @@ li a {
     text-decoration: none;
 }
 
-li a:hover {
+#topMenu li a:hover {
     background-color: #111;
 }
