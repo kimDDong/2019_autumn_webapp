@@ -1,12 +1,11 @@
 body {
     margin: auto;
-    background-color: yellow;
 }
+
 
 /* .test {
     border: solid 5px black;
 } */
-
 
 #topMenu ul {
     list-style-type: none;
