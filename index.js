@@ -1,11 +1,12 @@
 var engine = require('consolidate');
-var express = require('express');
+var express = require('express')
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
 var qs = require('querystring');
 var template = require('./public/js/template')
 var db = require('./public/js/db')
+var bodyParser = require("body-parser");
 
 var app = express();
 
@@ -15,6 +16,8 @@ app.set('views', __dirname + '/views');
 app.engine('html', engine.mustache);
 app.set('view engine', 'html');
 // 여기까지
+//app.use(express.json())
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/',function(req,res){
     var _url = req.url;
@@ -57,7 +60,7 @@ app.get('/',function(req,res){
                 </div>
                 `);
               res.end(_template);
-          });
+            });
           });
         }
         else{
@@ -68,11 +71,19 @@ app.get('/',function(req,res){
                 res.end(_template);
             });
         }
-    })
-
-
+    });
 });
 
+app.post("/create_process",function(req,res){
+  var title=req.body.title;
+  var name = req.body.name;
+
+  var description = req.body.description;
+  fs.writeFile(`data/${title}`,`name:${name}, description:${description}`,'utf8',function(err){
+    res.writeHead(302,{'Location':"/?id=notice"})
+    res.end();
+  });
+});
 
 
 app.listen(3000,function () {

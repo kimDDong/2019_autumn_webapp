@@ -9,6 +9,7 @@
                 </ul>
             </li>
             <li>
+                <!--db읽어와서 list로 보여주는걸로 변경필요-->
                 <ul class="entry">
                     <li>연구원모집</li>
                     <li>Scott Uk-Jin Lee</li>
@@ -30,5 +31,17 @@
                 </ul>
             </li>
         </ul>
+        <button type="button">Create notice</button>
+        <!--아래거 숨겨놨다가 나중에 버튼 누르면 보여지게 하는걸로 바꿀예정-->
+    </div>
+    <div class="create_notice">
+        <form action="/create_process" method="post">
+            <p><input type="text" autocomplete="off" name="title" placeholder="title"></p>
+            <p><input type="text" autocomplete="off" name="name" placeholder="name"></p>
+            <p>
+                <textarea autocomplete="off" name="description" placeholder="description"></textarea>
+            </p>
+            <p><input type="submit"></p>
+        </form>
     </div>
 </div>
