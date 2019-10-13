@@ -1,15 +1,11 @@
 var engine = require('consolidate');
 var express = require('express');
-var mysql = require('mysql');
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
-
-
+var template = require('./public/js/template')
+var db = require('./public/js/db')
 var app = express();
-
-
-
 
 app.use(express.static(__dirname + '/public'));
 
@@ -19,7 +15,7 @@ app.engine('html', engine.mustache);
 app.set('view engine', 'html');
 // 여기까지
 
-function templateHTML(title,list,feature) {
+function templateHTML(title, list, feature) {
     return `
     <!DOCTYPE html>
     <html>
@@ -40,46 +36,25 @@ function templateHTML(title,list,feature) {
     `;
 }
 
-function templateList(filelist) {
-    var list = '<ul>';
-    var i = 0;
-    while(i < filelist.length){
-        var title = filelist[i].split('.')[0];
-        list = list + `<li><a href="/?id=${title}">${title}</a></li>`;
-        i = i + 1;
-    }
-    list = list+'</ul>';
-    return list;
-}
 
-var connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
 
-	post: 3306,
-
-	password: 'oracle11',
-	database: 'my_db'
-});
-
-app.get('/',function(req,res){
+app.get('/', function(req, res) {
     var _url = req.url;
     var queryData = url.parse(_url, true).query;
-    fs.readdir('views', function(error, filelist){
+    fs.readdir('views', function(error, filelist) {
         var title = 'main';
-        var template;
-        var list;
-        if(req.query.id === undefined || req.query.id === 'main'){
-            list = templateList(filelist)
-            template = templateHTML(title,list,`<h2>${title}</h2>`);
-            res.end(template);
-        }
-        else{
-            fs.readFile(`views/${queryData.id}.html`, 'utf8', function(err, description){
+        var _template = '';
+        var _list = '';
+        if (req.query.id === undefined || req.query.id === 'main') {
+            _list = template.list(filelist)
+            _template = template.HTML(title, _list, `<h2>${title}</h2>`);
+            res.end(_template);
+        } else {
+            fs.readFile(`views/${queryData.id}.html`, 'utf8', function(err, description) {
                 title = queryData.id;
-                list = templateList(filelist)
-                template = templateHTML(title,list,description);
-                res.end(template);
+                _list = template.list(filelist)
+                _template = template.HTML(title, _list, description);
+                res.end(_template);
             });
         }
     })
@@ -89,6 +64,7 @@ app.get('/',function(req,res){
 
 
 
-app.listen(3000,function () {
+app.listen(3000, function() {
     console.log('Server start, port : 3000');
+
 });
