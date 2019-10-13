@@ -36,13 +36,13 @@ app.get('/', function(req, res) {
             db.query('SELECT * FROM nav', function(error, nav) {
                 db.query('SELECT * FROM members', function(error, members) {
                     title = queryData.id;
-                    _list = '<ul>';
+                    _list = '<nav id="topMenu" ><ul>';
                     var i = 0;
                     while (i < nav.length) {
                         _list = _list + `<li><a href="/?id=${nav[i].menu}">${nav[i].menu}</a></li>`;
                         i = i + 1;
                     }
-                    _list = _list + '</ul>';
+                    _list = _list + '</ul></nav>';
                     _template = template.HTML(title, _list, `
                 <div class = "position">
                   <h2> Professor </h2>
