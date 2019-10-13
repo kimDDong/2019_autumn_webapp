@@ -5,7 +5,7 @@ var db = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
 	post: 3306,
-	password: 'oracle11',
+	password: '1234',
 	database: 'se_lab'
 });
 
