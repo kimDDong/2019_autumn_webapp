@@ -1,55 +1,147 @@
 
-<!-- 수정중
-<script src="gallery.js"></script>
-
-<div id = "change_div">처음에 들어가있는 내용</div>
-<input type="button" value="All" onclick="change()">
-
-<script language="javascript">
-    var all = document.getElementById("gallery");
-        function change(){
-    document.all("change_div").innerHTML=all
-  }
-</script>
- -->
 
 
-
-
-<div id="gallery">
+<div id="main_gallery">
     <h1>GALLERY</h1>
         <div id = "gallery_bar">
-            <input type = "button" value="All" onclick="change_all()">
-            <button> Social Activity</button>
-            <button> Conference</button>
-            <button> Etc</button>
+            <button onclick="click_all(all,social,confer.etc)">All</button>
+            <button onclick="click_social(all,social,confer.etc)">Social Activity</button>
+            <button onclick="click_confer()">Conference</button>
+            <button onclick="click_etc()">Etc</button>
         </div>
         
     
     
         <div id="photo_all">
-            <ul>
-                <li><a href="images/pic_1.jpg">
-                    <img src="images/pic_t1.jpg" alt="사진1"/></a></li>
-                <li><a href="images/pic_2.jpg">
-                    <img src="images/pic_t2.jpg" alt="사진2"/></a></li>
-            </ul>
+            <table>
+                <tr>
+                    <th> 
+                        <a href="images/pic_1.jpg">
+                        <img src="images/pic_t1.jpg" alt="사진1"/></a>
+                        <p> all 사진1</p>
+                    </th>
+
+                </tr>
+            </table>
+
         </div>
 
         <div id="photo_social_activity">
-                <ul>
-                    <li><a href="images/pic_1.jpg">
-                        <img src="images/pic_t1.jpg" alt="사진1"/></a></li>
-                    <li><a href="images/pic_2.jpg">
-                        <img src="images/pic_t2.jpg" alt="사진2"/></a></li>
-                </ul>
-            </div>
+            <table>
+                <tr>
+                    <th> 
+                        <a href="images/pic_1.jpg">
+                        <img src="images/pic_t1.jpg" alt="사진1"/></a>
+                        <p> social_activity 사진1</p>
+                    </th>
+
+                </tr>
+            </table>
+    
+        </div>
+
+        <div id="photo_conference">
+                <table>
+                    <tr>
+                        <th> 
+                            <a href="images/pic_1.jpg">
+                            <img src="images/pic_t1.jpg" alt="사진1"/></a>
+                            <p> Conference 사진1</p>
+                        </th>
+
+                    </tr>
+                </table>
+        
+        </div>
+
+        <div id="photo_etc">
+                <table>
+                    <tr>
+                        <th> 
+                            <a href="images/pic_1.jpg">
+                            <img src="images/pic_t1.jpg" alt="사진1"/></a>
+                            <p> Etc 사진1</p>
+                        </th>
+
+                    </tr>
+                </table>
+        
+        </div>
+
+
         <p class="btn_wrap">
             <a href="#" id="before_btn">&lt;</a>
             <a href="#" id="next_btn">&gt;</a>
         </p>
-    </div>
+</div>
 
 
 
     
+<script>
+
+var all = document.getElementById("photo_all");
+var social = document.getElementById("photo_social_activity");
+var confer = document.getElementById("photo_conference");
+var etc = document.getElementById("photo_etc");
+    
+
+all.style.display = "block";
+social.style.display = "none";
+confer.style.display = "none";
+etc.style.display = "none";
+    
+    
+function click_all() {
+    var all = document.getElementById("photo_all");
+    var social = document.getElementById("photo_social_activity");
+    var confer = document.getElementById("photo_conference");
+    var etc = document.getElementById("photo_etc");
+
+    all.style.display = "block";
+    social.style.display = "none";
+    confer.style.display = "none";
+    etc.style.display = "none";
+}
+    
+function click_social() {
+    var all = document.getElementById("photo_all");
+    var social = document.getElementById("photo_social_activity");
+    var confer = document.getElementById("photo_conference");
+    var etc = document.getElementById("photo_etc");
+    
+    
+    
+    all.style.display = "none";
+    social.style.display = "block";
+    confer.style.display = "none";
+    etc.style.display = "none";
+}
+    
+function click_confer() {
+    var all = document.getElementById("photo_all");
+    var social = document.getElementById("photo_social_activity");
+    var confer = document.getElementById("photo_conference");
+    var etc = document.getElementById("photo_etc");
+    
+    
+    all.style.display = "none";
+    social.style.display = "none";
+    confer.style.display = "block";
+    etc.style.display = "none";
+}
+    
+function click_etc() {
+    var all = document.getElementById("photo_all");
+    var social = document.getElementById("photo_social_activity");
+    var confer = document.getElementById("photo_conference");
+    var etc = document.getElementById("photo_etc");
+    
+    
+    all.style.display = "none";
+    social.style.display = "none";
+    confer.style.display = "none";
+    etc.style.display = "block";
+}
+
+</script>
