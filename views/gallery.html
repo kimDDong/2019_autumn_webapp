@@ -6,87 +6,87 @@
                 <button onclick="click_confer()">Conference</button>
                 <button onclick="click_etc()">Etc</button>
             </div>
-            
-        
-        
+
+
+
             <div id="photo_all">
                 <table>
                     <tr>
-                        <th> 
+                        <th>
                             <a href="images/pic_1.jpg">
                             <img src="images/pic_t1.jpg" alt="사진1"/></a>
                             <p> all 사진1</p>
                         </th>
-    
+
                     </tr>
                 </table>
-    
+
             </div>
-    
+
             <div id="photo_social_activity">
                 <table>
                     <tr>
-                        <th> 
+                        <th>
                             <a href="images/pic_1.jpg">
                             <img src="images/pic_t1.jpg" alt="사진1"/></a>
                             <p> social_activity 사진1</p>
                         </th>
-    
+
                     </tr>
                 </table>
-        
+
             </div>
-    
+
             <div id="photo_conference">
                     <table>
                         <tr>
-                            <th> 
+                            <th>
                                 <a href="images/pic_1.jpg">
                                 <img src="images/pic_t1.jpg" alt="사진1"/></a>
                                 <p> Conference 사진1</p>
                             </th>
-    
+
                         </tr>
                     </table>
-            
+
             </div>
-    
+
             <div id="photo_etc">
                     <table>
                         <tr>
-                            <th> 
+                            <th>
                                 <a href="images/pic_1.jpg">
                                 <img src="images/pic_t1.jpg" alt="사진1"/></a>
                                 <p> Etc 사진1</p>
                             </th>
-    
+
                         </tr>
                     </table>
-            
+
             </div>
-    
-    
+
+
             <p class="btn_wrap">
                 <a href="#" id="before_btn">&lt;</a>
                 <a href="#" id="next_btn">&gt;</a>
             </p>
     </div>
-    
-    
-    
-        
+
+
+
+
     <script>
     var all = document.getElementById("photo_all");
     var social = document.getElementById("photo_social_activity");
     var confer = document.getElementById("photo_conference");
     var etc = document.getElementById("photo_etc");
-        
+
     all.style.display = "block";
     social.style.display = "none";
     confer.style.display = "none";
     etc.style.display = "none";
-        
-        
+
+
     function click_all() {
         var all = document.getElementById("photo_all");
         var social = document.getElementById("photo_social_activity");
@@ -97,41 +97,41 @@
         confer.style.display = "none";
         etc.style.display = "none";
     }
-        
+
     function click_social() {
         var all = document.getElementById("photo_all");
         var social = document.getElementById("photo_social_activity");
         var confer = document.getElementById("photo_conference");
         var etc = document.getElementById("photo_etc");
-        
-        
-        
+
+
+
         all.style.display = "none";
         social.style.display = "block";
         confer.style.display = "none";
         etc.style.display = "none";
     }
-        
+
     function click_confer() {
         var all = document.getElementById("photo_all");
         var social = document.getElementById("photo_social_activity");
         var confer = document.getElementById("photo_conference");
         var etc = document.getElementById("photo_etc");
-        
-        
+
+
         all.style.display = "none";
         social.style.display = "none";
         confer.style.display = "block";
         etc.style.display = "none";
     }
-        
+
     function click_etc() {
         var all = document.getElementById("photo_all");
         var social = document.getElementById("photo_social_activity");
         var confer = document.getElementById("photo_conference");
         var etc = document.getElementById("photo_etc");
-        
-        
+
+
         all.style.display = "none";
         social.style.display = "none";
         confer.style.display = "none";
