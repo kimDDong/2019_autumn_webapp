@@ -1,6 +1,13 @@
 var db = require('./db')
 
+
+
 module.exports = {
+
+
+
+
+
     HTML: function(title, list, feature) {
         return `
       <!DOCTYPE html>
@@ -12,6 +19,9 @@ module.exports = {
       <body class="test">
           ${list}
           ${feature}
+          <div class="contact">
+          <iframe src="/ContactFrom_v13/contact.html"  frameborder="0" width="100%" height="1000px" scrolling="no" transform: scale(0.85, 0.85)>
+          </div>
       </body>
       </html>
       `;
@@ -58,4 +68,5 @@ module.exports = {
         return member_list;
 
     }
+
 }
