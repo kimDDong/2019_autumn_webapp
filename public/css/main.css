@@ -66,6 +66,25 @@ body {
 }
 
 
+/* ------------notice---------------------------------------- */
+
+#notice_table {
+    width: 100%;
+    height: 200px;
+    border-collapse: collapse;
+}
+
+#notice_table th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
 /* #topMenu li a:hover {
     background-color: #111;
 }
