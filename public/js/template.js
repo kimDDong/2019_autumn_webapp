@@ -1,3 +1,5 @@
+var db = require('./db')
+
 module.exports = {
     HTML: function(title, list, feature) {
         return `
@@ -28,6 +30,32 @@ module.exports = {
             i = i + 1;
         }
         list = list + '</ul></nav>';
+
         return list;
+    },
+    membersDB: function() {
+        var member_list = '';
+
+
+        db.query('SELECT * FROM members', function(err, members) {
+            if (err) {
+                console.log(err);
+            }
+            for (var i = 0; i < members.length; i++) {
+                member_list = member_list +
+                    `
+                <img class = "photo" src = "${members[i].img_url}" alt="not image">
+                <ul>
+                <li> Name : ${members[i].name}</li>
+                <li> E-mail : ${members[i].email}</li>
+                <li> site : ${members[i].site}</li>
+                <li> interest : ${members[i].interest}</li>
+                <li> Career : ${members[i].etc}</li>
+                </ul>
+                `
+            }
+        })
+        return member_list;
+
     }
 }
