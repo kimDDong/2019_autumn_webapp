@@ -85,6 +85,14 @@ tr:nth-child(even) {
 }
 
 
+/* -------------members----------------------------------- */
+
+#members .photo {
+    width: 140px;
+    height: 175px;
+}
+
+
 /* #topMenu li a:hover {
     background-color: #111;
 }
