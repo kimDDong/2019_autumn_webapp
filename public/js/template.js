@@ -9,27 +9,27 @@ module.exports = {
           <meta charset="utf-8" />
           <link href="css/main.css" type="text/css" rel="stylesheet" />
       </head>
-
       <body class="test">
-          <h1 class = "test"><a href="">This is ${title}</a></h1>
           ${list}
-          </nav>
-          <a href="?id=login">LOGIN</a>
-          <a href="?id=contact">CONTACT</a>
           ${feature}
       </body>
       </html>
       `;
     },
-    list: function(filelist) {
-        var list = '<nav id="topMenu" ><ul>';
-        var i = 0;
-        while (i < filelist.length) {
-            var title = filelist[i].split('.')[0];
-            list = list + `<li><a class="menuLink" href="/?id=${title}">${title}</a></li>`;
-            i = i + 1;
-        }
-        list = list + '</ul></nav>';
+    list: function() {
+        var list = `
+        <nav id="topMenu" >
+            <ul>
+                <li><a href="?id=main"><img id="logo" src="https://selab.hanyang.ac.kr/common/images/selab_logo_S.png" alt=""></a></li>
+                <li><a href="?id=notice">NOTICE</a></li>
+                <li><a href="?id=members">MEMBERS</a></li>
+                <li><a href="?id=research">RESEARCH</a></li>
+                <li><a href="?id=publications">PUBLICATIONS</a></li>
+                <li><a href="?id=courses">COURSES</a></li>
+                <li><a href="?id=gallery">GALLERY</a></li>
+            </ul>
+        </nav>`
+
 
         return list;
     },

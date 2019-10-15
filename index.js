@@ -26,23 +26,19 @@ app.get('/', function(req, res) {
         var title = 'main';
         var _template = '';
         var _list = '';
+        var test = '';
         if (req.query.id === undefined) {
             fs.readFile(`views/main.html`, 'utf8', function(err, description) {
                 _list = template.list(filelist)
                 _template = template.HTML(title, _list, description);
+
                 res.end(_template);
             });
         } else if (req.query.id === 'members') {
             db.query('SELECT * FROM nav', function(error, nav) {
                 db.query('SELECT * FROM members', function(error, members) {
                     title = queryData.id;
-                    _list = '<nav id="topMenu" ><ul>';
-                    var i = 0;
-                    while (i < nav.length) {
-                        _list = _list + `<li><a href="/?id=${nav[i].menu}">${nav[i].menu}</a></li>`;
-                        i = i + 1;
-                    }
-                    _list = _list + '</ul></nav>';
+                    _list = template.list();
                     _template = template.HTML(title, _list, `
                 <div class = "position">
                   <h2> Professor </h2>
@@ -58,6 +54,9 @@ app.get('/', function(req, res) {
                   </div>
                 </div>
                 `);
+                    test = template.membersDB();
+                    console.log(test + "!!");
+
                     res.end(_template);
                 });
             });
@@ -76,8 +75,6 @@ app.post("/create_process", function(req, res) {
     var title = req.body.title;
     var name = req.body.name;
     var description = req.body.description;
-
-
 
 
     db.query(`insert into notice(title,name,contents) values("${title}","${name}","${description}")`, function(err, notice) {
