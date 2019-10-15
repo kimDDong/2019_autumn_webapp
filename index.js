@@ -5,7 +5,6 @@ var fs = require('fs');
 var url = require('url');
 var qs = require('querystring');
 var template = require('./public/js/template')
-var db = require('./public/js/db')
 var bodyParser = require("body-parser");
 
 var app = express();
@@ -34,32 +33,6 @@ app.get('/', function(req, res) {
 
                 res.end(_template);
             });
-        } else if (req.query.id === 'members') {
-            db.query('SELECT * FROM nav', function(error, nav) {
-                db.query('SELECT * FROM members', function(error, members) {
-                    title = queryData.id;
-                    _list = template.list();
-                    _template = template.HTML(title, _list, `
-                <div class = "position">
-                  <h2> Professor </h2>
-                  <div class = "human">
-                    <img class="photo" src="https://selab.hanyang.ac.kr/members/photos/scott.jpg" alt= "not image">
-                    <ul>
-                      <li> Name  : ${members[0].name}</li>
-                      <li> E-mail : ${members[0].email}</li>
-                      <li> site : ${members[0].site}</li>
-                      <li> information : </li>
-                      <li> Career : ${members[0].etc}</li>
-                    </ul>
-                  </div>
-                </div>
-                `);
-                    test = template.membersDB();
-                    console.log(test + "!!");
-
-                    res.end(_template);
-                });
-            });
         } else {
             fs.readFile(`views/${queryData.id}.html`, 'utf8', function(err, description) {
                 title = queryData.id;
@@ -71,28 +44,18 @@ app.get('/', function(req, res) {
     });
 });
 
-app.post("/create_process", function(req, res) {
-    var title = req.body.title;
-    var name = req.body.name;
-    var description = req.body.description;
+// app.post("/create_process", function(req, res) {
+//     var title = req.body.title;
+//     var name = req.body.name;
+//     var description = req.body.description;
 
 
-    db.query(`insert into notice(title,name,contents) values("${title}","${name}","${description}")`, function(err, notice) {
-        if (err) {
-            console.log(err);
-
-        }
-        console.log(title);
-        console.log(name);
-        console.log(description);
-    });
-
-
-    fs.writeFile(`data/${title}`, `name:${name}, description:${description}`, 'utf8', function(err) {
-        res.writeHead(302, { 'Location': "/?id=notice" })
-        res.end();
-    });
-});
+//     db.query(`insert into notice(title,name,contents) values("${title}","${name}","${description}")`, function(err, notice) {
+//         if (err) {
+//             console.log(err);
+//         }
+//     });
+// });
 
 
 app.listen(3000, function() {
