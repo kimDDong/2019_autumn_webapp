@@ -85,6 +85,28 @@ tr:nth-child(even) {
 }
 
 
+/* -------------members----------------------------------- */
+
+#members .photo {
+    width: 140px;
+    height: 175px;
+    float: left;
+}
+
+#members>.section {
+    background-color: yellow;
+}
+
+#members .human {
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+#members ul {
+    float: left;
+}
+
+
 /* #topMenu li a:hover {
     background-color: #111;
 }
