@@ -4,14 +4,14 @@
 ## Member
 
 
- 구분| 이름 |역할|
+ 구분| 이름 |ID|
 ----|-----|---|
-1   |고동현|
-2   |김동현|
-3   |김두호|
-4   |김예진|
-5   |문수림|
-6   |왕종휘|
+1   |고동현|[gohdong](https://github.com/gohdong)
+2   |김동현|[kimDDong](https://github.com/kimDDong)
+3   |김두호|[Source-SC](https://github.com/Source-SC)
+4   |김예진|[hsh04060](https://github.com/hsh04060)
+5   |문수림|[sersue](https://github.com/sersue)
+6   |왕종휘|[wangjh789](https://github.com/wangjh789)
 
 
 ## Reference
