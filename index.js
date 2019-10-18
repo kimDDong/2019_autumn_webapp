@@ -6,7 +6,6 @@ var url = require('url');
 var qs = require('querystring');
 var template = require('./public/js/template')
 var bodyParser = require("body-parser");
-
 var app = express();
 
 app.use(express.static(__dirname + '/public'));

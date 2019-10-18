@@ -20,7 +20,8 @@ module.exports = {
           ${list}
           ${feature}
           <div class="contact">
-          <iframe src="/ContactFrom_v13/contact.html"  frameborder="0" width="100%" height="1000px" scrolling="no" transform: scale(0.85, 0.85)>
+            <iframe class="us" src="/ContactFrom_v4/index.html"  frameborder="0" width="600px" height="1000px" scrolling="no" transform: scale(0.85, 0.85)></iframe>
+            <iframe class ="map"src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3173.9478030084747!2d126.83762491316851!3d37.29637089246949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b6eec49aeb76f%3A0xe2bf1f1c6de448ce!2z7JWI7IKw7IucIOyCrDPrj5kg7ZWc7JaR64yA7ZWZ6rWQIO2VmeyXsOyCsO2BtOufrOyKpO2EsA!5e0!3m2!1sko!2skr!4v1571373050963!5m2!1sko!2skr" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
           </div>
       </body>
       </html>
