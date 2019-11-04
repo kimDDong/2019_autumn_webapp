@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "205718891635",
+    "firebase_url": "https://selab-2760b.firebaseio.com",
+    "project_id": "selab-2760b",
+    "storage_bucket": "selab-2760b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205718891635:android:38ffd636a930a1741a0e06",
+        "android_client_info": {
+          "package_name": "com.example.untitled3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205718891635-b14fmvi93ebj011e7j4dftdt8t4rngni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9JYZkDSaSua_Ilg48nIds0OtymlmhCOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205718891635-b14fmvi93ebj011e7j4dftdt8t4rngni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -24,7 +24,8 @@ class GraduateSchool extends StatelessWidget {
             courseBanner(),
             course()
           ],
-        ));
+        ),
+    );
   }
 
   Widget noticeBanner() {

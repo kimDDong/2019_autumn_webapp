@@ -7,6 +7,7 @@ class StartUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: Text('SELAB'),
       ),
@@ -22,6 +23,8 @@ class StartUp extends StatelessWidget {
           ),
         ],
       ),
+      resizeToAvoidBottomPadding: false,
+
     );
   }
 
