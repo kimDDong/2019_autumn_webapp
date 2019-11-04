@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/src/login.dart';
 import 'package:untitled3/src/startpage.dart';
 
 
@@ -10,11 +11,17 @@ class MenuForGraduate extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text('Drawer Header'),
+            child: ListTile(
+              title: Text('Login',textScaleFactor: 1.3,),
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+            ),
             decoration: BoxDecoration(
               color: Colors.black45,
-
             ),
+
           ),
           ListTile(
             title: Text('Home',textScaleFactor: 1.5,),
@@ -87,10 +94,17 @@ class MenuForStudent extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text('Drawer Header'),
+            child: ListTile(
+              title: Text('Login',textScaleFactor: 1.3,),
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+            ),
             decoration: BoxDecoration(
               color: Colors.black45,
             ),
+
           ),
           ListTile(
             title: Text('Item 1'),
