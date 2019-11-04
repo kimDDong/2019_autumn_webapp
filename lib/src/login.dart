@@ -12,15 +12,16 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           title: Text("Graduate School"),
         ),
         endDrawer: MenuForGraduate(),
-        body: Stack(
+        body: Column(
           children: <Widget>[
             Image.asset(
               'images/graduateshool.png',
-              width: 1200,
+              width: size.width,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,9 +33,7 @@ class LoginPage extends StatelessWidget {
                     _authButton(size)
                   ],
                 ),
-                Container(
-                  height: size.height * 0.3,
-                ),
+
               ],
             ),
           ],
