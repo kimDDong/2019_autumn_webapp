@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled3/src/login.dart';
+import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/startpage.dart';
 
 
@@ -34,7 +35,8 @@ class MenuForGraduate extends StatelessWidget {
           ListTile(
             title: Text('Notice',textScaleFactor: 1.5,),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Notice()));
             },
           ),
           Divider(),
