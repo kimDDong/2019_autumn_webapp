@@ -25,7 +25,8 @@ class GraduateSchool extends StatelessWidget {
             courseBanner(size),
             course(size)
           ],
-        ));
+        ),
+    );
   }
 
   Widget noticeBanner(Size size) {
