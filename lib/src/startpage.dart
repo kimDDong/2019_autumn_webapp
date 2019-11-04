@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:untitled3/src/graduateschool.dart';
+import 'package:untitled3/src/login.dart';
 import 'package:untitled3/src/undergraduate.dart';
 
 class StartUp extends StatelessWidget {
@@ -48,9 +49,8 @@ class StartUp extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => GraduateSchool()));
             },
           ),
-        )
+        ),
       ],
     );
   }
-
 }
