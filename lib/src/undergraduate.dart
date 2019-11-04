@@ -14,7 +14,7 @@ class UnderGraduate extends StatelessWidget {
         body: Column(
           children: <Widget>[
             Image.asset(
-              'build/images/undergraduate.png',
+              'images/undergraduate.png',
               width: 1200,
             ),
             noticeBanner(),

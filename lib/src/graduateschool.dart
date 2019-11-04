@@ -15,7 +15,7 @@ class GraduateSchool extends StatelessWidget {
         body: Column(
           children: <Widget>[
             Image.asset(
-              'build/images/graduateshool.png',
+              'images/graduateshool.png',
               width: 1200,
             ),
             seGallery(),
@@ -133,7 +133,7 @@ class GraduateSchool extends StatelessWidget {
         children: <Widget>[
           InkWell(
             child: Card(
-              child: Image.asset('build/images/doo.png'),
+              child: Image.asset('images/doo.png'),
               margin: EdgeInsets.all(10),
               color: Colors.black12,
             ),
@@ -142,7 +142,7 @@ class GraduateSchool extends StatelessWidget {
           ,
           InkWell(
             child: Card(
-              child: Image.asset('build/images/park.png',),
+              child: Image.asset('images/park.png',),
               margin: EdgeInsets.all(10),
               color: Colors.black12,
             ),
@@ -150,7 +150,7 @@ class GraduateSchool extends StatelessWidget {
           ),
           InkWell(
             child: Card(
-              child: Image.asset('build/images/logo.png'),
+              child: Image.asset('images/logo.png'),
               margin: EdgeInsets.all(10),
               color: Colors.black12,
             ),

@@ -15,7 +15,7 @@ class StartUp extends StatelessWidget {
           Container(
             height: 30,
           ),
-          Image.asset('build/images/logo.png'),
+          Image.asset('images/logo.png'),
           selectMode(context),
           Container(
             height: 30,
@@ -32,7 +32,7 @@ class StartUp extends StatelessWidget {
             child: FlatButton(
           padding: EdgeInsets.all(0),
           child: Image.asset(
-            'build/images/undergraduate.png',
+            'images/undergraduate.png',
           ),
           onPressed: () {
             Navigator.of(context)
@@ -42,7 +42,7 @@ class StartUp extends StatelessWidget {
         Expanded(
           child: FlatButton(
             padding: EdgeInsets.all(0),
-            child: Image.asset('build/images/graduateshool.png'),
+            child: Image.asset('images/graduateshool.png'),
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => GraduateSchool()));

@@ -24,12 +24,12 @@ flutter:
 
   uses-material-design: true
   assets:
-    - build/images/logo.png
-    - build/images/img1.png
-    - build/images/undergraduate.png
-    - build/images/graduateshool.png
-    - build/images/park.png
-    - build/images/doo.png
+    - images/logo.png
+    - images/img1.png
+    - images/undergraduate.png
+    - images/graduateshool.png
+    - images/park.png
+    - images/doo.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
