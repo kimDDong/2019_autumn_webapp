@@ -5,7 +5,9 @@ import 'package:untitled3/src/menubar.dart';
 
 class UnderGraduate extends StatelessWidget {
   @override
+
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           title: Text("Undergraduate School"),
@@ -15,7 +17,7 @@ class UnderGraduate extends StatelessWidget {
           children: <Widget>[
             Image.asset(
               'images/undergraduate.png',
-              width: 1200,
+              width: size.width,
             ),
             noticeBanner(),
             notice(),

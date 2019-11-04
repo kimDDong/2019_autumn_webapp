@@ -7,6 +7,7 @@ import 'menubar.dart';
 class GraduateSchool extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           title: Text("Graduate School"),
@@ -16,20 +17,20 @@ class GraduateSchool extends StatelessWidget {
           children: <Widget>[
             Image.asset(
               'images/graduateshool.png',
-              width: 1200,
+              width: size.width,
             ),
-            seGallery(),
-            noticeBanner(),
-            notice(),
-            courseBanner(),
-            course()
+            seGallery(size),
+            noticeBanner(size),
+            notice(size),
+            courseBanner(size),
+            course(size)
           ],
         ));
   }
 
-  Widget noticeBanner() {
+  Widget noticeBanner(Size size) {
     return Container(
-      padding: const EdgeInsets.only(top: 32),
+      padding: const EdgeInsets.only(top: 20),
       child: Row(
         children: [
           Flexible(
@@ -62,7 +63,7 @@ class GraduateSchool extends StatelessWidget {
     );
   }
 
-  Widget notice() {
+  Widget notice(Size size) {
     return Container(
 //      padding: const EdgeInsets.all(32),
       child: Text(
@@ -77,7 +78,7 @@ class GraduateSchool extends StatelessWidget {
     );
   }
 
-  Widget courseBanner() {
+  Widget courseBanner(Size size) {
     return Container(
       padding: const EdgeInsets.only(top: 32),
       child: Row(
@@ -112,7 +113,7 @@ class GraduateSchool extends StatelessWidget {
     );
   }
 
-  Widget course() {
+  Widget course(Size size) {
     return Container(
 //      padding: const EdgeInsets.all(32),
       child: Text(
@@ -125,9 +126,10 @@ class GraduateSchool extends StatelessWidget {
     );
   }
 
-  Widget seGallery() {
+  Widget seGallery(Size size) {
     return Container(
-      height: 220,
+
+      height: size.height*0.2,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[

@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
           children: <Widget>[
             Image.asset(
               'images/graduateshool.png',
-              width: 1200,
+              width: size.width,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
