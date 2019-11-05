@@ -1,6 +1,7 @@
 import 'dart:ui' as prefix0;
 
 import 'package:flutter/material.dart';
+import 'package:untitled3/src/course.dart';
 import 'package:untitled3/src/menubar.dart';
 
 class UnderGraduate extends StatelessWidget {
@@ -21,7 +22,7 @@ class UnderGraduate extends StatelessWidget {
             ),
             noticeBanner(),
             notice(),
-            courseBanner(),
+            courseBanner(context),
             course()
           ],
         ));
@@ -77,37 +78,43 @@ class UnderGraduate extends StatelessWidget {
     );
   }
 
-  Widget courseBanner() {
-    return Container(
-      padding: const EdgeInsets.only(top: 32),
-      child: Row(
-        children: [
-          Flexible(
-            /*1*/
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /*2*/
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    'COURSES',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
+  Widget courseBanner(BuildContext context) {
+    return InkWell(
+        onTap: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => CoursePage()));
+        },
+      child: Container(
+        padding: const EdgeInsets.only(top: 32),
+        child: Row(
+          children: [
+            Flexible(
+              /*1*/
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /*2*/
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      'COURSES',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          /*3*/
-          Icon(
-            Icons.collections_bookmark,
-            color: Colors.white,
-            size: 50,
-          )
-        ],
+            /*3*/
+            Icon(
+              Icons.collections_bookmark,
+              color: Colors.white,
+              size: 50,
+            )
+          ],
+        ),
       ),
     );
   }
