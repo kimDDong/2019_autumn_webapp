@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 
+import 'addnotice.dart';
+
 class Notice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class Notice extends StatelessWidget {
             icon: Icon(Icons.add),
             onPressed: () {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => addNotice()));
+                  .push(MaterialPageRoute(builder: (context) => AddNotice()));
             },
           )
         ],
@@ -28,18 +30,19 @@ class Notice extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData) return const Text('Loading...');
           return ListView.builder(
-              itemCount: snapshot.data.documents.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: <Widget>[
-                    _buildListItem(context, snapshot.data.documents[index]),
-                    Divider(
-                      height: 10,
-                      color: Colors.white,
-                    )
-                  ],
-                );
-              });
+            itemCount: snapshot.data.documents.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: <Widget>[
+                  _buildListItem(context, snapshot.data.documents[index]),
+                  Divider(
+                    height: 10,
+                    color: Colors.white,
+                  )
+                ],
+              );
+            },
+          );
         },
       ),
     );
@@ -48,15 +51,13 @@ class Notice extends StatelessWidget {
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     final String date = document['date'].toDate().toString();
 
-    print(document['date']);
     return ExpandablePanel(
       header: Text(
         document['title'],
         textScaleFactor: 1.5,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
-      collapsed:
-      Align(
+      collapsed: Align(
         alignment: Alignment.centerLeft,
         child: Text(
           date.split(" ")[0],
@@ -66,24 +67,16 @@ class Notice extends StatelessWidget {
           textDirection: TextDirection.ltr,
         ),
       ),
-      expanded: Text(
-        document['description'],
-        softWrap: true,
-        textScaleFactor: 2,
+      expanded: Container(
+        padding: EdgeInsets.only(top: 10),
+        child: Text(
+          document['description'],
+          softWrap: true,
+          textScaleFactor: 2,
+        ),
       ),
       tapHeaderToExpand: true,
       hasIcon: true,
-    );
-  }
-
-  Widget addNotice() {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Notice'),
-      ),
-      body: Column(
-        children: <Widget>[],
-      ),
     );
   }
 }
