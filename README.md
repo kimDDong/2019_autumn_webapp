@@ -1,20 +1,17 @@
-# 2019_Autumn_Web_Application
-## Team SupermarkEt
-## Moto - 3당근7채찍
-## Member
+# untitled3
 
+A new Flutter project.
 
- 구분| 이름 |ID|
-----|-----|---|
-1   |고동현|[gohdong](https://github.com/gohdong)
-2   |김동현|[kimDDong](https://github.com/kimDDong)
-3   |김두호|[Source-SC](https://github.com/Source-SC)
-4   |김예진|[hsh04060](https://github.com/hsh04060)
-5   |문수림|[sersue](https://github.com/sersue)
-6   |왕종휘|[wangjh789](https://github.com/wangjh789)
+## Getting Started
 
+This project is a starting point for a Flutter application.
 
-## Reference
-Contact Form-https://colorlib.com/wp/template/contact-form-v4/  
-Tab function-https://www.w3schools.com/howto/howto_js_tabs.asp
+A few resources to get you started if this is your first Flutter project:
 
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
+>>>>>>> upstream/flutter
