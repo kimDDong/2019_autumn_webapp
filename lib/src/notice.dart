@@ -66,10 +66,13 @@ class Notice extends StatelessWidget {
           textDirection: TextDirection.ltr,
         ),
       ),
-      expanded: Text(
-        document['description'],
-        softWrap: true,
-        textScaleFactor: 2,
+      expanded: Container(
+        padding: EdgeInsets.only(top: 10),
+        child: Text(
+          document['description'],
+          softWrap: true,
+          textScaleFactor: 2,
+        ),
       ),
       tapHeaderToExpand: true,
       hasIcon: true,
