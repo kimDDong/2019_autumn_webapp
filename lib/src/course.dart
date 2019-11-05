@@ -5,43 +5,69 @@ class CoursePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Course'),
+        title: Text("Undergraduate Course"),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-//        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Table(border: TableBorder.all(), children: [
-            TableRow(decoration: BoxDecoration(color: Colors.blue),
-                children: [
-              Text(
-                "CSE107",
-                textScaleFactor: 2,
-              ),
-              Text(
-                "Logical Fundamentals of Programming",
-                textScaleFactor: 1,
-              ),
-            ]),
-            TableRow(children: [
-              Text("item 3"),
-              Text("item 4"),
-            ]),
-            TableRow(children: [
-              Text("item 3"),
-              Text("item 4"),
-            ]),
-            TableRow(children: [
-              Text("item 3"),
-              Text("item 4"),
-            ]),
-            TableRow(children: [
-              Text("item 3"),
-              Text("item 4"),
-            ]),
-          ]),
-        ],
-      ),
+      body: BodyLayout(),
     );
   }
+}
+
+class BodyLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return _myListView(context);
+  }
+}
+
+Widget _myListView(BuildContext context) {
+  final Size size = MediaQuery.of(context).size;
+  return ListView(
+    children: <Widget>[
+      Container(
+      height: size.height*0.1,
+        child: ListTile(
+          onTap: (){
+          },
+          leading: Icon(Icons.accessibility),
+          title: Text('Logical Fundamentals of Programming', textScaleFactor: 1.2,),
+          subtitle: Text("CSE107"),
+        ),
+      ),
+      Container(
+        height: size.height*0.1,
+        child: ListTile(
+          onTap: (){
+          },
+          leading: Icon(Icons.airline_seat_flat),
+          title: Text('Programming Fundamentals',textScaleFactor: 1.3),
+          subtitle: Text("CSE117"),
+        ),
+      ),
+      Container(
+        height: size.height*0.1,
+        child: ListTile(
+          onTap: (){
+          },
+          leading: Icon(Icons.web_asset),
+          title: Text('Web Programming',textScaleFactor: 1.3),
+          subtitle: Text("CSE322"),
+        ),
+      ),
+      Container(
+        height: size.height*0.1,
+        child: ListTile(
+          leading: Icon(Icons.accessible),
+          title: Text('Web Application Development',textScaleFactor: 1.3),
+          subtitle: Text("CSE326"),
+        ),
+      ),Container(
+        height: size.height*0.1,
+        child: ListTile(
+          leading: Icon(Icons.build),
+          title: Text('Software Engineering',textScaleFactor: 1.3),
+          subtitle: Text("CSE406"),
+        ),
+      ),
+    ],
+  );
 }
