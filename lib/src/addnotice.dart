@@ -65,13 +65,9 @@ class AddNoticeFormState extends State<AddNoticeForm> {
           ),
 
           Padding(
-<<<<<<< HEAD
-            padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: TextField(
-=======
+
             padding: EdgeInsets.symmetric(vertical: 15.0),
             child: TextFormField(
->>>>>>> upstream/flutter
               controller: _name,
               decoration: InputDecoration(hintText: 'Enter Your Name'),
             ),
