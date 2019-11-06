@@ -89,18 +89,7 @@ class AddNoticeFormState extends State<AddNoticeForm> {
               },
             ),
           ),
-//          RaisedButton(
-//            child: Text("test"),
-//            onPressed: () async {
-//              await _showNotification();
-//            },
-//          ),
-          FlatButton(
-            child: Text("test"),
-            onPressed: () {
-//              _showNotification();
-            },
-          ),
+
           FlatButton(
             child: Text("Post"),
             color: Colors.blueAccent,
