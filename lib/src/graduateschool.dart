@@ -13,7 +13,7 @@ class GraduateSchool extends StatelessWidget {
           title: Text("Graduate School"),
         ),
         endDrawer: MenuForGraduate(),
-        body: Column(
+        body: ListView(
           children: <Widget>[
             Image.asset(
               'images/graduateshool.png',

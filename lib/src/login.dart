@@ -4,24 +4,20 @@ import 'package:flutter/material.dart';
 import 'menubar.dart';
 
 class LoginPage extends StatelessWidget {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           title: Text("Graduate School"),
-        ),
+    ),
         endDrawer: MenuForGraduate(),
-        body: Column(
+        body: ListView(
+
           children: <Widget>[
             Image.asset(
               'images/graduateshool.png',
-              width: size.width,
+              width: size.width
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,8 +25,8 @@ class LoginPage extends StatelessWidget {
               children: <Widget>[
                 Stack(
                   children: <Widget>[
-                    _inputForm(size),
-                    _authButton(size)
+                    InputForm(),
+
                   ],
                 ),
 
@@ -39,8 +35,21 @@ class LoginPage extends StatelessWidget {
           ],
         ));
   }
+}
 
-  Widget _inputForm(Size size) {
+class InputForm extends StatefulWidget {
+  @override
+  _InputFormState createState() => _InputFormState();
+}
+
+class _InputFormState extends State<InputForm> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.all(size.width * 0.05),
       child: Card(
@@ -48,7 +57,7 @@ class LoginPage extends StatelessWidget {
         elevation: 6,
         child: Padding(
           padding:
-              const EdgeInsets.only(left: 12.0, right: 12, top: 12, bottom: 32),
+          const EdgeInsets.only(left: 12.0, right: 12, top: 12, bottom: 20),
           child: Form(
             key: _formKey,
             child: Column(
@@ -82,9 +91,12 @@ class LoginPage extends StatelessWidget {
                   },
                 ),
                 Container(
-                  height: 8,
+                  height: 3,
                 ),
-                Text("Forgot Password")
+                Text("Forgot Password"),
+                _authButton(size),
+          
+
               ],
             ),
           ),
@@ -93,31 +105,32 @@ class LoginPage extends StatelessWidget {
     );
   }
   Widget _authButton(Size size) {
-    return Positioned(
-      left: size.width * 0.15,
-      right: size.width * 0.15,
-      bottom: 0,
+    return Container(
+      padding: EdgeInsets.only(top :20),
+      alignment: Alignment.center,
       child: SizedBox(
-        height: 50,
+        height: size.height*0.05,
+        width: size.width*0.7,
         child:
-            RaisedButton(
-                color: Colors.amber,
-                child: Text(
-                   'Login',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25)),
-                onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    print(_emailController.value.toString());
-                  }
-                }),
-        ),
-      );
+        RaisedButton(
+            color: Colors.amber,
+            child: Text(
+              'Login',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25)),
+            onPressed: () {
+              if (_formKey.currentState.validate()) {
+                print(_emailController.value.toString());
+              }
+            }),
+      ),
+    );
   }
 
 }
+
 
 
 
