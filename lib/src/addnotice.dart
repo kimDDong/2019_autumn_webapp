@@ -57,7 +57,7 @@ class AddNoticeFormState extends State<AddNoticeForm> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 15.0),
+            padding: EdgeInsets.symmetric(vertical: 10.0),
             child: TextField(
               controller: _name,
               decoration: InputDecoration(hintText: 'Enter Your Name'),
