@@ -61,6 +61,12 @@ class AddNoticeFormState extends State<AddNoticeForm> {
             child: TextFormField(
               controller: _description,
               decoration: InputDecoration(hintText: 'Enter Description'),
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return "Input Description.";
+                }
+                return null;
+              },
             ),
           ),
 
@@ -69,6 +75,12 @@ class AddNoticeFormState extends State<AddNoticeForm> {
             child: TextFormField(
               controller: _name,
               decoration: InputDecoration(hintText: 'Enter Your Name'),
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return "Input Name.";
+                }
+                return null;
+              },
             ),
           ),
 
@@ -76,7 +88,10 @@ class AddNoticeFormState extends State<AddNoticeForm> {
             child: Text("Post"),
             color: Colors.blueAccent,
             onPressed: () {
-              _showDialog(context, db);
+              if (_formKey.currentState.validate()) {
+                _showDialog(context, db);
+              }
+
             },
           )
         ],
