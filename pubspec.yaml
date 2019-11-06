@@ -9,12 +9,15 @@ environment:
 dependencies:
   cloud_firestore:
   url_launcher: ^4.0.3
+  flutter_local_notifications: ^0.8.4
   flutter:
     sdk: flutter
 
   cupertino_icons: ^0.1.2
   flutter_staggered_grid_view:
   expandable:
+  http:
+  path_provider:
 
 dev_dependencies:
   flutter_test:
