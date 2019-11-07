@@ -17,14 +17,7 @@ class BodyLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _myListView(context);
-    _launchURL() async {
-      const url = 'https://flutter.dev';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
+
   }
 }
 
