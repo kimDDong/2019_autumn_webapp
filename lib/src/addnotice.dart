@@ -140,7 +140,7 @@ class AddNoticeFormState extends State<AddNoticeForm> {
                 _showNotification(_title.text);
 
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Notice()));
+                    .pop(MaterialPageRoute(builder: (context) => Notice()));
               },
               textColor: Colors.blue,
             ),
