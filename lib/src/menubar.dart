@@ -5,6 +5,8 @@ import 'package:untitled3/src/startpage.dart';
 import 'package:untitled3/src/testlogin.dart';
 import 'package:untitled3/src/members.dart';
 
+import 'member.dart';
+
 
 class MenuForGraduate extends StatelessWidget {
   @override
@@ -46,7 +48,11 @@ class MenuForGraduate extends StatelessWidget {
             title: Text('Members',textScaleFactor: 1.5,),
             onTap: () {
               Navigator.of(context)
+<<<<<<< Updated upstream
                   .push(MaterialPageRoute(builder: (context) => Members()));
+=======
+                  .push(MaterialPageRoute(builder: (context) => Member()));
+>>>>>>> Stashed changes
             },
           ),
           Divider(),
