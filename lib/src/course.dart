@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CoursePage extends StatelessWidget {
   @override
@@ -16,6 +17,7 @@ class BodyLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _myListView(context);
+
   }
 }
 
@@ -46,8 +48,6 @@ Widget _myListView(BuildContext context) {
       Container(
         height: size.height*0.1,
         child: ListTile(
-          onTap: (){
-          },
           leading: Icon(Icons.web_asset),
           title: Text('Web Programming',textScaleFactor: 1.3),
           subtitle: Text("CSE322"),
@@ -56,6 +56,9 @@ Widget _myListView(BuildContext context) {
       Container(
         height: size.height*0.1,
         child: ListTile(
+          onTap: (){
+            _launchURL();
+          },
           leading: Icon(Icons.accessible),
           title: Text('Web Application Development',textScaleFactor: 1.3),
           subtitle: Text("CSE326"),
@@ -70,4 +73,14 @@ Widget _myListView(BuildContext context) {
       ),
     ],
   );
+
+
+}
+_launchURL() async {
+  const url = 'https://selab.hanyang.ac.kr/courses/cse326/2019/';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
