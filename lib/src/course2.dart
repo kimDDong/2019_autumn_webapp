@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/src/WebApplicationDevelopment.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CoursePage2 extends StatelessWidget {
@@ -27,7 +28,10 @@ Widget _myListView(BuildContext context) {
       Container(
         height: size.height * 0.1,
         child: ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => WebApplicationDevelopment()));
+          },
           leading: Icon(Icons.accessibility),
           title: Text(
             'Formal Methods',
