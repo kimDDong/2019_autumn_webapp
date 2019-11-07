@@ -11,6 +11,7 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 void main() async {
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
   runApp(
     MyApp()
   );

@@ -140,8 +140,10 @@ class AddNoticeFormState extends State<AddNoticeForm> {
                 });
                 _showNotification(_title.text);
 
-                Navigator.of(context)
-                    .pop(MaterialPageRoute(builder: (context) => Notice()));
+//                Navigator.of(context)
+//                    .popUntil(MaterialPageRoute(builder: (context) => Notice()));
+                int count = 0;
+                Navigator.of(context).popUntil((_) => count++ >= 2);
               },
               textColor: Colors.blue,
             ),
