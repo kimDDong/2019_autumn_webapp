@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled3/src/login.dart';
 import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/startpage.dart';
+import 'package:untitled3/src/testlogin.dart';
 
 
 class MenuForGraduate extends StatelessWidget {
@@ -43,7 +44,8 @@ class MenuForGraduate extends StatelessWidget {
           ListTile(
             title: Text('Members',textScaleFactor: 1.5,),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Test()));
             },
           ),
           Divider(),

@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 
 import 'addnotice.dart';
+
+
 
 class Notice extends StatelessWidget {
   @override
@@ -50,7 +53,7 @@ class Notice extends StatelessWidget {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     final String date = document['date'].toDate().toString();
-
+    final db = Firestore.instance;
     return ExpandablePanel(
       header: Text(
         document['title'],
@@ -67,16 +70,75 @@ class Notice extends StatelessWidget {
           textDirection: TextDirection.ltr,
         ),
       ),
-      expanded: Container(
-        padding: EdgeInsets.only(top: 10),
-        child: Text(
-          document['description'],
-          softWrap: true,
-          textScaleFactor: 2,
-        ),
+      expanded: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(15),
+            child: Text(
+              document['description'],
+              softWrap: true,
+              textScaleFactor: 2,
+            ),
+          ),
+          Container(
+              child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  'By ' + document['name'],
+                  textScaleFactor: 1.5,
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+              IconButton(
+                icon: Icon(Icons.delete_forever),
+                iconSize: 40,
+                onPressed: () {
+                  _showDialog(context, db, document);
+                },
+              )
+            ],
+          ))
+        ],
       ),
       tapHeaderToExpand: true,
       hasIcon: true,
+    );
+  }
+
+  void _showDialog(
+      BuildContext context, Firestore db, DocumentSnapshot document) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return CupertinoAlertDialog(
+          title: new Text("Alert"),
+          content: new Text("Are you sure you want to delete it?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Confirm"),
+              onPressed: () async{
+                await db
+                    .collection('notice')
+                    .document(document.documentID)
+                    .delete();
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.blue,
+            ),
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.red,
+            ),
+          ],
+        );
+      },
     );
   }
 }
