@@ -76,6 +76,7 @@ class AddNoticeFormState extends State<AddNoticeForm> {
           ),
 
           Padding(
+
             padding: EdgeInsets.symmetric(vertical: 15.0),
             child: TextFormField(
               controller: _name,
