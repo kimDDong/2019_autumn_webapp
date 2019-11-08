@@ -48,8 +48,10 @@ Widget _ListView(BuildContext context) {
               textScaleFactor: 1.2,
             ),
             onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => CourseObjectives()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) => CourseObjectives()));
             },
             leading: Icon(Icons.accessibility),
           )),
@@ -61,8 +63,10 @@ Widget _ListView(BuildContext context) {
               textScaleFactor: 1.2,
             ),
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Lecturer()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) => Lecturer()));
             },
             leading: Icon(Icons.accessibility),
           )),
@@ -74,8 +78,10 @@ Widget _ListView(BuildContext context) {
               textScaleFactor: 1.2,
             ),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => TeachingAssistants()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) => TeachingAssistants()));
             },
             leading: Icon(Icons.accessibility),
           )),
@@ -87,8 +93,10 @@ Widget _ListView(BuildContext context) {
               textScaleFactor: 1.2,
             ),
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => PlacesDates()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) => PlacesDates()));
             },
             leading: Icon(Icons.accessibility),
           )),
@@ -100,8 +108,10 @@ Widget _ListView(BuildContext context) {
               textScaleFactor: 1.2,
             ),
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => CourseForum()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) => CourseForum()));
             },
             leading: Icon(Icons.accessibility),
           )),
@@ -113,8 +123,10 @@ Widget _ListView(BuildContext context) {
               textScaleFactor: 1.2,
             ),
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Textbooks()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) => Textbooks()));
             },
             leading: Icon(Icons.accessibility),
           )),
@@ -126,8 +138,10 @@ Widget _ListView(BuildContext context) {
               textScaleFactor: 1.2,
             ),
             onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => CourseSchedule()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) => CourseSchedule()));
             },
             leading: Icon(Icons.accessibility),
           )),
@@ -139,8 +153,10 @@ Widget _ListView(BuildContext context) {
               textScaleFactor: 1.2,
             ),
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => TeamProject()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) => TeamProject()));
             },
             leading: Icon(Icons.accessibility),
           )),
@@ -152,8 +168,10 @@ Widget _ListView(BuildContext context) {
               textScaleFactor: 1.2,
             ),
             onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => TeamProjectGroup()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) => TeamProjectGroup()));
             },
             leading: Icon(Icons.accessibility),
           )),
@@ -165,8 +183,10 @@ Widget _ListView(BuildContext context) {
               textScaleFactor: 1.2,
             ),
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Assessments()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) => Assessments()));
             },
             leading: Icon(Icons.accessibility),
           )),
@@ -174,22 +194,114 @@ Widget _ListView(BuildContext context) {
   );
 }
 
-CourseObjectives() {}
+class CourseObjectives extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+      title: Text("CourseObjectives"),
+    ));
+  }
+}
 
-Lecturer() {}
+class Lecturer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Lecturer"),
+      ),
+      body: Text("Scott"),
+    );
+  }
+}
 
-TeachingAssistants() {}
+class TeachingAssistants extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+      title: Text("TeachingAssistants"),
+    ));
+  }
+}
 
-PlacesDates() {}
+class PlacesDates extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+      title: Text("PlacesDates"),
+    ));
+  }
+}
 
-CourseForum() {}
+class CourseForum extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+      title: Text("CourseForum"),
+    ));
+  }
+}
 
-Textbooks() {}
+class Textbooks extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+      title: Text("Textbooks"),
+    ));
+  }
+}
 
-CourseSchedule() {}
+class CourseSchedule extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+      title: Text("CourseSchedule"),
+    ));
+  }
+}
 
-TeamProject() {}
+class TeamProject extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+      title: Text("TeamProject"),
+    ));
+  }
+}
 
-TeamProjectGroup() {}
+class TeamProjectGroup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+      title: Text("TeamProjectGroup"),
+    ));
+  }
+}
 
-Assessments() {}
+class Assessments extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+        appBar: AppBar(
+      title: Text("Assessments"),
+    ));
+  }
+}
