@@ -103,7 +103,6 @@ class AddNoticeFormState extends State<AddNoticeForm> {
       ),
     );
   }
-
   Future<void> _showNotification(String body) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'your channel id', 'your channel name', 'your channel description',

@@ -1,5 +1,6 @@
 import 'dart:ui' as prefix0;
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'menubar.dart';
@@ -9,23 +10,23 @@ class GraduateSchool extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Graduate School"),
-        ),
-        endDrawer: MenuForGraduate(),
-        body: ListView(
-          children: <Widget>[
-            Image.asset(
-              'images/graduateshool.png',
-              width: size.width,
-            ),
-            seGallery(size),
-            noticeBanner(size),
-            notice(size),
-            courseBanner(size),
-            course(size)
-          ],
-        ),
+      appBar: AppBar(
+        title: Text("Graduate School"),
+      ),
+      endDrawer: MenuForGraduate(),
+      body: ListView(
+        children: <Widget>[
+          Image.asset(
+            'images/graduateshool.png',
+            width: size.width,
+          ),
+          seGallery(size),
+          noticeBanner(size),
+          notice(),
+          courseBanner(size),
+          course(size)
+        ],
+      ),
     );
   }
 
@@ -64,18 +65,47 @@ class GraduateSchool extends StatelessWidget {
     );
   }
 
-  Widget notice(Size size) {
+  Widget notice() {
     return Container(
 //      padding: const EdgeInsets.all(32),
       child: Text(
         '2014 PL-SE First Joint Workshop\n'
-            'Welcome to SElab Homepage!',
+        'Welcome to SElab Homepage!',
         softWrap: true,
         textAlign: TextAlign.left,
         style: TextStyle(
           fontSize: 20,
         ),
       ),
+    );
+  }
+
+  Widget notice2() {
+    return Flexible(
+      child: StreamBuilder(
+        stream: Firestore.instance
+            .collection('notice')
+            .orderBy('date', descending: true)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return const Text('Loading...');
+          return ListView.builder(
+            itemCount: snapshot.data.documents.length,
+            itemBuilder: (context, index) {
+              return Flexible(
+                child: _buildListItem(context, snapshot.data.document[index]),
+              );
+            },
+          );
+        },
+      ),
+    );
+
+  }
+
+  Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
+    return Container(
+      child: Text(document['title']),
     );
   }
 
@@ -119,7 +149,7 @@ class GraduateSchool extends StatelessWidget {
 //      padding: const EdgeInsets.all(32),
       child: Text(
         'CSE326 Web Application Development\n'
-            'CSE6050 Advanced Software Engineering',
+        'CSE6050 Advanced Software Engineering',
         style: TextStyle(
           fontSize: 20,
         ),
@@ -129,8 +159,7 @@ class GraduateSchool extends StatelessWidget {
 
   Widget seGallery(Size size) {
     return Container(
-
-      height: size.height*0.2,
+      height: size.height * 0.2,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
@@ -140,16 +169,17 @@ class GraduateSchool extends StatelessWidget {
               margin: EdgeInsets.all(10),
               color: Colors.black12,
             ),
-            onTap: (){},
-          )
-          ,
+            onTap: () {},
+          ),
           InkWell(
             child: Card(
-              child: Image.asset('images/park.png',),
+              child: Image.asset(
+                'images/park.png',
+              ),
               margin: EdgeInsets.all(10),
               color: Colors.black12,
             ),
-            onTap: (){},
+            onTap: () {},
           ),
           InkWell(
             child: Card(
@@ -157,7 +187,7 @@ class GraduateSchool extends StatelessWidget {
               margin: EdgeInsets.all(10),
               color: Colors.black12,
             ),
-            onTap: (){},
+            onTap: () {},
           ),
           InkWell(
             child: Card(
@@ -165,7 +195,7 @@ class GraduateSchool extends StatelessWidget {
               margin: EdgeInsets.all(10),
               color: Colors.black12,
             ),
-            onTap: (){},
+            onTap: () {},
           ),
           InkWell(
             child: Card(
@@ -173,7 +203,7 @@ class GraduateSchool extends StatelessWidget {
               margin: EdgeInsets.all(10),
               color: Colors.black12,
             ),
-            onTap: (){},
+            onTap: () {},
           ),
         ],
       ),

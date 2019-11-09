@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/startpage.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
 //void main() => runApp(MyApp());
 
@@ -25,7 +29,9 @@ class MyApp extends StatefulWidget{
 
 class _MyAppState extends State<MyApp> {
   @override
-  initState() {
+
+
+  initState() { //Local Notification
     super.initState();
     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
     var initializationSettingsAndroid =
@@ -36,6 +42,8 @@ class _MyAppState extends State<MyApp> {
         initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
+
+    firebaseCloudMessaging_Listeners(); // firebase message
   }
 
   @override
@@ -80,5 +88,36 @@ class _MyAppState extends State<MyApp> {
 
     await Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => Notice()));
+  }
+
+  void firebaseCloudMessaging_Listeners() {
+    if (Platform.isIOS) iOS_Permission();
+
+    _firebaseMessaging.getToken().then((token){
+      print(token);
+    });
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('on message $message');
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('on resume $message');
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('on launch $message');
+      },
+    );
+  }
+
+  void iOS_Permission() {
+    _firebaseMessaging.requestNotificationPermissions(
+        IosNotificationSettings(sound: true, badge: true, alert: true)
+    );
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings)
+    {
+      print("Settings registered: $settings");
+    });
   }
 }
