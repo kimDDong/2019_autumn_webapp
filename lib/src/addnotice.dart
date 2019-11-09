@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'notice.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -93,7 +95,7 @@ class AddNoticeFormState extends State<AddNoticeForm> {
           FlatButton(
             child: Text("Post"),
             color: Colors.blueAccent,
-            onPressed: () async{
+            onPressed: () async {
               if (_formKey.currentState.validate()) {
                 _showDialog(context, db);
               }
@@ -103,7 +105,8 @@ class AddNoticeFormState extends State<AddNoticeForm> {
       ),
     );
   }
-  Future<void> _showNotification(String body) async {
+
+  Future<void> showNotification(String body) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'your channel id', 'your channel name', 'your channel description',
         importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
@@ -114,7 +117,6 @@ class AddNoticeFormState extends State<AddNoticeForm> {
         0, 'SElab 공지사항', body, platformChannelSpecifics,
         payload: 'item x');
   }
-
 
 
   void _showDialog(BuildContext context, Firestore db) {
@@ -137,7 +139,8 @@ class AddNoticeFormState extends State<AddNoticeForm> {
                   'name': _name.text,
                   'date': Timestamp.now()
                 });
-                _showNotification(_title.text);
+                sendFcmMessage("공지사항", _title.text);
+                showNotification(_title.text);
 
 //                Navigator.of(context)
 //                    .popUntil(MaterialPageRoute(builder: (context) => Notice()));
@@ -159,4 +162,34 @@ class AddNoticeFormState extends State<AddNoticeForm> {
     );
   }
 
+  static Future<bool> sendFcmMessage(String title, String message) async {
+
+    var data={"notification": {"body": "this is a body","title": "this is a title"}, "priority": "high", "data": {"click_action": "FLUTTER_NOTIFICATION_CLICK", "id": "1", "status": "done"}, "to": "/topics/all"};
+    try {
+      var url = 'https://fcm.googleapis.com/fcm/send';
+      var header = {
+        "Content-Type": "application/json",
+        "Authorization":
+        "key=AAAAL-XNLHM:APA91bFzhNrpcbFrwwZ9iQTyzboG54dmkbXjll6mWAPXI-l7iPp6xNEHnb7Rj64pXgRitOZ3-VPQP2rp92lAbTzvMjttZC0ftsSLYS51wcJYJ6SA5nQFwLIK3-fODJRNryVhUs4Af_jf",
+      };
+      var request = {
+        "notification": {
+          "title": title,
+          "text": message,
+          "sound": "default",
+          "color": "#990000",
+        },
+        "priority": "high",
+        "to": "/topics/all",
+      };
+
+      var client = new Client();
+      var response =
+      await client.post(url, headers: header, body: json.encode(data));
+      return true;
+    } catch (e, s) {
+      print(e);
+      return false;
+    }
+  }
 }

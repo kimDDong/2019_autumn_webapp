@@ -19,6 +19,8 @@ dependencies:
   path_provider:
   firebase:
   firebase_messaging:
+  firebase_auth:
+  device_info:
 
 dev_dependencies:
   flutter_test:

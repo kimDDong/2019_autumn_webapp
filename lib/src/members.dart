@@ -12,24 +12,24 @@ class Members extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar : AppBar(title : Text("Members")),
-        body:
-            StreamBuilder<QuerySnapshot>(
-            stream: Firestore.instance.collection('members').orderBy('number', descending: false).snapshots(),
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError)
-                return new Text('Error : ${snapshot.error}');
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return new Text('Loading...');
-                default:
-                  return new ListView(
-                    itemExtent: 80,
-                    children: snapshot.data.documents.map((document) => makeRowItem(context, document)).toList(),
-                  );
-              }
+      appBar : AppBar(title : Text("Members")),
+      body:
+      StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance.collection('members').orderBy('number', descending: false).snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError)
+              return new Text('Error : ${snapshot.error}');
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return new Text('Loading...');
+              default:
+                return new ListView(
+                  itemExtent: 80,
+                  children: snapshot.data.documents.map((document) => makeRowItem(context, document)).toList(),
+                );
             }
-        ),
+          }
+      ),
     );
   }
 
@@ -98,8 +98,8 @@ class Detail extends StatelessWidget {
             make_title(str),
             make_content(str2),
           ],
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
         ),
       ),
     );
@@ -108,14 +108,14 @@ class Detail extends StatelessWidget {
 
   Widget make_title(String tit){
     var container = Container(
-        child: Text(
-          tit,
-          style: TextStyle(fontSize: 15.0, color: Colors.orange[300]),
-        ),
-        padding: EdgeInsets.only(left : 20, top : 20, bottom : 15),
+      child: Text(
+        tit,
+        style: TextStyle(fontSize: 15.0, color: Colors.orange[300]),
+      ),
+      padding: EdgeInsets.only(left : 20, top : 20, bottom : 15),
 //        textAlign : Left;
 //        width : 150,
-      );
+    );
     return container;
   }
 
@@ -131,5 +131,3 @@ class Detail extends StatelessWidget {
     return container;
   }
 }
-
-
