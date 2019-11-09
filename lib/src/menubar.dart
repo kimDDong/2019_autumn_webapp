@@ -67,7 +67,7 @@ class MenuForGraduate extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Publication',textScaleFactor: 1.5,),
+            title: Text('Publications',textScaleFactor: 1.5,),
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Publication()));

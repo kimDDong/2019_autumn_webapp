@@ -26,7 +26,6 @@ Widget _myListView(BuildContext context) {
       .size;
   return ListView(
     children: <Widget>[
-      Divider(),
       Container(
         height: size.height * 0.1,
         child: ListTile(

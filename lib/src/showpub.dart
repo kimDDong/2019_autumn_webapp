@@ -78,10 +78,7 @@ class ShowPublication extends StatelessWidget {
               onTap: (){
                 _launchURL(document['pdf']);
               },
-              title: Text(
-                'Download the pdf',
-                style: TextStyle(color: Colors.blue),
-              ),
+              title: Text('Download the pdf',style : TextStyle(color : Colors.blue)),
             )
           )
         ],
