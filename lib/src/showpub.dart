@@ -67,7 +67,7 @@ class ShowPublication extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(15),
             child: Text(
-              'In Porc.\n'+ document['Inproc.'],
+              document['Inproc.'],
               softWrap: true,
               textScaleFactor: 1.5,
             ),
@@ -78,7 +78,10 @@ class ShowPublication extends StatelessWidget {
               onTap: (){
                 _launchURL(document['pdf']);
               },
-              title: Text('Download the pdf'),
+              title: Text(
+                'Download the pdf',
+                style: TextStyle(color: Colors.blue),
+              ),
             )
           )
         ],
