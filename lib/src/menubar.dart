@@ -6,7 +6,7 @@ import 'package:untitled3/src/publication.dart';
 import 'package:untitled3/src/startpage.dart';
 import 'package:untitled3/src/testlogin.dart';
 import 'package:untitled3/src/members.dart';
-
+import 'package:untitled3/src/gallery.dart';
 
 class MenuForGraduate extends StatelessWidget {
   @override
@@ -85,7 +85,8 @@ class MenuForGraduate extends StatelessWidget {
           ListTile(
             title: Text('Gallery',textScaleFactor: 1.5,),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Gallery()));
             },
           ),
           Divider(),
