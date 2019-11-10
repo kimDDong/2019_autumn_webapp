@@ -57,12 +57,13 @@ Widget _myListView(BuildContext context) {
         height: size.height*0.1,
         child: ListTile(
           onTap: (){
-            _launchURL();
           },
           leading: Icon(Icons.accessible),
           title: Text('Web Application Development',textScaleFactor: 1.3),
           subtitle: Text("CSE326"),
         ),
+
+
       ),Container(
         height: size.height*0.1,
         child: ListTile(

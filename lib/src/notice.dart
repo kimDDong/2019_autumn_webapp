@@ -31,7 +31,8 @@ class Notice extends StatelessWidget {
             .orderBy('date', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return const Text('Loading...');
+          if (!snapshot.hasData)
+            return const Text('Loading...');
           return ListView.builder(
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, index) {
