@@ -17,7 +17,6 @@ class BodyLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _myListView(context);
-
   }
 }
 
@@ -74,7 +73,6 @@ Widget _myListView(BuildContext context) {
       ),
     ],
   );
-
 
 }
 _launchURL() async {

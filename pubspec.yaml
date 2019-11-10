@@ -14,12 +14,14 @@ dependencies:
   google_sign_in: ^4.0.11
   flutter:
     sdk: flutter
-
   cupertino_icons: ^0.1.2
   flutter_staggered_grid_view:
   expandable:
   http:
   path_provider:
+  firebase:
+  firebase_messaging:
+  device_info:
 
 dev_dependencies:
   flutter_test:

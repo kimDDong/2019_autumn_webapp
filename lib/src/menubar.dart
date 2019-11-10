@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/src/course2.dart';
 import 'package:untitled3/src/login.dart';
 import 'package:untitled3/src/notice.dart';
+import 'package:untitled3/src/publication.dart';
 import 'package:untitled3/src/startpage.dart';
 import 'package:untitled3/src/testlogin.dart';
-
+import 'package:untitled3/src/members.dart';
+import 'package:untitled3/src/gallery.dart';
 
 class MenuForGraduate extends StatelessWidget {
   @override
@@ -45,7 +48,7 @@ class MenuForGraduate extends StatelessWidget {
             title: Text('Members',textScaleFactor: 1.5,),
             onTap: () {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Test()));
+                  .push(MaterialPageRoute(builder: (context) => Members()));
             },
           ),
           Divider(),
@@ -66,21 +69,24 @@ class MenuForGraduate extends StatelessWidget {
           ListTile(
             title: Text('Publications',textScaleFactor: 1.5,),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Publication()));
             },
           ),
           Divider(),
           ListTile(
             title: Text('Courses',textScaleFactor: 1.5,),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => CoursePage2()));
             },
           ),
           Divider(),
           ListTile(
             title: Text('Gallery',textScaleFactor: 1.5,),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Gallery()));
             },
           ),
           Divider(),
