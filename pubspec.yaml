@@ -22,7 +22,6 @@ dependencies:
   firebase:
   firebase_messaging:
   device_info:
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
