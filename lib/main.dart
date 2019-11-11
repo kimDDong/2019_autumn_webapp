@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:untitled3/src/addnotice.dart';
 import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/startpage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -15,7 +16,6 @@ FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
 void main() async {
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
   runApp(
     MyApp()
   );
@@ -99,6 +99,7 @@ class _MyAppState extends State<MyApp> {
 
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
+        showNotification(message['notification']['body'].toString());
         print('on message $message');
       },
       onResume: (Map<String, dynamic> message) async {
@@ -109,7 +110,6 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
-
   void iOS_Permission() {
     _firebaseMessaging.requestNotificationPermissions(
         IosNotificationSettings(sound: true, badge: true, alert: true)
@@ -119,5 +119,17 @@ class _MyAppState extends State<MyApp> {
     {
       print("Settings registered: $settings");
     });
+  }
+
+  Future<void> showNotification(String body) async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'your channel id', 'your channel name', 'your channel description',
+        importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+        0, 'SElab 공지사항', body, platformChannelSpecifics,
+        payload: 'item x');
   }
 }
