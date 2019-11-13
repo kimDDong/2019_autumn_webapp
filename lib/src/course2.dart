@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:untitled3/src/WebApplicationDevelopment.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CoursePage2 extends StatelessWidget {
   @override
@@ -29,8 +28,8 @@ Widget _myListView(BuildContext context) {
         height: size.height * 0.1,
         child: ListTile(
           onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => WebApplicationDevelopment()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => WebApplicationDevelopment()));
           },
           leading: Icon(Icons.accessibility),
           title: Text(
@@ -53,6 +52,7 @@ Widget _myListView(BuildContext context) {
       Container(
         height: size.height * 0.1,
         child: ListTile(
+          onTap: () {},
           leading: Icon(Icons.web_asset),
           title: Text('Model Checking', textScaleFactor: 1.3),
           subtitle: Text("CSE609"),
@@ -61,8 +61,7 @@ Widget _myListView(BuildContext context) {
       Container(
         height: size.height * 0.1,
         child: ListTile(
-          onTap: () {
-          },
+          onTap: () {},
           leading: Icon(Icons.accessible),
           title: Text('Special Topics in Software Engineering',
               textScaleFactor: 1.3),
@@ -72,6 +71,7 @@ Widget _myListView(BuildContext context) {
       Container(
         height: size.height * 0.1,
         child: ListTile(
+          onTap: () {},
           leading: Icon(Icons.build),
           title: Text('Advanced Software Engineering', textScaleFactor: 1.3),
           subtitle: Text("CSE6050"),
@@ -80,12 +80,3 @@ Widget _myListView(BuildContext context) {
     ],
   );
 }
-
-//_launchURL() async {
-//  const url = '';
-//  if (await canLaunch(url)) {
-//    await launch(url);
-//  } else {
-//    throw 'Could not launch $url';
-//  }
-//}
