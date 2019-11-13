@@ -5,6 +5,7 @@ import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/publication.dart';
 import 'package:untitled3/src/startpage.dart';
 import 'package:untitled3/src/testlogin.dart';
+import 'package:untitled3/src/research.dart';
 import 'package:untitled3/src/members.dart';
 
 
@@ -62,7 +63,8 @@ class MenuForGraduate extends StatelessWidget {
           ListTile(
             title: Text('Research',textScaleFactor: 1.5,),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Research()));
             },
           ),
           Divider(),
