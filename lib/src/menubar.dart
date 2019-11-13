@@ -8,9 +8,9 @@ import 'package:untitled3/src/research.dart';
 import 'package:untitled3/src/members.dart';
 import 'package:untitled3/src/gallery.dart';
 
+import 'contact.dart';
+
 class MenuForGraduate extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -18,23 +18,41 @@ class MenuForGraduate extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child:
-            ListTile(
-              title: Text('Login',textScaleFactor: 1.3,),
-              onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => LoginPage()));
-              },
-            )
+              child: ListView(
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  'Login',
+                  textScaleFactor: 1.3,
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Contact',
+                  textScaleFactor: 1.3,
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Contact()));
+                },
+              ),
 
-            ,
-            decoration: BoxDecoration(
-              color: Colors.black45,
-            ),
+            ],
+          )
 
-          ),
+//            decoration: BoxDecoration(
+//              color: Colors.black45,
+//            ),
+              ),
           ListTile(
-            title: Text('Home',textScaleFactor: 1.5,),
+            title: Text(
+              'Home',
+              textScaleFactor: 1.5,
+            ),
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => StartUp()));
@@ -42,7 +60,10 @@ class MenuForGraduate extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Notice',textScaleFactor: 1.5,),
+            title: Text(
+              'Notice',
+              textScaleFactor: 1.5,
+            ),
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Notice()));
@@ -50,7 +71,10 @@ class MenuForGraduate extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Members',textScaleFactor: 1.5,),
+            title: Text(
+              'Members',
+              textScaleFactor: 1.5,
+            ),
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Members()));
@@ -58,14 +82,20 @@ class MenuForGraduate extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Members',textScaleFactor: 1.5,),
+            title: Text(
+              'Members',
+              textScaleFactor: 1.5,
+            ),
             onTap: () {
               Navigator.pop(context);
             },
           ),
           Divider(),
           ListTile(
-            title: Text('Research',textScaleFactor: 1.5,),
+            title: Text(
+              'Research',
+              textScaleFactor: 1.5,
+            ),
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Research()));
@@ -73,7 +103,10 @@ class MenuForGraduate extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Publications',textScaleFactor: 1.5,),
+            title: Text(
+              'Publications',
+              textScaleFactor: 1.5,
+            ),
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Publication()));
@@ -81,7 +114,10 @@ class MenuForGraduate extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Courses',textScaleFactor: 1.5,),
+            title: Text(
+              'Courses',
+              textScaleFactor: 1.5,
+            ),
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => CoursePage2()));
@@ -89,7 +125,10 @@ class MenuForGraduate extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Gallery',textScaleFactor: 1.5,),
+            title: Text(
+              'Gallery',
+              textScaleFactor: 1.5,
+            ),
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Gallery()));
@@ -111,7 +150,10 @@ class MenuForStudent extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             child: ListTile(
-              title: Text('Login',textScaleFactor: 1.3,),
+              title: Text(
+                'Login',
+                textScaleFactor: 1.3,
+              ),
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => LoginPage()));
@@ -120,7 +162,6 @@ class MenuForStudent extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.black45,
             ),
-
           ),
           ListTile(
             title: Text('Item 1'),
