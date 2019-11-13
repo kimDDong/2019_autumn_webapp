@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>205718891635-gdqs5b7kvm83gbh2i5l1c247edmo8sjd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.205718891635-gdqs5b7kvm83gbh2i5l1c247edmo8sjd</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>205718891635-fhbpjnf743oors9uch13mmavljmmtrc1.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDQJn0JUq42f5AO54ihDZt1uemgEQMycdY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>205718891635</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.untitled3</string>
+	<key>PROJECT_ID</key>
+	<string>selab-2760b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>selab-2760b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:205718891635:ios:4e2824b5c770a2aa1a0e06</string>
+	<key>DATABASE_URL</key>
+	<string>https://selab-2760b.firebaseio.com</string>
+</dict>
+</plist>

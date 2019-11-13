@@ -4,12 +4,13 @@ import 'package:untitled3/src/login.dart';
 import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/publication.dart';
 import 'package:untitled3/src/startpage.dart';
-import 'package:untitled3/src/testlogin.dart';
 import 'package:untitled3/src/research.dart';
 import 'package:untitled3/src/members.dart';
-
+import 'package:untitled3/src/gallery.dart';
 
 class MenuForGraduate extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -17,13 +18,16 @@ class MenuForGraduate extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: ListTile(
+            child:
+            ListTile(
               title: Text('Login',textScaleFactor: 1.3,),
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => LoginPage()));
               },
-            ),
+            )
+
+            ,
             decoration: BoxDecoration(
               color: Colors.black45,
             ),
@@ -87,7 +91,8 @@ class MenuForGraduate extends StatelessWidget {
           ListTile(
             title: Text('Gallery',textScaleFactor: 1.5,),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Gallery()));
             },
           ),
           Divider(),
