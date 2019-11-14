@@ -23,37 +23,30 @@ class MenuForGraduate extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
               child: ListView(
-                children: <Widget>[
-                  ListTile(
-                    title: Text(
-                      counter.getCounter()==0?
-                      'Login':'Information',
-                      textScaleFactor: 1.3,
-                    ),
-                    onTap: () {
-                      Navigator.of(context).push(
-                          counter.getCounter()==0?
-                          MaterialPageRoute(builder: (context) => LoginPage()):MaterialPageRoute(builder: (context) => Information()));
-                    },
-                  ),
-                  ListTile(
-                    title: Text(
-                      'Contact',
-                      textScaleFactor: 1.3,
-                    ),
-                    onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Contact()));
-                    },
-                  ),
-
-                ],
-              )
-
-//            decoration: BoxDecoration(
-//              color: Colors.black45,
-//            ),
-          ),
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  counter.getCounter() == 0 ? 'Login' : 'Information',
+                  textScaleFactor: 1.3,
+                ),
+                onTap: () {
+                  Navigator.of(context).push(counter.getCounter() == 0
+                      ? MaterialPageRoute(builder: (context) => LoginPage())
+                      : MaterialPageRoute(builder: (context) => Information()));
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Contact',
+                  textScaleFactor: 1.3,
+                ),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => Contact()));
+                },
+              ),
+            ],
+          )),
           ListTile(
             title: Text(
               'Home',

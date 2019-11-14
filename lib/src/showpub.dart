@@ -43,7 +43,8 @@ class ShowPublication extends StatelessWidget {
       header: Text(
         document['title'],
         textScaleFactor: 1.5,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange[400]),
+
       ),
       collapsed: Align(
         alignment: Alignment.centerLeft,
