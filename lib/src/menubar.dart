@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled3/src/course2.dart';
+import 'package:untitled3/src/info.dart';
+import 'package:untitled3/src/islogin.dart';
 import 'package:untitled3/src/login.dart';
 import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/publication.dart';
@@ -13,6 +16,7 @@ import 'contact.dart';
 class MenuForGraduate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final counter = Provider.of<Counter>(context);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -22,12 +26,13 @@ class MenuForGraduate extends StatelessWidget {
             children: <Widget>[
               ListTile(
                 title: Text(
-                  'Login',
+                  counter.getCounter() == 0 ? 'Login' : 'Information',
                   textScaleFactor: 1.3,
                 ),
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                  Navigator.of(context).push(counter.getCounter() == 0
+                      ? MaterialPageRoute(builder: (context) => LoginPage())
+                      : MaterialPageRoute(builder: (context) => Information()));
                 },
               ),
               ListTile(
@@ -36,18 +41,12 @@ class MenuForGraduate extends StatelessWidget {
                   textScaleFactor: 1.3,
                 ),
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Contact()));
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => Contact()));
                 },
               ),
-
             ],
-          )
-
-//            decoration: BoxDecoration(
-//              color: Colors.black45,
-//            ),
-              ),
+          )),
           ListTile(
             title: Text(
               'Home',

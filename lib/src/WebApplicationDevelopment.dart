@@ -21,41 +21,39 @@ class WebApplicationDevelopment extends StatelessWidget {
       "name"
     };
     final List dbList = dbSet.toList();
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
-              tabs: [
-                Tab(
-                  text: "HOME",
-                ),
-                Tab(
-                  text: "SLIDE",
-                ),
-              ],
-            ),
-            title: Text('Web Application Development'),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [
+              Tab(
+                text: "HOME",
+              ),
+              Tab(
+                text: "SLIDE",
+              ),
+            ],
           ),
-          body: StreamBuilder(
-            stream: Firestore.instance.collection('courses').snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return const Text('Loading...');
-              return ListView.builder(
-                itemCount: snapshot.data.documents.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: <Widget>[
-                      for (var i = 0; i < 10; i++)
-                        _buildListItem(
-                            context, snapshot.data.documents[index], dbList, i),
-                    ],
-                  );
-                },
-              );
-            },
-          ),
+          title: Text('Web Application Development'),
+        ),
+        body: StreamBuilder(
+          stream: Firestore.instance.collection('courses').snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return const Text('Loading...');
+            return ListView.builder(
+              itemCount: snapshot.data.documents.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: <Widget>[
+                    for (var i = 0; i < 10; i++)
+                      _buildListItem(
+                          context, snapshot.data.documents[index], dbList, i),
+                  ],
+                );
+              },
+            );
+          },
         ),
       ),
     );
