@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'WebApplicationDevelopment.dart';
+
 class CoursePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ Widget _myListView(BuildContext context) {
   return ListView(
     children: <Widget>[
       Container(
-      height: size.height*0.1,
+        height: size.height*0.1,
         child: ListTile(
           onTap: (){
           },
@@ -56,6 +58,8 @@ Widget _myListView(BuildContext context) {
         height: size.height*0.1,
         child: ListTile(
           onTap: (){
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => WebApplicationDevelopment()));
           },
           leading: Icon(Icons.accessible),
           title: Text('Web Application Development',textScaleFactor: 1.3),
