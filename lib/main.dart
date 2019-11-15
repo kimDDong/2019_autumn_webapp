@@ -4,10 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled3/src/addnotice.dart';
+import 'package:untitled3/src/islogin.dart';
 import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/startpage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
+
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
@@ -17,7 +21,7 @@ FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 void main() async {
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   runApp(
-    MyApp()
+      MyApp()
   );
 }
 
@@ -49,13 +53,16 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      theme: ThemeData(
-        brightness:Brightness.dark,
+    return ChangeNotifierProvider(
+      builder: (_)=> Counter(),
+      child: MaterialApp(
+        theme: ThemeData(
+          brightness:Brightness.dark,
+        ),
+        title: "Hello",
+        home: StartUp(),
       ),
-      title: "Hello",
-      home: StartUp(),
-      );
+    );
   }
 
   Future<void> onDidReceiveLocalNotification(

@@ -67,8 +67,8 @@ class UnderGraduate extends StatelessWidget {
     return Container(
 //      padding: const EdgeInsets.all(32),
       child: Text(
-            '2014 PL-SE First Joint Workshop\n'
-        'Welcome to SElab Homepage!',
+        '2014 PL-SE First Joint Workshop\n'
+            'Welcome to SElab Homepage!',
         softWrap: true,
         textAlign: TextAlign.left,
         style: TextStyle(
@@ -80,10 +80,10 @@ class UnderGraduate extends StatelessWidget {
 
   Widget courseBanner(BuildContext context) {
     return InkWell(
-        onTap: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => CoursePage()));
-        },
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => CoursePage()));
+      },
       child: Container(
         padding: const EdgeInsets.only(top: 32),
         child: Row(
@@ -124,7 +124,7 @@ class UnderGraduate extends StatelessWidget {
 //      padding: const EdgeInsets.all(32),
       child: Text(
         'CSE326 Web Application Development\n'
-        'CSE6050 Advanced Software Engineering',
+            'CSE6050 Advanced Software Engineering',
         style: TextStyle(
           fontSize: 20,
         ),
