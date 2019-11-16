@@ -3,6 +3,7 @@ import 'package:untitled3/src/course2.dart';
 import 'package:untitled3/src/login.dart';
 import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/publication.dart';
+import 'package:untitled3/src/setting.dart';
 import 'package:untitled3/src/startpage.dart';
 import 'package:untitled3/src/research.dart';
 import 'package:untitled3/src/members.dart';
@@ -18,21 +19,26 @@ class MenuForGraduate extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child:
-            ListTile(
+            child: ListTile(
               title: Text('Login',textScaleFactor: 1.3,),
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) => LoginPage()));
               },
-            )
-
-            ,
+            ),
             decoration: BoxDecoration(
               color: Colors.black45,
             ),
 
           ),
+          ListTile(
+            title: Text('Settings',textScaleFactor: 1.5,),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Setting()));
+            },
+          ),
+          Divider(),
           ListTile(
             title: Text('Home',textScaleFactor: 1.5,),
             onTap: () {
