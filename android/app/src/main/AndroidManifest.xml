@@ -13,8 +13,11 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="SElab"
-        android:icon="@mipmap/ic_launcher">
+        android:label="SElab">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCydy-oimk7J7VUZjF6FpANZe0zINPjPUM"/>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

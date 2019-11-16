@@ -2,8 +2,11 @@ import 'dart:ui' as prefix0;
 
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled3/src/info.dart';
+import 'package:untitled3/src/islogin.dart';
 import 'package:untitled3/src/sign_in.dart';
+import 'package:untitled3/src/startpage.dart';
 import 'menubar.dart';
 
 class LoginPage extends StatefulWidget {
@@ -33,17 +36,20 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _signInButton() {
+    final counter = Provider.of<Counter>(context);
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
+        counter.increment();
         signInWithGoogle().whenComplete(() {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return Information();
-              },
-            ),
-          );
+          Navigator.of(context).pop();
+//          push(
+//            MaterialPageRoute(
+//              builder: (context) {
+//                return StartUp();
+//              },
+//            ),
+//          );
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40),),

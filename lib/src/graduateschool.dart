@@ -70,7 +70,7 @@ class GraduateSchool extends StatelessWidget {
 //      padding: const EdgeInsets.all(32),
       child: Text(
         '2014 PL-SE First Joint Workshop\n'
-        'Welcome to SElab Homepage!',
+            'Welcome to SElab Homepage!',
         softWrap: true,
         textAlign: TextAlign.left,
         style: TextStyle(
@@ -149,7 +149,7 @@ class GraduateSchool extends StatelessWidget {
 //      padding: const EdgeInsets.all(32),
       child: Text(
         'CSE326 Web Application Development\n'
-        'CSE6050 Advanced Software Engineering',
+            'CSE6050 Advanced Software Engineering',
         style: TextStyle(
           fontSize: 20,
         ),
