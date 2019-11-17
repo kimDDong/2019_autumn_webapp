@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled3/src/alert_cate.dart';
 import 'package:untitled3/src/alert_howto.dart';
+import 'package:untitled3/src/disturbmode.dart';
 
 class Setting extends StatelessWidget {
   @override
@@ -58,9 +59,3 @@ class Setting extends StatelessWidget {
   }
 }
 
-class Massagecategory extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Text('success');
-  }
-}
