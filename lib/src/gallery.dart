@@ -85,7 +85,8 @@ class ChoiceCard extends StatelessWidget {
                     children: snapshot.data.documents.map((document) => makeRowItem(context, document, text)).toList(),
                   );
               }
-            }
+            },
+
         ),
       );
     }
@@ -105,9 +106,13 @@ class ChoiceCard extends StatelessWidget {
                     children: snapshot.data.documents.map((document) => makeRowItem(context, document, text)).toList(),
                   );
               }
+
             }
+
         ),
+
       );
+
     }
   }
 
@@ -125,21 +130,17 @@ class ChoiceCard extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[500])),
 
                   Card(
-                    child: Image.asset('images/gallery/' + document['number'].toString()+'.png',height: 150, width: 300),
+                    child : Image.network(document['image'], width : 300, height :240),
                     margin: EdgeInsets.all(10),
                     color: Colors.black12,
                   ),
                   ],
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 //crossAxisAlignment: CrossAxisAlignment.stretch,
             ),
           ),
         ],
-//        onTap: () {
-//          Navigator.push(ctx,
-//              MaterialPageRoute<void>(builder: (BuildContext context) => Detail(document : document))
-//          );
-//        },
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
       ),
     ),
     ),

@@ -28,7 +28,11 @@ Widget _myListView(BuildContext context) {
         height: size.height * 0.1,
         child: ListTile(
           onTap: () {
-          },
+  Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => WebApplicationDevelopment()
+  ));
+
+  },
           leading: Icon(Icons.accessibility),
           title: Text(
             'Formal Methods',
