@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled3/src/alert_cate.dart';
+import 'package:untitled3/src/alert_howto.dart';
 
 class Setting extends StatelessWidget {
   @override
@@ -32,7 +33,7 @@ class Setting extends StatelessWidget {
             child: ListTile(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute<void>(builder: (BuildContext context) => Massagecategory()));
+                    MaterialPageRoute<void>(builder: (BuildContext context) =>HowtoReceive()));
               },
               title: Text('메세지 수신방법 설정', textScaleFactor: 1.3,),
             ),

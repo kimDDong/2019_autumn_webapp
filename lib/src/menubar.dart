@@ -11,6 +11,7 @@ import 'package:untitled3/src/startpage.dart';
 import 'package:untitled3/src/research.dart';
 import 'package:untitled3/src/members.dart';
 import 'package:untitled3/src/gallery.dart';
+import 'package:untitled3/src/my_test.dart';
 
 import 'contact.dart';
 
@@ -94,7 +95,8 @@ class MenuForGraduate extends StatelessWidget {
               textScaleFactor: 1.5,
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => Members()));
             },
           ),
           Divider(),
