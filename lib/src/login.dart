@@ -40,16 +40,9 @@ class _LoginPageState extends State<LoginPage> {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        counter.increment();
         signInWithGoogle().whenComplete(() {
+          counter.increment();
           Navigator.of(context).pop();
-//          push(
-//            MaterialPageRoute(
-//              builder: (context) {
-//                return StartUp();
-//              },
-//            ),
-//          );
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40),),
