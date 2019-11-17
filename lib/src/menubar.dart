@@ -6,10 +6,12 @@ import 'package:untitled3/src/islogin.dart';
 import 'package:untitled3/src/login.dart';
 import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/publication.dart';
+import 'package:untitled3/src/setting.dart';
 import 'package:untitled3/src/startpage.dart';
 import 'package:untitled3/src/research.dart';
 import 'package:untitled3/src/members.dart';
 import 'package:untitled3/src/gallery.dart';
+import 'package:untitled3/src/my_test.dart';
 
 import 'contact.dart';
 
@@ -22,31 +24,38 @@ class MenuForGraduate extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-              child: ListView(
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  counter.getCounter() == 0 ? 'Login' : 'Information',
-                  textScaleFactor: 1.3,
+            child: ListView(
+              children: <Widget>[
+                ListTile(
+                  title: Text(
+                    counter.getCounter() == 0 ? 'Login' : 'Information',
+                    textScaleFactor: 1.3,
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(counter.getCounter() == 0
+                        ? MaterialPageRoute(builder: (context) => LoginPage())
+                        : MaterialPageRoute(builder: (context) => Information()));
+                  },
                 ),
-                onTap: () {
-                  Navigator.of(context).push(counter.getCounter() == 0
-                      ? MaterialPageRoute(builder: (context) => LoginPage())
-                      : MaterialPageRoute(builder: (context) => Information()));
-                },
-              ),
-              ListTile(
-                title: Text(
-                  'Contact',
-                  textScaleFactor: 1.3,
+                ListTile(
+                  title: Text(
+                    'Contact',
+                    textScaleFactor: 1.3,
+                  ),
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Contact()));
+                  },
                 ),
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => Contact()));
-                },
-              ),
-            ],
+              ],
           )),
+          ListTile(
+            title: Text('Settings',textScaleFactor: 1.5,),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Setting()));
+            },
+          ),
           ListTile(
             title: Text(
               'Home',
@@ -86,7 +95,8 @@ class MenuForGraduate extends StatelessWidget {
               textScaleFactor: 1.5,
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => Members()));
             },
           ),
           Divider(),
