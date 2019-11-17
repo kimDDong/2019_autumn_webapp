@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled3/src/islogin.dart';
 
 class HowtoReceive extends StatefulWidget {
   @override
@@ -6,48 +8,26 @@ class HowtoReceive extends StatefulWidget {
 }
 
 class _HowtoReceiveState extends State<HowtoReceive> {
-  var howto = ['None','Push','Email'];
-  List<String> selected = List<String>();
-
-  count(BuildContext context){
-    if(selected.contains('None')){
-      return 1;
-    }
-    else{
-      return howto.length;
-    }
-  }
-
-  void state(bool value,int index){
-    if (value){
-      setState(() {
-        selected.add(howto[index]);
-      });
-    }
-    else{
-      setState(() {
-        selected.remove(howto[index]);
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    var select = Provider.of<Counter>(context);
+    List<String> selected = select.getSelected();
     return Scaffold(
         appBar: AppBar(
             title : Text('알림을 수신받을 방법을 선택하세요')
         ),
         body : ListView.builder(
-            itemCount: count(context),
+            itemCount: count(selected),
             itemBuilder: (BuildContext context, int index){
               return Card(
                 child: Container(
                     child : Column(
                       children: <Widget>[
                         CheckboxListTile(
-                          title : Text(howto[index]),
-                          onChanged : (bool value){state(value, index);},
-                          value: selected.contains(howto[index]),
+                          title : Text(select.getHowto(index)),
+                          onChanged : (bool value){select.state(value, index);},
+                          value: selected.contains(select.getHowto(index)),
                           activeColor: Colors.orange[300],
                         )
                       ],
@@ -57,5 +37,14 @@ class _HowtoReceiveState extends State<HowtoReceive> {
             }
         )
     );
+  }
+}
+
+count(List selected){
+  if(selected.contains('None')){
+    return 1;
+  }
+  else{
+    return 3;
   }
 }
