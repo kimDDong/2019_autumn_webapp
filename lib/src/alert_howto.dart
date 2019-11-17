@@ -6,27 +6,29 @@ class HowtoReceive extends StatefulWidget {
 }
 
 class _HowtoReceiveState extends State<HowtoReceive> {
-  var howto = ['Push','Email','None'];
-  List<bool> itemBool = List<bool>();
+  var howto = ['None','Push','Email'];
+  List<String> selected = List<String>();
 
-  @override
-  void initState(){
-    setState(() {
-      for(int i=0;i<howto.length;i++){
-        if(i==howto.length-1){
-          itemBool.add(false);
-        }
-        else{
-          itemBool.add(true);
-        }
-      }
-    });
+  count(BuildContext context){
+    if(selected.contains('None')){
+      return 1;
+    }
+    else{
+      return howto.length;
+    }
   }
 
-  void stateChange(bool value,int index){
-    setState(() {
-      itemBool[index] = value;
-    });
+  void state(bool value,int index){
+    if (value){
+      setState(() {
+        selected.add(howto[index]);
+      });
+    }
+    else{
+      setState(() {
+        selected.remove(howto[index]);
+      });
+    }
   }
 
   @override
@@ -36,7 +38,7 @@ class _HowtoReceiveState extends State<HowtoReceive> {
             title : Text('알림을 수신받을 방법을 선택하세요')
         ),
         body : ListView.builder(
-            itemCount: itemBool.length,
+            itemCount: count(context),
             itemBuilder: (BuildContext context, int index){
               return Card(
                 child: Container(
@@ -44,9 +46,9 @@ class _HowtoReceiveState extends State<HowtoReceive> {
                       children: <Widget>[
                         CheckboxListTile(
                           title : Text(howto[index]),
-                          value: itemBool[index],
+                          onChanged : (bool value){state(value, index);},
+                          value: selected.contains(howto[index]),
                           activeColor: Colors.orange[300],
-                          onChanged: (bool value){stateChange(value, index);},
                         )
                       ],
                     )
