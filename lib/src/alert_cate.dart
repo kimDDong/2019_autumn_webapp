@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled3/src/islogin.dart';
 
 class AlertCategory extends StatefulWidget {
   @override
@@ -6,48 +8,26 @@ class AlertCategory extends StatefulWidget {
 }
 
 class _AlertCategoryState extends State<AlertCategory> {
-  var categories = ['None','Notice','Course','Course Slide'];
-  List<String> selected = List<String>();
-
-  count(BuildContext context){
-    if(selected.contains('None')){
-      return 1;
-    }
-    else{
-      return categories.length;
-    }
-  }
-
-  void state(bool value,int index){
-    if (value){
-      setState(() {
-        selected.add(categories[index]);
-      });
-    }
-    else{
-      setState(() {
-        selected.remove(categories[index]);
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    var select = Provider.of<Counter>(context);
+    List<String> selected = select.getSelected2();
     return Scaffold(
         appBar: AppBar(
             title : Text('알림을 수신받을 방법을 선택하세요')
         ),
         body : ListView.builder(
-            itemCount: count(context),
+            itemCount: count(selected),
             itemBuilder: (BuildContext context, int index){
               return Card(
                 child: Container(
                     child : Column(
                       children: <Widget>[
                         CheckboxListTile(
-                          title : Text(categories[index]),
-                          onChanged : (bool value){state(value, index);},
-                          value: selected.contains(categories[index]),
+                          title : Text(select.getCate(index)),
+                          onChanged : (bool value){select.cate_state(value, index);},
+                          value: selected.contains(select.getCate(index)),
                           activeColor: Colors.orange[300],
                         )
                       ],
@@ -57,6 +37,15 @@ class _AlertCategoryState extends State<AlertCategory> {
             }
         )
     );
+  }
+}
+
+count(List selected){
+  if(selected.contains('None')){
+    return 1;
+  }
+  else{
+    return 4;
   }
 }
 
