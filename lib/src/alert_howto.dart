@@ -12,7 +12,7 @@ class _HowtoReceiveState extends State<HowtoReceive> {
   @override
   Widget build(BuildContext context) {
     var select = Provider.of<Counter>(context);
-    List<String> selected = select.getSelected();
+    List<String> selected = select.getSelected1();
     return Scaffold(
         appBar: AppBar(
             title : Text('알림을 수신받을 방법을 선택하세요')
@@ -26,7 +26,7 @@ class _HowtoReceiveState extends State<HowtoReceive> {
                       children: <Widget>[
                         CheckboxListTile(
                           title : Text(select.getHowto(index)),
-                          onChanged : (bool value){select.state(value, index);},
+                          onChanged : (bool value){select.how_state(value, index);},
                           value: selected.contains(select.getHowto(index)),
                           activeColor: Colors.orange[300],
                         )

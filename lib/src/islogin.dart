@@ -17,18 +17,34 @@ class Counter with ChangeNotifier {
   }
 
   final _howto = ['None', 'Push', 'Email'];
-  List<String> _selected = List<String>();
+  final _categories = ['None','Notice','Course','CourseSlide'];
+  List<String> _selected1 = ['Push','Email'];
+  List<String> _selected2 = ['Notice','Course','CourseSlide'];
 
-  getSelected() => _selected;
+
+  getSelected1() => _selected1;
+  getSelected2() => _selected2;
   getHowto(int index) => _howto[index];
+  getCate(int index) => _categories[index];
 
-  void state(bool value,int index){
+  void how_state(bool value,int index){
     if (value){
-      _selected.add(_howto[index]);
+      _selected1.add(_howto[index]);
       notifyListeners();
     }
     else{
-      _selected.remove(_howto[index]);
+      _selected1.remove(_howto[index]);
+      notifyListeners();
+    }
+  }
+
+  void cate_state(bool value,int index){
+    if(value){
+      _selected2.add(_categories[index]);
+      notifyListeners();
+    }
+    else{
+      _selected2.remove(_categories[index]);
       notifyListeners();
     }
   }
