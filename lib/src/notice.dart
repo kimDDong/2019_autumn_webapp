@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled3/src/islogin.dart';
 
 import 'addnotice.dart';
 
@@ -12,11 +14,13 @@ import 'addnotice.dart';
 class Notice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final counter = Provider.of<Counter>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Notice'),
         actions: <Widget>[
-          IconButton(
+          counter.getCounter()==0?
+          Container():IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
               Navigator.of(context)
@@ -83,23 +87,23 @@ class Notice extends StatelessWidget {
           ),
           Container(
               child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  'By ' + document['name'],
-                  textScaleFactor: 1.5,
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              IconButton(
-                icon: Icon(Icons.delete_forever),
-                iconSize: 40,
-                onPressed: () {
-                  _showDialog(context, db, document);
-                },
-              )
-            ],
-          ))
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'By ' + document['name'],
+                      textScaleFactor: 1.5,
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete_forever),
+                    iconSize: 40,
+                    onPressed: () {
+                      _showDialog(context, db, document);
+                    },
+                  )
+                ],
+              ))
         ],
       ),
       tapHeaderToExpand: true,

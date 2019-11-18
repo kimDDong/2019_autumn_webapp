@@ -87,6 +87,11 @@ class Detail extends StatelessWidget {
       body: SingleChildScrollView( // 없으면, 화면을 벗어났을 때 볼 수 없음 (스크롤 지원)
         child: Column(
           children: <Widget>[
+            Card(
+              child : Image.network(document['image'], width : 300, height :240, fit:BoxFit.contain),
+              margin: EdgeInsets.all(10),
+              color: Colors.black12,
+            ),
             make_title("Position"),
             make_content((document['position'])),
             make_title("E-mail"),
