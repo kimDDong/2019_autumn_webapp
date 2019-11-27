@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,23 @@ class _QuizState extends State<Quiz> {
   bool isSubmit = false;
   int _selectNum;
   int _radioValue;
+  Timer _everySecond;
+  DateTime now;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // sets first value
+    now = DateTime.now();
+
+    // defines a timer
+    _everySecond = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      setState(() {
+        now = DateTime.now();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +48,7 @@ class _QuizState extends State<Quiz> {
   }
 
   Widget getQuiz() {
-    DateTime now = new DateTime.now();
     DateTime today = new DateTime(now.year, now.month, now.day);
-    DateTime tommorow = new DateTime(now.year, now.month, now.day + 1);
 
     return StreamBuilder(
       stream: Firestore.instance
@@ -47,10 +64,32 @@ class _QuizState extends State<Quiz> {
           if (snapshot.data.documents.isEmpty)
             return Center(child: Text("준비중"));
           else {
-            if (snapshot.data.documents[0]['type'] == "blank") {
-              return blankQBuild(snapshot.data.documents[0]);
+            if (snapshot.data.documents[0]['startTime']
+                    .toDate()
+                    .isBefore(now) &&
+                snapshot.data.documents[0]['endTime'].toDate().isAfter(now)) {
+              if (snapshot.data.documents[0]['type'] == "blank") {
+                return blankQBuild(snapshot.data.documents[0]);
+              }
+              return buildQChoice(snapshot.data.documents[0]);
             }
-            return buildQChoice(snapshot.data.documents[0]);
+            if (snapshot.data.documents[0]['endTime'].toDate().isBefore(now)) {
+              return Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "Today Quiz is over",
+                      textScaleFactor: 3,
+                    ),
+                    Text("Answerer is " +
+                        snapshot.data.documents[0]['answerer'][1])
+                  ],
+                ),
+              );
+            }
+            return quizStartTimer(snapshot.data.documents[0]);
           }
         }
       },
@@ -138,13 +177,19 @@ class _QuizState extends State<Quiz> {
           color: Colors.blue,
         )));
 
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: list,
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        quizEndTime(document),
+        Container(
+          margin: EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: list,
+          ),
+        ),
+      ],
     );
   }
 
@@ -172,12 +217,15 @@ class _QuizState extends State<Quiz> {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(Radius.circular(5))
-              ),
+                  color: Colors.black,
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
               width: 20,
               height: 20,
-              child: Center(child: Text(i.toString(),style: TextStyle(color: Colors.white),)),
+              child: Center(
+                  child: Text(
+                i.toString(),
+                style: TextStyle(color: Colors.white),
+              )),
             ),
             Expanded(
                 child: Container(
@@ -193,42 +241,48 @@ class _QuizState extends State<Quiz> {
       ));
     }
 
-
     List answerer = new List();
 
     list.add(Container(
         width: MediaQuery.of(context).size.width,
         child: RaisedButton(
-          onPressed: isSubmit? null: ()async {
+          onPressed: isSubmit
+              ? null
+              : () async {
+                  if (!isSubmit && _selectNum == document['answer']) {
+                    answerer.add("aldehf420@naver.com");
+                    await Firestore.instance
+                        .collection('quiz')
+                        .document(document.documentID)
+                        .updateData(
+                            {"answerer": FieldValue.arrayUnion(answerer)});
+                    _showDialog(context);
+                  }
 
-            if (!isSubmit && _selectNum == document['answer']) {
-              answerer.add("aldehf420@naver.com");
-              await Firestore.instance
-                  .collection('quiz')
-                  .document(document.documentID)
-                  .updateData({"answerer": FieldValue.arrayUnion(answerer)});
-              _showDialog(context);
-            }
-
-            setState(() {
-              isSubmit = true;
-            });
-
-          },
+                  setState(() {
+                    isSubmit = true;
+                  });
+                },
           child: Text(
             "Submit",
             style: TextStyle(color: Colors.white),
           ),
-          color: isSubmit? Colors.black12 : Colors.blue,
+          color: isSubmit ? Colors.black12 : Colors.blue,
         )));
 
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: list,
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        quizEndTime(document),
+        Container(
+          margin: EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: list,
+          ),
+        ),
+      ],
     );
   }
 
@@ -285,6 +339,58 @@ class _QuizState extends State<Quiz> {
           ],
         );
       },
+    );
+  }
+
+  Widget quizStartTimer(DocumentSnapshot document) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "START IN",
+            textScaleFactor: 4,
+          ),
+          Icon(
+            Icons.timer,
+            size: MediaQuery.of(context).size.width * 0.5,
+          ),
+//          Text(document['startTime'].toDate().toString()),
+//          Text(now.toString().split('.')[0]),
+          Text(
+            document['startTime']
+                .toDate()
+                .difference(now)
+                .toString()
+                .split('.')[0],
+            textScaleFactor: 4,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget quizEndTime(DocumentSnapshot document) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "END IN  ",
+            textScaleFactor: 3,
+          ),
+          Text(
+            document['endTime']
+                .toDate()
+                .difference(now)
+                .toString()
+                .split('.')[0],
+            textScaleFactor: 3,
+          )
+        ],
+      ),
     );
   }
 }
