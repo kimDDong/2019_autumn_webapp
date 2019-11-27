@@ -11,6 +11,9 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   final _formKey = GlobalKey<FormState>();
+  bool isSubmit = false;
+  int _selectNum;
+  int _radioValue;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,10 @@ class _QuizState extends State<Quiz> {
           if (snapshot.data.documents.isEmpty)
             return Center(child: Text("준비중"));
           else {
-            return blankQBuild(snapshot.data.documents[0]);
+            if (snapshot.data.documents[0]['type'] == "blank") {
+              return blankQBuild(snapshot.data.documents[0]);
+            }
+            return buildQChoice(snapshot.data.documents[0]);
           }
         }
       },
@@ -54,14 +60,14 @@ class _QuizState extends State<Quiz> {
   Widget blankQBuild(DocumentSnapshot document) {
     var questions = document['question'].replaceAll("\\n", "\n").split("\\b\\");
     List<Widget> list = new List<Widget>();
-    List<String> answerList = new List();
     list.add(Container(
       margin: EdgeInsets.only(bottom: 20),
       child: Text(
         "QUESTION!",
         style: TextStyle(
             fontSize: MediaQuery.of(context).size.height * 0.04,
-            fontWeight: FontWeight.bold),
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic),
       ),
     ));
     for (var i = 0; i < questions.length * 2 - 1; i++) {
@@ -86,11 +92,10 @@ class _QuizState extends State<Quiz> {
                   labelStyle: TextStyle(color: Colors.black45),
                   labelText: "Answer",
                   fillColor: Colors.black,
-                  focusedBorder:new OutlineInputBorder(
+                  focusedBorder: new OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(25.0),
                     borderSide: new BorderSide(color: Colors.black45),
                   ),
-
                   border: new OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(25.0),
                     borderSide: new BorderSide(color: Colors.black45),
@@ -110,18 +115,22 @@ class _QuizState extends State<Quiz> {
         );
       }
     }
+    List answerer = new List();
 
     list.add(Container(
+        margin: EdgeInsets.only(top: 50),
         width: MediaQuery.of(context).size.width,
         child: RaisedButton(
           onPressed: () async {
-                await Firestore.instance.collection(city).document('Attractions').updateData({"data": FieldValue.arrayUnion()});
-
-//                Navigator.of(context)
-//                    .popUntil(MaterialPageRoute(builder: (context) => Notice()));
-                int count = 0;
-                Navigator.of(context).popUntil((_) => count++ >= 2);
-        },
+            if (_formKey.currentState.validate()) {
+              answerer.add("aldehf420@naver.com");
+              await Firestore.instance
+                  .collection('quiz')
+                  .document(document.documentID)
+                  .updateData({"answerer": FieldValue.arrayUnion(answerer)});
+              _showDialog(context);
+            }
+          },
           child: Text(
             "Submit",
             style: TextStyle(color: Colors.white),
@@ -132,10 +141,119 @@ class _QuizState extends State<Quiz> {
     return Container(
       margin: EdgeInsets.all(10),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: list,
       ),
     );
+  }
+
+  Widget buildQChoice(DocumentSnapshot document) {
+    List<Widget> list = new List<Widget>();
+    List<String> shuffleList = new List<String>();
+    list.add(Text(
+      "QUESTION!",
+      style: TextStyle(
+          fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.bold,
+          fontSize: MediaQuery.of(context).size.height * 0.04),
+    ));
+    list.add(Text(
+      "\t\t" + document['question'],
+      style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: MediaQuery.of(context).size.height * 0.03),
+    ));
+
+    for (int i = 0; i < document['answers'].length; i++) {
+      list.add(Container(
+        margin: EdgeInsets.only(left: 30),
+        child: Row(
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.all(Radius.circular(5))
+              ),
+              width: 20,
+              height: 20,
+              child: Center(child: Text(i.toString(),style: TextStyle(color: Colors.white),)),
+            ),
+            Expanded(
+                child: Container(
+                    margin: EdgeInsets.only(left: 5),
+                    child: Text(document['answers'][i]))),
+            new Radio(
+              value: i,
+              groupValue: _radioValue,
+              onChanged: _handleRadioValueChange,
+            ),
+          ],
+        ),
+      ));
+    }
+
+
+    List answerer = new List();
+
+    list.add(Container(
+        width: MediaQuery.of(context).size.width,
+        child: RaisedButton(
+          onPressed: isSubmit? null: ()async {
+
+            if (!isSubmit && _selectNum == document['answer']) {
+              answerer.add("aldehf420@naver.com");
+              await Firestore.instance
+                  .collection('quiz')
+                  .document(document.documentID)
+                  .updateData({"answerer": FieldValue.arrayUnion(answerer)});
+              _showDialog(context);
+            }
+
+            setState(() {
+              isSubmit = true;
+            });
+
+          },
+          child: Text(
+            "Submit",
+            style: TextStyle(color: Colors.white),
+          ),
+          color: isSubmit? Colors.black12 : Colors.blue,
+        )));
+
+    return Container(
+      margin: EdgeInsets.all(10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: list,
+      ),
+    );
+  }
+
+  void _handleRadioValueChange(int value) {
+    setState(() {
+      _radioValue = value;
+    });
+
+    switch (_radioValue) {
+      case 0:
+        _selectNum = 0;
+        break;
+      case 1:
+        _selectNum = 1;
+        break;
+      case 2:
+        _selectNum = 2;
+        break;
+      case 3:
+        _selectNum = 3;
+        break;
+      case 4:
+        _selectNum = 4;
+        break;
+    }
   }
 
   void _showDialog(BuildContext context) {
@@ -145,30 +263,24 @@ class _QuizState extends State<Quiz> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return CupertinoAlertDialog(
-          title: new Text("Alert"),
-          content: new Text("Are you sure to add it?"),
+          title: new Text("Well done!"),
+          content: Column(
+            children: <Widget>[
+              Text("Submit Complete!!"),
+              Text(
+                "DO NOT SUBMIT AGAIN!",
+                style:
+                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Confirm"),
-              onPressed: () async {
-//                await db.collection('notice').add({
-//                  'date': Timestamp.now()
-//                });
-//
-////                Navigator.of(context)
-////                    .popUntil(MaterialPageRoute(builder: (context) => Notice()));
-//                int count = 0;
-//                Navigator.of(context).popUntil((_) => count++ >= 2);
-              },
-              textColor: Colors.blue,
-            ),
-            new FlatButton(
-              child: new Text("Cancel"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              textColor: Colors.red,
+              textColor: Colors.blue,
             ),
           ],
         );
