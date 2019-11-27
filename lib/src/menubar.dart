@@ -88,7 +88,7 @@ class MenuForGraduate extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => Members()));
+              .push(MaterialPageRoute(builder: (context) => Reservation()));
             },
           ),
           Divider(),
