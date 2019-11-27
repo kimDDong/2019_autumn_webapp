@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,8 @@ import 'package:untitled3/src/islogin.dart';
 import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/startpage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:device_id/device_id.dart';
 
 
 
@@ -20,26 +23,25 @@ FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
 void main() async {
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  runApp(
-      MyApp()
-  );
+
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget{
-
+class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  final db = Firestore.instance;
+
   @override
-
-
-  initState() { //Local Notification
+  initState() {
+    //Local Notification
     super.initState();
     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
     var initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
     var initializationSettingsIOS = IOSInitializationSettings(
         onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     var initializationSettings = InitializationSettings(
@@ -52,6 +54,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
 
     return ChangeNotifierProvider(
       builder: (_)=> Counter(),
@@ -97,12 +100,40 @@ class _MyAppState extends State<MyApp> {
         .push(MaterialPageRoute(builder: (context) => Notice()));
   }
 
-  void firebaseCloudMessaging_Listeners() {
-    if (Platform.isIOS) iOS_Permission();
+  void firebaseCloudMessaging_Listeners() async{
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
-    _firebaseMessaging.getToken().then((token){
-      print(token);
-    });
+//    if(db.collection('device').snapshots()){
+
+//    }
+    db.document('device');
+    if (Platform.isIOS) {
+      iOS_Permission();
+      IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
+      _firebaseMessaging.getToken().then((token) {
+        print(token);
+        db.collection('device').document(iosDeviceInfo.identifierForVendor).setData(
+            {
+              'token': token,
+            }
+            ,merge: true
+        );
+      });
+    }
+
+    if (Platform.isAndroid){
+      AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
+      _firebaseMessaging.getToken().then((token) {
+        print(token);
+        db.collection('device').document(androidDeviceInfo.androidId).setData(
+            {
+              'token': token,
+            }
+            ,merge: true
+        );
+      });
+    }
+
 
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
@@ -117,13 +148,12 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
+
   void iOS_Permission() {
     _firebaseMessaging.requestNotificationPermissions(
-        IosNotificationSettings(sound: true, badge: true, alert: true)
-    );
+        IosNotificationSettings(sound: true, badge: true, alert: true));
     _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings)
-    {
+        .listen((IosNotificationSettings settings) {
       print("Settings registered: $settings");
     });
   }

@@ -54,7 +54,7 @@ class GraduateSchool extends StatelessWidget {
               ],
             ),
           ),
-          /*3*/
+
           Icon(
             Icons.rss_feed,
             color: Colors.white,
@@ -100,7 +100,6 @@ class GraduateSchool extends StatelessWidget {
         },
       ),
     );
-
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
