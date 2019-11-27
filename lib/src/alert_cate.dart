@@ -18,7 +18,7 @@ class _AlertCategoryState extends State<AlertCategory> {
             title : Text('알림을 수신받을 방법을 선택하세요')
         ),
         body : ListView.builder(
-            itemCount: count(selected),
+            itemCount: select.countCate(),
             itemBuilder: (BuildContext context, int index){
               return Card(
                 child: Container(
@@ -39,13 +39,3 @@ class _AlertCategoryState extends State<AlertCategory> {
     );
   }
 }
-
-count(List selected){
-  if(selected.contains('None')){
-    return 1;
-  }
-  else{
-    return 4;
-  }
-}
-
