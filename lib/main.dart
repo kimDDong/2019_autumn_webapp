@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled3/src/addnotice.dart';
+import 'package:untitled3/src/grade.dart';
 import 'package:untitled3/src/home.dart';
 import 'package:untitled3/src/islogin.dart';
 import 'package:untitled3/src/notice.dart';
@@ -226,7 +227,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     new Home(),
-    Text("Test"),
+    new BarChartSample1(),
     new Quiz()
   ];
 
