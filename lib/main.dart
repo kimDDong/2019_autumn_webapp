@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled3/src/addnotice.dart';
+import 'package:untitled3/src/home.dart';
 import 'package:untitled3/src/islogin.dart';
 import 'package:untitled3/src/notice.dart';
 import 'package:untitled3/src/startpage.dart';
@@ -23,9 +24,11 @@ FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
 void main() async {
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
   runApp(MyApp());
 }
+
+
+
 
 class MyApp extends StatefulWidget {
   @override
@@ -60,10 +63,10 @@ class _MyAppState extends State<MyApp> {
       builder: (_)=> Counter(),
       child: MaterialApp(
         theme: ThemeData(
-          brightness:Brightness.dark,
+          primaryColor: Colors.white,
         ),
         title: "Hello",
-        home: StartUp(),
+        home: MyHomePage(),
       ),
     );
   }
@@ -169,4 +172,71 @@ class _MyAppState extends State<MyApp> {
         0, 'SElab 공지사항', body, platformChannelSpecifics,
         payload: 'item x');
   }
+}
+
+
+class MyHomePage extends StatefulWidget {
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+    ));
+
+    return Scaffold(
+//      endDrawer: MenuBar(),
+      body:_widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: bottomBar(),
+
+    );
+  }
+
+
+  Widget bottomBar(){
+    return BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          title: Text('HOME'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.grade),
+          title: Text('GRADE'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.question_answer),
+          title: Text('QUIZ'),
+        ),
+
+      ],
+      selectedItemColor: Colors.red,
+      currentIndex: _selectedIndex,
+      onTap: _onItemTapped,
+      unselectedItemColor: Colors.black45,
+    );
+  }
+  int _selectedIndex = 0;
+  static List<Widget> _widgetOptions = <Widget>[
+    new Home(),
+    Text("zㅜ"),
+    Text(
+      'Favorite',
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+
+
 }
