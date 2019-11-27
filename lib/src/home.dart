@@ -58,10 +58,7 @@ class _TabsState extends State<Tabs> {
         appBar: AppBar(
           title: Text("SELAB"),
           elevation: 0,
-          // If `TabController controller` is not provided, then a
-          // DefaultTabController ancestor must be provided instead.
-          // Another way is to use a self-defined controller, c.f. "Bottom tab
-          // bar" example.
+
           bottom: TabBar(
             tabs: _kTabs,
           ),
