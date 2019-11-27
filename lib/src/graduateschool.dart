@@ -16,10 +16,7 @@ class GraduateSchool extends StatelessWidget {
       endDrawer: MenuForGraduate(),
       body: ListView(
         children: <Widget>[
-          Image.asset(
-            'images/graduateshool.png',
-            width: size.width,
-          ),
+
           seGallery(size),
           noticeBanner(size),
           notice(),
@@ -164,7 +161,7 @@ class GraduateSchool extends StatelessWidget {
         children: <Widget>[
           InkWell(
             child: Card(
-              child: Image.asset('images/doo.png'),
+              child: Image.asset('images/img2.png'),
               margin: EdgeInsets.all(10),
               color: Colors.black12,
             ),
@@ -173,7 +170,7 @@ class GraduateSchool extends StatelessWidget {
           InkWell(
             child: Card(
               child: Image.asset(
-                'images/park.png',
+                'images/img3.png',
               ),
               margin: EdgeInsets.all(10),
               color: Colors.black12,
@@ -182,28 +179,13 @@ class GraduateSchool extends StatelessWidget {
           ),
           InkWell(
             child: Card(
-              child: Image.asset('images/logo.png'),
+              child: Image.asset('images/img4.png'),
               margin: EdgeInsets.all(10),
               color: Colors.black12,
             ),
             onTap: () {},
           ),
-          InkWell(
-            child: Card(
-              child: Text("여기에 사진을 넣는다~이말이야이말이야이말이야"),
-              margin: EdgeInsets.all(10),
-              color: Colors.black12,
-            ),
-            onTap: () {},
-          ),
-          InkWell(
-            child: Card(
-              child: Text("여기에 사진을 넣는다~이말이야이말이야이말이야"),
-              margin: EdgeInsets.all(10),
-              color: Colors.black12,
-            ),
-            onTap: () {},
-          ),
+
         ],
       ),
     );

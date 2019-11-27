@@ -28,9 +28,6 @@ void main() async {
   runApp(MyApp());
 }
 
-
-
-
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -226,6 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     new Home(),
+
     Text("Test"),
     new Quiz()
   ];

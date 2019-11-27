@@ -7,6 +7,7 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
+  polygon_clipper: ^1.0.2
   cloud_firestore:
   url_launcher: ^4.0.3
   firebase_auth: ^0.14.0+5
