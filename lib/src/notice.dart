@@ -111,8 +111,7 @@ class Notice extends StatelessWidget {
     );
   }
 
-  void _showDialog(
-      BuildContext context, Firestore db, DocumentSnapshot document) {
+  void _showDialog(BuildContext context, Firestore db, DocumentSnapshot document) {
     // flutter defined function
     showDialog(
       context: context,

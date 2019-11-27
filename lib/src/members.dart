@@ -14,7 +14,6 @@ class Members extends StatelessWidget {
     return Scaffold(
       appBar : AppBar(title : Text("Members")),
       body:
-
       StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance.collection('members').orderBy('number', descending: false).snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -68,7 +67,6 @@ class Members extends StatelessWidget {
 class Detail extends StatelessWidget {
   Detail({Key key, this.document}) : super(key: key);
   final DocumentSnapshot document;
-
 
   @override
   Widget build(BuildContext context) {
