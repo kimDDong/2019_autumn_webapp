@@ -10,6 +10,7 @@ import 'package:untitled3/src/addnotice.dart';
 import 'package:untitled3/src/home.dart';
 import 'package:untitled3/src/islogin.dart';
 import 'package:untitled3/src/notice.dart';
+import 'package:untitled3/src/quiz.dart';
 import 'package:untitled3/src/startpage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -225,10 +226,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     new Home(),
-    Text("zㅜ"),
-    Text(
-      'Favorite',
-    ),
+    Text("Test"),
+    new Quiz()
   ];
 
   void _onItemTapped(int index) {
