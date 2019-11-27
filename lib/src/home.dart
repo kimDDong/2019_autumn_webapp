@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:untitled3/src/members.dart';
+import 'package:untitled3/src/gallery.dart';
+import 'package:untitled3/src/about.dart';
+import 'package:untitled3/src/publication.dart';
+
 
 import 'package:provider/provider.dart';
+
 
 class Home extends StatefulWidget {
   // This widget is the root of your application.
@@ -35,16 +41,16 @@ class _TabsState extends State<Tabs> {
   @override
   Widget build(BuildContext context) {
     final _kTabPages = <Widget>[
-      Text("test"),
-      Text("test"),
-      Text("test"),
-      Text("test"),
+      Text("main"),
+      About(),
+      Gallery(),
+      Publication(),
     ];
     final _kTabs = <Tab>[
       Tab(text: 'Home'),
-      Tab(text: 'Event'),
-      Tab(text: 'Store'),
-      Tab(text: 'My'),
+      Tab(text: 'About'),
+      Tab(text: 'Galery'),
+      Tab(text: 'Publication'),
     ];
     return DefaultTabController(
       length: _kTabs.length,
@@ -52,6 +58,7 @@ class _TabsState extends State<Tabs> {
         appBar: AppBar(
           title: Text("SELAB"),
           elevation: 0,
+
           bottom: TabBar(
             tabs: _kTabs,
           ),

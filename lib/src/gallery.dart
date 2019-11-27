@@ -15,7 +15,7 @@ class Gallery extends StatelessWidget {
     Choice('Social Activity',   Icons.public),
     Choice('Conference',  Icons.business_center),
     Choice('ETC',  Icons.more_horiz),
-
+//    Choice('Conference',  Icons.business_center),
   ];
 
   @override
@@ -23,18 +23,15 @@ class Gallery extends StatelessWidget {
     return DefaultTabController(
       length: choices.length,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Gallery'),
-          bottom: TabBar(
+        appBar: TabBar(
             tabs: choices.map((Choice choice) {
               return Tab(
                 text: choice.text,
                 icon: Icon(choice.icon),
               );
             }).toList(),
-            isScrollable: true,
+            isScrollable: false,
           ),
-        ),
         body: TabBarView(
           children: choices.map((Choice choice) {
             return ChoiceCard(
