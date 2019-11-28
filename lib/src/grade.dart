@@ -4,6 +4,9 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled3/src/islogin.dart';
+import 'package:untitled3/src/login.dart';
 import 'package:untitled3/src/sign_in.dart';
 
 class BarChartSample1 extends StatefulWidget {
@@ -12,22 +15,10 @@ class BarChartSample1 extends StatefulWidget {
 }
 
 class BarChartSample1State extends State<BarChartSample1> {
-  double number = 10.0;
   double a = 0;
   double b = 0;
   double c = 0;
   double d = 0;
-
-//
-//  DocumentSnapshot document;
-//  final db = Firestore.instance
-//      .collection('student')
-//      .document('$email').snapshots();
-//  QuerySnapshot eventsQuery = await db
-//      .where("time", isGreaterThan: new DateTime.now().millisecondsSinceEpoch)
-//      .where("food", isEqualTo: true)
-//      .getDocuments();
-
 
   final Color barBackgroundColor = const Color(0xff72d8bf);
   final Duration animDuration = Duration(milliseconds: 250);
@@ -36,50 +27,57 @@ class BarChartSample1State extends State<BarChartSample1> {
 
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
-      body: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance
-              .collection('student')
-              .snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) return new Text('Error : ${snapshot.error}');
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return new Text('Loading...');
-              default:
-                return new Wrap(
+    final counter = Provider.of<Counter>(context);
+    if (counter.getCounter() == 0) {
+      return LoginPage();
+    } else {
+      return Scaffold(
+        body: StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance
+                .collection('student')
+              .where('email',isEqualTo: '$email')
+                .snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError)
+                return new Text('Error : ${snapshot.error}');
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return new Text('Loading...');
+                default:
+                  return new Wrap(
 //                  itemExtent: 80,
-                  children: snapshot.data.documents
-                      .map((document) => _buildListItem(context, document))
-                      .toList(),
-                );
-            }
-          }),
-    );
+                    children: snapshot.data.documents
+                        .map((document) => _buildListItem(context, document))
+                        .toList(),
+                  );
+              }
+            }),
+      );
+    }
   }
 
   @override
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
-    a = double.parse(document['grade_attendance'].toString()) ;
+    a = double.parse(document['grade_absent'].toString());
     b = double.parse(document['grade_final'].toString());
     c = double.parse(document['grade_mid'].toString());
     d = double.parse(document['grade_quiz'].toString());
-    print("dddddd : " + d.toString());
     return Column(
       children: <Widget>[
+
         Container(
           height: 300,
         ),
+        Text('30점 만점 기준'),
         AspectRatio(
           aspectRatio: 1,
           child: Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-            color: Colors.blueGrey,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+            color: Colors.black12,
             child: Stack(
               children: <Widget>[
-
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -90,15 +88,19 @@ class BarChartSample1State extends State<BarChartSample1> {
                       Text(
                         'Grade',
                         style: TextStyle(
-                            color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 4,
                       ),
                       Text(
-                        'Your name',
+                        '$name',
                         style: TextStyle(
-                            color: Colors.white30, fontSize: 18, fontWeight: FontWeight.bold),
+                            color: Colors.white30,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 38,
@@ -106,7 +108,8 @@ class BarChartSample1State extends State<BarChartSample1> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: BarChart(mainBarData(),
+                          child: BarChart(
+                            mainBarData(),
                             swapAnimationDuration: animDuration,
                           ),
                         ),
@@ -132,50 +135,54 @@ class BarChartSample1State extends State<BarChartSample1> {
   }
 
   BarChartGroupData makeGroupData(
-      int x,
-      double y, {
-        bool isTouched = false,
-        Color barColor = Colors.white,
-        double width = 22,
-        List<int> showTooltips = const [],
-      }) {
-    return BarChartGroupData(x: x, barRods: [
-      BarChartRodData(
-        y: isTouched ? y + 1 : y,
-        color: isTouched ? Colors.yellow : barColor,
-        width: width,
-        isRound: true,
-        backDrawRodData: BackgroundBarChartRodData(
-          show: true,
-          y:31,
-          color: Colors.black87,
+    int x,
+    double y, {
+    bool isTouched = false,
+    Color barColor = Colors.white,
+    double width = 20,
+    List<int> showTooltips = const [],
+  }) {
+    return BarChartGroupData(
+      x: x,
+      barRods: [
+        BarChartRodData(
+          y: isTouched ? y + 1 : y,
+          color: isTouched ? Colors.yellow : barColor,
+          width: width,
+          isRound: true,
+          backDrawRodData: BackgroundBarChartRodData(
+            show: true,
+            y: 30,
+            color: Colors.white12,
+          ),
         ),
-      ),
-    ], showingTooltipIndicators: showTooltips,
+      ],
+      showingTooltipIndicators: showTooltips,
     );
   }
 
   List<BarChartGroupData> showingGroups() => List.generate(4, (i) {
 //    print(a);
-    switch (i) {
-      case 0:
-        return makeGroupData(0, a, isTouched: i == touchedIndex);
-      case 1:
-        return makeGroupData(1, b, isTouched: i == touchedIndex);
-      case 2:
-        return makeGroupData(2, c, isTouched: i == touchedIndex);
-      case 3:
-        return makeGroupData(3, d, isTouched: i == touchedIndex);
-      default:
-        return null;
-    }
-  });
+        switch (i) {
+          case 0:
+            return makeGroupData(0, (16 - a) * 30 / 16,
+                isTouched: i == touchedIndex);
+          case 1:
+            return makeGroupData(1, b, isTouched: i == touchedIndex);
+          case 2:
+            return makeGroupData(2, c, isTouched: i == touchedIndex);
+          case 3:
+            return makeGroupData(3, d * 30 / 16, isTouched: i == touchedIndex);
+          default:
+            return null;
+        }
+      });
 
   BarChartData mainBarData() {
     return BarChartData(
       barTouchData: BarTouchData(
           touchTooltipData: BarTouchTooltipData(
-              tooltipBgColor: Colors.white30,
+              tooltipBgColor: Colors.black26,
               getTooltipItem: (group, groupIndex, rod, rodIndex) {
                 String weekDay;
                 switch (group.x.toInt()) {
@@ -192,31 +199,28 @@ class BarChartSample1State extends State<BarChartSample1> {
                     weekDay = 'Quiz';
                     break;
                 }
-                return
-                  BarTooltipItem(
-                      weekDay + '\n' + (rod.y - 1).toString(),
-                      TextStyle(color: Colors.yellow));
+                return BarTooltipItem(weekDay + '\n' + (rod.y).toString(),
+                    TextStyle(color: Colors.yellow));
               }),
-          touchCallback: (barTouchResponse) {
-          }
-      ),
+          ),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
             showTitles: true,
-            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
-            margin: 16,
+            textStyle: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+            margin: 15,
             getTitles: (double value) {
               print("check");
               switch (value.toInt()) {
                 case 0:
-                  return 'Attendance';
+                  return 'Attendance\n'+a.toString();
                 case 1:
-                  return 'Midterm';
+                  return 'Midterm\n'+b.toString();
                 case 2:
-                  return 'Final';
+                  return 'Final\n'+c.toString();
                 case 3:
-                  return 'Quiz';
+                  return 'Quiz\n'+d.toString();
                 default:
                   return '';
               }
@@ -229,7 +233,6 @@ class BarChartSample1State extends State<BarChartSample1> {
       borderData: FlBorderData(
         show: false,
       ),
-
       barGroups: showingGroups(),
     );
   }
