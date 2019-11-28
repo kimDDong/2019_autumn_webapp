@@ -41,14 +41,16 @@ class _TabsState extends State<Tabs> {
   @override
   Widget build(BuildContext context) {
     final _kTabPages = <Widget>[
-      Text("main"),
+      Text(""),
       About(),
+      Members(),
       Gallery(),
       Publication(),
     ];
     final _kTabs = <Tab>[
       Tab(text: 'Home'),
-      Tab(text: 'About'),
+      Tab(text: 'Research'),
+      Tab(text: 'Members'),
       Tab(text: 'Galery'),
       Tab(text: 'Publication'),
     ];
