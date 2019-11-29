@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/src/showpub.dart';
+import 'package:untitled3/src/home/showpub.dart';
 
 class Publication extends StatelessWidget {
   @override

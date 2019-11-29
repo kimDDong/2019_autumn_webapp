@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/Home1.dart';
-import 'package:untitled3/src/addnotice.dart';
-import 'package:untitled3/src/grade.dart';
-import 'package:untitled3/src/home.dart';
-import 'package:untitled3/src/islogin.dart';
-import 'package:untitled3/src/notice.dart';
-import 'package:untitled3/src/quiz.dart';
-import 'package:untitled3/src/startpage.dart';
+import 'package:untitled3/src/home/labHome.dart';
+import 'package:untitled3/src/home/addnotice.dart';
+import 'package:untitled3/src/grade/grade.dart';
+import 'package:untitled3/src/home/home.dart';
+import 'package:untitled3/src/sign/islogin.dart';
+import 'package:untitled3/src/home/notice.dart';
+import 'package:untitled3/src/quiz/quiz.dart';
+import 'package:untitled3/src/etc/startpage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:device_id/device_id.dart';
@@ -217,7 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
 
       ],
-      selectedItemColor: Colors.orange,
+      selectedItemColor: Colors.orangeAccent,
       currentIndex: _selectedIndex,
       onTap: _onItemTapped,
       unselectedItemColor: Colors.white,

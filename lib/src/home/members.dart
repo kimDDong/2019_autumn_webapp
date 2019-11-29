@@ -33,82 +33,59 @@ class Members extends StatelessWidget {
   }
 
   Widget makeRowItem(BuildContext ctx, DocumentSnapshot document) {
-    return Center(
-      child: Container(
-        margin : EdgeInsets.only(right : 10),
-//        decoration: BoxDecoration(
-//          border: Border.all(),
-//        ),
-        color: Colors.lightBlue[1],
-        child: ListTile(
-          title: Row(
-            // 옆
-            children: <Widget>[
-              Container(
-                  margin: EdgeInsets.only(right: 15),
-                  width: 50,
-                  height: 50,
-                  decoration: new BoxDecoration(
-//                image: DecorationImage(
-//                  image : new Image.network(document['image'], width : 300, height :240, fit:BoxFit.contain)
-//                ),
-//                color: Colors.orange,
-                    shape: BoxShape.circle,
-                  ),
-                  child: CircleAvatar(
-                    radius: 30.0,
-                    backgroundImage: NetworkImage(document['image']),
-                    backgroundColor: Colors.transparent,
-                  )
-//              child: Image.network(document['image'], width : 300, height :240, fit:BoxFit.contain)
-                  ),
-              Container(
-                width: 0,
-                height: 50,
-                margin: EdgeInsets.only(left: 10, right: 20),
-                decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(width: 1.0, color: Colors.grey[400]),
-                    ),
-                    color: Colors.grey[200]),
-              ),
-              Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: Text(document['name'],
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 19, color: Colors.black)),
-                    ),
-                    Container(
-                      child: Text(document['position'],
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.pink)),
-                    ),
-                  ],
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return Container(
+          decoration: BoxDecoration(
+            color: Colors.white38,
+            borderRadius: BorderRadius.all(Radius.circular(20))
+          ),
+          margin: EdgeInsets.only(left: 10,right: 10,top: 7.5,bottom: 7.5),
+          child: ListTile(
+            leading: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                  radius: 25.0,
+                  backgroundImage: NetworkImage(document['image']),
+                  backgroundColor: Colors.transparent,
+                ),
+              ],
+            ),
+            title: Container(
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.only(left: 10),
+              decoration: BoxDecoration(
+                border: Border(
+                  left: BorderSide(width: 1.0, color: Colors.grey[400]),
                 ),
               ),
-              Icon(
-                Icons.play_arrow,
-                size: 40,
-
-              )
-            ],
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: Text(document['name'],
+                        textAlign: TextAlign.left,
+                        style: TextStyle(fontSize: 19, color: Colors.black)),
+                  ),
+                  Container(
+                    child: Text(document['position'],
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.orange)),
+                  ),
+                ],
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                  ctx,
+                  MaterialPageRoute<void>(
+                      builder: (BuildContext context) =>
+                          Detail(document: document)));
+            },
           ),
-          onTap: () {
-            Navigator.push(
-                ctx,
-                MaterialPageRoute<void>(
-                    builder: (BuildContext context) =>
-                        Detail(document: document)));
-          },
-        ),
-      ),
     );
   }
 }

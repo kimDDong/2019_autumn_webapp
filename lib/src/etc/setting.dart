@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/src/alert_cate.dart';
-import 'package:untitled3/src/alert_howto.dart';
-import 'package:untitled3/src/disturbmode.dart';
+import 'package:untitled3/src/etc/alert_cate.dart';
+import 'package:untitled3/src/etc/alert_howto.dart';
+import 'package:untitled3/src/etc/disturbmode.dart';
 
 class Setting extends StatelessWidget {
   @override

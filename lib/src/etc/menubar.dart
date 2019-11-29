@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/course2.dart';
-import 'package:untitled3/src/info.dart';
-import 'package:untitled3/src/islogin.dart';
-import 'package:untitled3/src/login.dart';
-import 'package:untitled3/src/notice.dart';
-import 'package:untitled3/src/publication.dart';
-import 'package:untitled3/src/setting.dart';
-import 'package:untitled3/src/startpage.dart';
-import 'package:untitled3/src/research.dart';
-import 'package:untitled3/src/members.dart';
-import 'package:untitled3/src/gallery.dart';
-import 'package:untitled3/src/my_test.dart';
+import 'package:untitled3/src/etc/course2.dart';
+import 'package:untitled3/src/etc/info.dart';
+import 'package:untitled3/src/sign/islogin.dart';
+import 'package:untitled3/src/sign/login.dart';
+import 'package:untitled3/src/home/notice.dart';
+import 'package:untitled3/src/home/publication.dart';
+import 'package:untitled3/src/etc/setting.dart';
+import 'package:untitled3/src/etc/startpage.dart';
+import 'package:untitled3/src/etc/research.dart';
+import 'package:untitled3/src/home/members.dart';
+import 'package:untitled3/src/etc/gallery.dart';
+import 'package:untitled3/src/etc/my_test.dart';
 
 import 'contact.dart';
 

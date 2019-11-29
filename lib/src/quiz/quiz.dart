@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/islogin.dart';
+import 'package:untitled3/src/sign/islogin.dart';
 
 class Quiz extends StatefulWidget {
   @override
@@ -46,10 +46,19 @@ class _QuizState extends State<Quiz> {
     final counter = Provider.of<Counter>(context);
 
     return Scaffold(
-//      appBar: AppBar(
-//        title: Text("Quiz"),
-//        elevation: 0,
-//      ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Container(height:100,child: Image.asset('images/logo.png')),
+        elevation: 0,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: (){
+
+            },
+          )
+        ],
+      ),
       body: getQuiz(),
     );
   }
@@ -141,16 +150,15 @@ class _QuizState extends State<Quiz> {
               key: _formKey,
               child: new TextFormField(
                 decoration: new InputDecoration(
-                  labelStyle: TextStyle(color: Colors.black45),
-                  labelText: "Answer",
-                  fillColor: Colors.black,
+                  labelStyle: TextStyle(color: Colors.orange),
+                  fillColor: Colors.orange,
                   focusedBorder: new OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(25.0),
-                    borderSide: new BorderSide(color: Colors.black45),
+                    borderSide: new BorderSide(color: Colors.orange),
                   ),
                   border: new OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(25.0),
-                    borderSide: new BorderSide(color: Colors.black45),
+                    borderSide: new BorderSide(color: Colors.orange),
                   ),
                 ),
                 style: TextStyle(
@@ -183,17 +191,23 @@ class _QuizState extends State<Quiz> {
               _showDialog(context);
             }
           },
-          child: Text(
-            "Submit",
-            style: TextStyle(color: Colors.white),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "Submit",
+                textScaleFactor: 2,
+                style: TextStyle(color: Colors.white),
+              ),
+              quizEndTime(document)
+            ],
           ),
-          color: Colors.blue,
+          color: Colors.orange,
         )));
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        quizEndTime(document),
         Container(
           margin: EdgeInsets.all(10),
           child: Column(
@@ -276,11 +290,18 @@ class _QuizState extends State<Quiz> {
                     isSubmit = true;
                   });
                 },
-          child: Text(
-            "Submit",
-            style: TextStyle(color: Colors.white),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "Submit",
+                textScaleFactor: 2,
+                style: TextStyle(color: Colors.white),
+              ),
+              quizEndTime(document)
+            ],
           ),
-          color: isSubmit ? Colors.black12 : Colors.blue,
+          color: isSubmit ? Colors.black12 : Colors.orange,
         )));
 
     return Column(
@@ -387,20 +408,16 @@ class _QuizState extends State<Quiz> {
   Widget quizEndTime(DocumentSnapshot document) {
     return Center(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(
-            "END IN  ",
-            textScaleFactor: 3,
-          ),
           Text(
             document['endTime']
                 .toDate()
                 .difference(now)
                 .toString()
                 .split('.')[0],
-            textScaleFactor: 3,
+            textScaleFactor:1,
           )
         ],
       ),

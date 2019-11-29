@@ -2,18 +2,17 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled3/src/notice.dart';
-import 'package:untitled3/src/course2.dart';
+import 'package:untitled3/src/home/notice.dart';
+import 'package:untitled3/src/etc/course2.dart';
 import 'package:date_format/date_format.dart';
-import 'menubar.dart';
+import '../etc/menubar.dart';
 
-class Home1 extends StatelessWidget{
+class LabHome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     final Size size = MediaQuery.of(context).size;
     return Material(
-
       child: Column(
         children: <Widget>[
           seGallery(size),
