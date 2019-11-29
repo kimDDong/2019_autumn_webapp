@@ -6,9 +6,6 @@ import 'package:untitled3/src/about.dart';
 import 'package:untitled3/src/publication.dart';
 
 
-import 'package:provider/provider.dart';
-
-
 class Home extends StatefulWidget {
   // This widget is the root of your application.
   @override

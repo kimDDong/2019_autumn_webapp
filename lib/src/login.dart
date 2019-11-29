@@ -42,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {
         signInWithGoogle().whenComplete(() {
           counter.increment();
-          Navigator.of(context).pop();
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40),),
