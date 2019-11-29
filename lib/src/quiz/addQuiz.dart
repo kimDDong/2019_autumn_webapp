@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/src/quiz/addBlankQuiz.dart';
 import 'package:untitled3/src/quiz/addChoiceQuiz.dart';
 
 class AddQuiz extends StatefulWidget{
@@ -10,8 +11,9 @@ class _AddQuizState extends State<AddQuiz> {
   @override
   Widget build(BuildContext context) {
     final _kTabPages = <Widget>[
+
+      BlankQuiz(),
       ChoiceQuiz(),
-      Text("asd")
     ];
     final _kTabs = <Tab>[
       Tab(child: Text("BLANK")),

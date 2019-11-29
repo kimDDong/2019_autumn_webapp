@@ -308,7 +308,6 @@ class _QuizState extends State<Quiz> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        quizEndTime(document),
         Container(
           margin: EdgeInsets.all(10),
           child: Column(
