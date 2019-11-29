@@ -48,11 +48,11 @@ class _TabsState extends State<Tabs> {
       Publication(),
     ];
     final _kTabs = <Tab>[
-      Tab(text: 'Home'),
-      Tab(text: 'Research'),
-      Tab(text: 'Members'),
-      Tab(text: 'Galery'),
-      Tab(text: 'Publication'),
+      Tab(child: Text("Home",textScaleFactor: 0.8,)),
+      Tab(child: Text("Research",textScaleFactor: 0.8,),),
+      Tab(child: Text("Members",textScaleFactor: 0.8,),),
+      Tab(child: Text("Gallery",textScaleFactor: 0.8,),),
+      Tab(child: Text("Publication",textScaleFactor: 0.7,),),
     ];
     return DefaultTabController(
       length: _kTabs.length,
