@@ -27,6 +27,7 @@ dependencies:
   firebase_messaging:
   device_info:
   date_format:
+  flutter_datetime_picker: ^1.2.8
 
 dev_dependencies:
   flutter_test:

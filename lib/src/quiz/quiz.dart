@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled3/src/quiz/addQuiz.dart';
 import 'package:untitled3/src/sign/islogin.dart';
 
 class Quiz extends StatefulWidget {
@@ -54,7 +55,7 @@ class _QuizState extends State<Quiz> {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: (){
-
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddQuiz()));
             },
           )
         ],
@@ -119,7 +120,7 @@ class _QuizState extends State<Quiz> {
   }
 
   Widget blankQBuild(DocumentSnapshot document) {
-    var questions = document['question'].replaceAll("\\n", "\n").split("\\b\\");
+    var questions = document['question'].replaceAll("\\n", "\n").split("\\blank\\");
     List<Widget> list = new List<Widget>();
     list.add(Container(
       margin: EdgeInsets.only(bottom: 20),
