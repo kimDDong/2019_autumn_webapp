@@ -34,15 +34,22 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+
+  @override
+  void dispose() {
+    _everySecond.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final counter = Provider.of<Counter>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Quiz"),
-        elevation: 0,
-      ),
+//      appBar: AppBar(
+//        title: Text("Quiz"),
+//        elevation: 0,
+//      ),
       body: getQuiz(),
     );
   }
@@ -62,7 +69,13 @@ class _QuizState extends State<Quiz> {
           );
         } else {
           if (snapshot.data.documents.isEmpty)
-            return Center(child: Text("준비중"));
+            return Center(child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircularProgressIndicator(),
+                Container(margin:EdgeInsets.only(top:20),child: Text("Building Quiz....")),
+              ],
+            ));
           else {
             if (snapshot.data.documents[0]['startTime']
                     .toDate()
@@ -84,7 +97,7 @@ class _QuizState extends State<Quiz> {
                       textScaleFactor: 3,
                     ),
                     Text("Answerer is " +
-                        snapshot.data.documents[0]['answerer'][1])
+                        snapshot.data.documents[0]['Winner is'][0])
                   ],
                 ),
               );
@@ -223,7 +236,7 @@ class _QuizState extends State<Quiz> {
               height: 20,
               child: Center(
                   child: Text(
-                i.toString(),
+                    (i+1).toString(),
                 style: TextStyle(color: Colors.white),
               )),
             ),

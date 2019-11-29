@@ -11,7 +11,8 @@ class ShowPublication extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title : Text('$category')
+        title : Text('$category'),
+        elevation: 0,
       ),
       body: StreamBuilder(
         stream : Firestore.instance
@@ -28,7 +29,9 @@ class ShowPublication extends StatelessWidget {
                   _buildListItem(context, snapshot.data.documents[index]),
                   Divider(
                     height: 10,
-                    color: Colors.white,
+                    color: Colors.black45,
+                    indent: 10,
+                    endIndent: 10,
                   )
                 ],
               );
@@ -39,52 +42,55 @@ class ShowPublication extends StatelessWidget {
     );
   }
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
-    return ExpandablePanel(
-      header: Text(
-        document['title'],
-        textScaleFactor: 1.5,
-        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange[400]),
+    return Container(
+      margin: EdgeInsets.only(left: 10,right: 10),
+      child: ExpandablePanel(
+        header: Text(
+          document['title'],
+          textScaleFactor: 1.5,
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange[400]),
 
-      ),
-      collapsed: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          '\n'+document['writer'],
-          softWrap: true,
-          overflow: TextOverflow.ellipsis,
-          textDirection: TextDirection.ltr,
         ),
-      ),
-      expanded: Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(15),
-            child: Text(
-              document['writer'],
-              softWrap: true,
-              textScaleFactor: 1.5,
-            ),
+        collapsed: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            '\n'+document['writer'],
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,
+            textDirection: TextDirection.ltr,
           ),
-          Container(
-            padding: EdgeInsets.all(15),
-            child: Text(
-              document['Inproc.'],
-              softWrap: true,
-              textScaleFactor: 1.5,
+        ),
+        expanded: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(15),
+              child: Text(
+                document['writer'],
+                softWrap: true,
+                textScaleFactor: 1.5,
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(15),
-            child : ListTile(
-              onTap: (){
-                _launchURL(document['pdf']);
-              },
-              title: Text('Download the pdf',style : TextStyle(color : Colors.blue)),
+            Container(
+              padding: EdgeInsets.all(15),
+              child: Text(
+                document['Inproc.'],
+                softWrap: true,
+                textScaleFactor: 1.5,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(15),
+              child : ListTile(
+                onTap: (){
+                  _launchURL(document['pdf']);
+                },
+                title: Text('Download the pdf',style : TextStyle(color : Colors.blue)),
+              )
             )
-          )
-        ],
+          ],
+        ),
+        tapHeaderToExpand: true,
       ),
-      tapHeaderToExpand: true,
     );
   }
 }

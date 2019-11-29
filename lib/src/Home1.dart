@@ -12,15 +12,16 @@ class Home1 extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     final Size size = MediaQuery.of(context).size;
-    return Column(
-      children: <Widget>[
-        seGallery(size),
-        notice(context),
-        Course(context),
+    return Material(
 
-
-      ],
-      crossAxisAlignment: CrossAxisAlignment.center,
+      child: Column(
+        children: <Widget>[
+          seGallery(size),
+          notice(context),
+          Course(context),
+        ],
+        crossAxisAlignment: CrossAxisAlignment.center,
+      ),
     );
   }
 
@@ -61,9 +62,6 @@ class Home1 extends StatelessWidget{
                   margin: EdgeInsets.only(right: 0),
                   width: 50,
                   height: 50,
-
-
-
 
                 ),
                 Container(

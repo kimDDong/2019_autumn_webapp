@@ -29,6 +29,7 @@
 .pub/
 /build/
 /functions/src/config.js
+GoogleService-Info.plist
 
 # Android related
 **/android/**/gradle-wrapper.jar

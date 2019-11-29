@@ -26,6 +26,7 @@ dependencies:
   firebase:
   firebase_messaging:
   device_info:
+  date_format:
 
 dev_dependencies:
   flutter_test:

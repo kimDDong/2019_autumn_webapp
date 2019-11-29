@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:untitled3/src/Home1.dart';
 import 'package:untitled3/src/members.dart';
 import 'package:untitled3/src/gallery.dart';
 import 'package:untitled3/src/about.dart';
@@ -15,12 +16,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-    ));
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.white,
+//        primaryColor: Colors.white,
+        brightness: Brightness.dark
       ),
       home: Tabs(),
     );
@@ -38,7 +37,7 @@ class _TabsState extends State<Tabs> {
   @override
   Widget build(BuildContext context) {
     final _kTabPages = <Widget>[
-      Text(""),
+      Home1(),
       About(),
       Members(),
       Gallery(),
