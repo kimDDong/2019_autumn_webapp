@@ -1,8 +1,8 @@
 import 'dart:ui' as prefix0;
 
 import 'package:flutter/material.dart';
-import 'package:untitled3/src/course.dart';
-import 'package:untitled3/src/menubar.dart';
+import 'package:untitled3/src/etc/course.dart';
+import 'package:untitled3/src/etc/menubar.dart';
 
 class UnderGraduate extends StatelessWidget {
   @override

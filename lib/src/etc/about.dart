@@ -308,6 +308,7 @@ class About extends StatelessWidget {
         ],
         child: Image.network(
           img,
+
           cacheWidth: size,
         ),
       ),

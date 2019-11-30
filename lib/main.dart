@@ -6,17 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/addnotice.dart';
-import 'package:untitled3/src/grade.dart';
-import 'package:untitled3/src/home.dart';
-import 'package:untitled3/src/islogin.dart';
-import 'package:untitled3/src/notice.dart';
-import 'package:untitled3/src/quiz.dart';
-import 'package:untitled3/src/startpage.dart';
+import 'package:untitled3/src/home/labHome.dart';
+import 'package:untitled3/src/home/addnotice.dart';
+import 'package:untitled3/src/grade/grade.dart';
+import 'package:untitled3/src/home/home.dart';
+import 'package:untitled3/src/sign/islogin.dart';
+import 'package:untitled3/src/home/notice.dart';
+import 'package:untitled3/src/quiz/quiz.dart';
+import 'package:untitled3/src/etc/startpage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:device_id/device_id.dart';
 
+const bool kIsWeb = identical(0, 0.0);
 
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -50,8 +52,9 @@ class _MyAppState extends State<MyApp> {
         initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
-
-    firebaseCloudMessaging_Listeners(); // firebase message
+    if(!kIsWeb){
+      firebaseCloudMessaging_Listeners(); // firebase message
+    }
   }
 
   @override
@@ -62,7 +65,8 @@ class _MyAppState extends State<MyApp> {
       builder: (_)=> Counter(),
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor: Colors.white,
+//          primaryColor: Colors.white,
+          brightness: Brightness.dark
         ),
         title: "Hello",
         home: MyHomePage(),
@@ -105,9 +109,6 @@ class _MyAppState extends State<MyApp> {
   void firebaseCloudMessaging_Listeners() async{
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
-//    if(db.collection('device').snapshots()){
-
-//    }
     db.document('device');
     if (Platform.isIOS) {
       iOS_Permission();
@@ -185,11 +186,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-    ));
+//    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+//      statusBarColor: Colors.black
+//    ));
 
     return Scaffold(
+
 //      endDrawer: MenuBar(),
       body:_widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: bottomBar(),
@@ -215,10 +217,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
 
       ],
-      selectedItemColor: Colors.red,
+      selectedItemColor: Colors.orangeAccent,
       currentIndex: _selectedIndex,
       onTap: _onItemTapped,
-      unselectedItemColor: Colors.black45,
+      unselectedItemColor: Colors.white,
     );
   }
   int _selectedIndex = 0;

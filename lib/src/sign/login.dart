@@ -3,11 +3,11 @@ import 'dart:ui' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/info.dart';
-import 'package:untitled3/src/islogin.dart';
-import 'package:untitled3/src/sign_in.dart';
-import 'package:untitled3/src/startpage.dart';
-import 'menubar.dart';
+import 'package:untitled3/src/etc/info.dart';
+import 'package:untitled3/src/sign/islogin.dart';
+import 'package:untitled3/src/sign/sign_in.dart';
+import 'package:untitled3/src/etc/startpage.dart';
+import '../etc/menubar.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -42,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {
         signInWithGoogle().whenComplete(() {
           counter.increment();
-          Navigator.of(context).pop();
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40),),
