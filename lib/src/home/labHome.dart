@@ -16,7 +16,7 @@ class LabHome extends StatelessWidget{
       child: Column(
         children: <Widget>[
           Image.asset(
-            'images/logo.png',
+            'images/logo.png ',
             width: size.width,
             height: 150,
           ),
@@ -100,7 +100,7 @@ class LabHome extends StatelessWidget{
                   children: <Widget>[
                     Icon(
                       Icons.lens,
-                      color: Colors.orange[300],
+                      color: Colors.orange[400],
                       size: 12,
                     ),
 
