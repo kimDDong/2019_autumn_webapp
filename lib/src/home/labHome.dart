@@ -15,7 +15,7 @@ class LabHome extends StatelessWidget{
     return Material(
       child: Column(
         children: <Widget>[
-          seGallery(size),
+          Container(child: Image.asset('images/hanyang.png'),margin: EdgeInsets.only(left: 30,right: 30),),
           notice(context),
           Course(context),
         ],
