@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled3/src/quiz/addQuiz.dart';
+import 'package:untitled3/src/quiz/leaderBoard.dart';
 import 'package:untitled3/src/sign/islogin.dart';
 
 class Quiz extends StatefulWidget {
@@ -59,6 +60,13 @@ class _QuizState extends State<Quiz> {
             },
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LeaderBoard()));
+        },
+        backgroundColor: Colors.white30,
+        child: Icon(Icons.school,color: Colors.white,),
       ),
       body: getQuiz(),
     );
