@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:untitled3/src/etc/course2.dart';
 import 'package:untitled3/src/home/labHome.dart';
 import 'package:untitled3/src/home/members.dart';
 import 'package:untitled3/src/etc/gallery.dart';
@@ -23,13 +24,15 @@ class _HomeState extends State<Home> {
       Members(),
       Gallery(),
       Publication(),
+      CoursePage2(),
     ];
     final _kTabs = <Tab>[
-      Tab(child: Text("Home",textScaleFactor: 0.8,)),
-      Tab(child: Text("Research",textScaleFactor: 0.8,),),
-      Tab(child: Text("Members",textScaleFactor: 0.8,),),
-      Tab(child: Text("Gallery",textScaleFactor: 0.8,),),
-      Tab(child: Text("Publication",textScaleFactor: 0.7,),),
+      Tab(child: Text("Home")),
+      Tab(child: Text("Research"),),
+      Tab(child: Text("Members"),),
+      Tab(child: Text("Gallery"),),
+      Tab(child: Text("Publication"),),
+      Tab(child: Text("Course"),),
     ];
     return DefaultTabController(
       length: _kTabs.length,
@@ -43,6 +46,7 @@ class _HomeState extends State<Home> {
             unselectedLabelColor: Colors.white54,
             labelColor: Colors.white,
             tabs: _kTabs,
+            isScrollable: true,
           ),
         ),
         body: TabBarView(
