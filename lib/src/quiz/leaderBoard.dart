@@ -88,7 +88,6 @@ class _LeaderBoardState extends State<LeaderBoard> {
   }
 
 
-
   String int2Ordinal(int i) {
     switch (i % 10) {
       case 1:

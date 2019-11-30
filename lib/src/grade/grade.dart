@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/newlog/pages/login_signup_page.dart';
+import 'package:untitled3/src/grade/manageStudent.dart';
 import 'package:untitled3/src/sign/islogin.dart';
 import 'package:untitled3/src/sign/login.dart';
 import 'package:untitled3/src/sign/sign_in.dart';
@@ -33,6 +33,19 @@ class BarChartSample1State extends State<BarChartSample1> {
       return LoginPage();
     } else {
       return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Container(height: 100, child: Image.asset('images/logo.png')),
+          elevation: 0,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ManageStudent()));
+              },
+            )
+          ],
+        ),
         body: StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance
                 .collection('student')
@@ -58,18 +71,16 @@ class BarChartSample1State extends State<BarChartSample1> {
     }
   }
 
-  @override
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     a = double.parse(document['grade_absent'].toString());
     b = double.parse(document['grade_final'].toString());
     c = double.parse(document['grade_mid'].toString());
     d = double.parse(document['grade_quiz'].toString());
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
 
-        Container(
-          height: 300,
-        ),
+        Text('30점 만점 기준'),
         AspectRatio(
           aspectRatio: 1,
           child: Container(

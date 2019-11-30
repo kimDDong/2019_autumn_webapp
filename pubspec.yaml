@@ -30,11 +30,21 @@ dependencies:
   device_info:
   date_format:
   flutter_datetime_picker: ^1.2.8
+  firebase_storage: ^3.0.8
+  flutter_picker: ^1.1.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: "^0.7.3"
+
+
+flutter_icons:
+  image_path: "images/icon.png"
+  android: true
+  ios: true
 
 
 flutter:

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 
-import 'addnotice.dart';
+
 
 class Members extends StatelessWidget {
   @override
@@ -35,7 +35,7 @@ class Members extends StatelessWidget {
   Widget makeRowItem(BuildContext ctx, DocumentSnapshot document) {
     return Container(
           decoration: BoxDecoration(
-            color: Colors.white38,
+            color: Colors.grey[800],
             borderRadius: BorderRadius.all(Radius.circular(20))
           ),
           margin: EdgeInsets.only(left: 10,right: 10,top: 7.5,bottom: 7.5),
@@ -63,7 +63,7 @@ class Members extends StatelessWidget {
                   Container(
                     child: Text(document['name'],
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 19, color: Colors.black)),
+                        style: TextStyle(fontSize: 19, color: Colors.white)),
                   ),
                   Container(
                     child: Text(document['position'],
@@ -71,7 +71,7 @@ class Members extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
-                            color: Colors.orange)),
+                            color: Colors.orangeAccent)),
                   ),
                 ],
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +140,9 @@ class Detail extends StatelessWidget {
                   margin: EdgeInsets.only(top : 10)
                   ,),
                 Container(child:
-                Text(document['position']),),
+                Text(document['position'],
+                  style: TextStyle(color: Colors.black),),
+                ),
               ],),),
 
             make_title("E-mail"),
@@ -165,7 +167,7 @@ class Detail extends StatelessWidget {
         tit,
         style: TextStyle(
             fontSize: 25,
-            color: Colors.black,
+            color: Colors.orangeAccent,
             fontFamily: 'Raleway-Black',
             fontWeight: FontWeight.bold,
         ),
@@ -183,7 +185,7 @@ class Detail extends StatelessWidget {
       child: Text(
         con,
         style: TextStyle(
-            fontSize: 19.0,
+            fontSize: 15.0,
             color: Colors.grey[500],
             fontFamily: 'Raleway-ExtraBold',
         ),
@@ -195,3 +197,7 @@ class Detail extends StatelessWidget {
   }
 }
 
+//
+//class a extends StatelessWidget(
+//
+//)

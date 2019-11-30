@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/src/etc/WebApplicationDevelopment.dart';
+import 'package:untitled3/src/home/cse326.dart';
 
 class CoursePage2 extends StatelessWidget {
   @override

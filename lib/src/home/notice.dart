@@ -42,9 +42,13 @@ class Notice extends StatelessWidget {
             itemBuilder: (context, index) {
               return Column(
                 children: <Widget>[
-                  _buildListItem(context, snapshot.data.documents[index]),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                      child: _buildListItem(context, snapshot.data.documents[index])),
                   Divider(
-                    height: 10,
+                    indent: 10,
+                    endIndent: 10,
+                    thickness: 1,
                     color: Colors.white,
                   )
                 ],
@@ -65,7 +69,7 @@ class Notice extends StatelessWidget {
       header: Text(
         document['title'],
         textScaleFactor: 1.5,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: TextStyle(fontWeight: FontWeight.bold,color: Colors.orangeAccent),
       ),
       collapsed: Align(
         alignment: Alignment.centerLeft,
@@ -75,6 +79,10 @@ class Notice extends StatelessWidget {
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           textDirection: TextDirection.ltr,
+          style: TextStyle(
+            color: Colors.white70,
+            fontStyle: FontStyle.italic
+          ),
         ),
       ),
       expanded: Column(
@@ -82,9 +90,9 @@ class Notice extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(15),
             child: Text(
-              document['description'],
+              document['description'].replaceAll('  ','\n'),
               softWrap: true,
-              textScaleFactor: 2,
+              textScaleFactor: 1.2,
             ),
           ),
           Container(
