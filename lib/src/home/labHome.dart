@@ -3,63 +3,50 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled3/src/home/notice.dart';
-import 'package:untitled3/src/etc/course2.dart';
+import 'package:untitled3/src/home/course.dart';
 import 'package:date_format/date_format.dart';
-import '../etc/menubar.dart';
 
 class LabHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     final Size size = MediaQuery.of(context).size;
     return Material(
-      child: Column(
+      child: ListView(
         children: <Widget>[
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-          Container(child: Image.asset('images/hanyang.png'),margin: EdgeInsets.only(left: 30,right: 30),),
 
-=======
-          Image.asset(
-      'images/logo.png ',
-            width: size.width,
-            height: 150,
-          ),
->>>>>>> Stashed changes
-          noticeBanner(context),
-          notice(context),
-          courseBanner(context),
-          course(),
-=======
+
           Container(
+            margin: EdgeInsets.only(bottom: 5),
             decoration: BoxDecoration(color: Colors.black38),
             child: Image.asset('images/hanyang.png'),
             padding: EdgeInsets.only(left: 30, right: 30),
           ),
           Container(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
               height: MediaQuery.of(context).size.height * 0.18,
               padding: EdgeInsets.only(left: 10),
-              decoration: BoxDecoration(color: Colors.black26),
+              decoration: BoxDecoration(color: Colors.black38),
               child: Column(
                 children: <Widget>[
                   noticeBanner(context),
-                  notice2(),
+                  notice(),
                 ],
               )),
           Container(
-            decoration: BoxDecoration(color: Colors.black26),
-            margin: EdgeInsets.all(10),
+            padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
+            margin: EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
+
+            decoration: BoxDecoration(color: Colors.black38),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+
               children: <Widget>[
                 courseBanner(context),
-                course(),
+                course(context),
               ],
             ),
           ),
->>>>>>> flutterV2
         ],
-        crossAxisAlignment: CrossAxisAlignment.center,
       ),
     );
   }
@@ -72,22 +59,24 @@ class LabHome extends StatelessWidget {
       },
 //      padding: const EdgeInsets.only(top: 32),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Container(
-            child: Icon(
-              Icons.playlist_add_check,
-              color: Colors.white,
-              size: 40,
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(bottom: 8),
+//            padding: const EdgeInsets.only(bottom: 8),
             child: Text(
               'NOTICE',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
               ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Icon(
+              Icons.rss_feed,
+              color: Colors.white,
+              size: 40,
             ),
           ),
 
@@ -97,7 +86,7 @@ class LabHome extends StatelessWidget {
     );
   }
 
-  Widget notice2() {
+  Widget notice() {
     return Flexible(
       child: StreamBuilder(
           stream: Firestore.instance
@@ -108,17 +97,25 @@ class LabHome extends StatelessWidget {
             if (!snapshot.hasData) return const Text('Loading...');
             return ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 5,
+                itemCount: snapshot.data.documents.length >= 5
+                    ? 5
+                    : snapshot.data.documents.length,
                 itemBuilder: (context, index) {
-                  return Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.lens,
-                        color: Colors.orange[400],
-                        size: 12,
-                      ),
-                      Text(snapshot.data.documents[index]['title']),
-                    ],
+                  return Container(
+                    margin: EdgeInsets.only(bottom: 3),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(left: 10,right: 5),
+                          child: Icon(
+                            Icons.lens,
+                            color: Colors.orange[400],
+                            size: 7,
+                          ),
+                        ),
+                        Text(snapshot.data.documents[index]['title']),
+                      ],
+                    ),
                   );
                 });
 //          return Container(
@@ -128,17 +125,64 @@ class LabHome extends StatelessWidget {
     );
   }
 
-  Widget course() {
+  Widget course(BuildContext context) {
+//    Text('CSE326 Web Application Development'),
+//    Text(
+//    'CSE6050 Advanced Software Engineering',
+//    )
     return Container(
-      padding: const EdgeInsets.all(32),
-      child: Text(
-        'CSE326 Web Application Development\n'
-        'CSE6050 Advanced Software Engineering',
-        style: TextStyle(
-          fontSize: 20,
+        child: Row(
+      children: <Widget>[
+        Expanded(
+          child: Container(
+              decoration: BoxDecoration(color: Colors.black26),
+              margin: EdgeInsets.only(left: 10, right: 10),
+              height: MediaQuery.of(context).size.height * 0.2,
+              child: Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'CSE326',
+                    textScaleFactor: 2,
+                    style: TextStyle(
+                        color: Colors.orangeAccent,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'Web Application Development',
+                    textScaleFactor: 0.8,
+                  ),
+                ],
+              ))),
         ),
-      ),
-    );
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(color: Colors.black26),
+            margin: EdgeInsets.only(left: 10, right: 10),
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text('CSE6050',
+                      textScaleFactor: 2,
+                      style: TextStyle(
+                          color: Colors.orangeAccent,
+                          fontWeight: FontWeight.bold)),
+                  Text(
+                    'Advanced Software Engineering',
+                    textScaleFactor: 0.8,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    ));
   }
 
   Widget courseBanner(BuildContext context) {
@@ -147,35 +191,36 @@ class LabHome extends StatelessWidget {
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => CoursePage2()));
       },
-      child: Container(
-        child: Row(
-          children: [
-            Icon(
-              Icons.people_outline,
+      child: Row(
+//        crossAxisAlignment: CrossAxisAlignment.end
+        children: [
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  'COURSES',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Icon(
+              Icons.account_balance,
               color: Colors.white,
               size: 35,
             ),
-            Flexible(
-              /*1*/
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Text(
-                      'COURSES',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            /*3*/
-          ],
-        ),
+          ),
+          /*3*/
+        ],
       ),
     );
   }
