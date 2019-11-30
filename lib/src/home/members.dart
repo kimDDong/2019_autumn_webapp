@@ -71,7 +71,7 @@ class Members extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
-                            color: Colors.orange[300])),
+                            color: Colors.orangeAccent)),
                   ),
                 ],
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,7 +165,7 @@ class Detail extends StatelessWidget {
         tit,
         style: TextStyle(
             fontSize: 25,
-            color: Colors.orange[200],
+            color: Colors.orangeAccent,
             fontFamily: 'Raleway-Black',
             fontWeight: FontWeight.bold,
         ),
