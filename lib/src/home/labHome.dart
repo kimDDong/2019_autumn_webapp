@@ -34,7 +34,7 @@ class LabHome extends StatelessWidget {
                 ],
               )),
           Container(
-            padding: EdgeInsets.only(bottom: 10,left: 10),
+            padding: EdgeInsets.only(bottom: 10,left: 10,right: 10),
             margin: EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
 
             decoration: BoxDecoration(color: Colors.black38),
