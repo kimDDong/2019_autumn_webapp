@@ -334,7 +334,6 @@ class About extends StatelessWidget {
 
 
 
-  // REASEARCH WIDGETS
 
   @override
   Widget Make_hexagon(img, size) {
