@@ -115,7 +115,7 @@ class _QuizState extends State<Quiz> {
                       textScaleFactor: 3,
                     ),
                     Text("Answerer is " +
-                        snapshot.data.documents[0]['Winner is'][0])
+                        snapshot.data.documents[0]['answerer'][0])
                   ],
                 ),
               );
@@ -192,7 +192,7 @@ class _QuizState extends State<Quiz> {
         child: RaisedButton(
           onPressed: () async {
             if (_formKey.currentState.validate()) {
-              answerer.add("aldehf420@naver.com");
+              answerer.add("aldehf420@gmail.com");
               await Firestore.instance
                   .collection('quiz')
                   .document(document.documentID)
@@ -286,7 +286,7 @@ class _QuizState extends State<Quiz> {
               ? null
               : () async {
                   if (!isSubmit && _selectNum == document['answer']) {
-                    answerer.add("aldehf420@naver.com");
+                    answerer.add("aldehf420@gmail.com");
                     await Firestore.instance
                         .collection('quiz')
                         .document(document.documentID)

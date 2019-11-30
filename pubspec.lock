@@ -120,6 +120,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.1.8"
+  firebase_storage:
+    dependency: "direct main"
+    description:
+      name: firebase_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.8"
   fl_chart:
     dependency: "direct main"
     description:
@@ -146,6 +153,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.4"
+  flutter_picker:
+    dependency: "direct main"
+    description:
+      name: flutter_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   flutter_staggered_grid_view:
     dependency: "direct main"
     description:
