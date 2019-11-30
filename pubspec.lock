@@ -42,7 +42,7 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.10"
+    version: "0.12.10+2"
   collection:
     dependency: transitive
     description:
@@ -84,7 +84,7 @@ packages:
       name: device_info
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.1+1"
+    version: "0.4.1+2"
   expandable:
     dependency: "direct main"
     description:
@@ -98,7 +98,7 @@ packages:
       name: firebase
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0"
+    version: "7.0.0"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -112,14 +112,21 @@ packages:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.1+5"
+    version: "0.4.2+1"
+  firebase_core_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_core_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   firebase_messaging:
     dependency: "direct main"
     description:
       name: firebase_messaging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.8"
+    version: "6.0.1"
   firebase_storage:
     dependency: "direct main"
     description:
@@ -133,7 +140,7 @@ packages:
       name: fl_chart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.3"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -152,7 +159,7 @@ packages:
       name: flutter_local_notifications
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.4"
+    version: "0.8.4+3"
   flutter_picker:
     dependency: "direct main"
     description:
@@ -178,7 +185,7 @@ packages:
       name: google_maps_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.21+11"
+    version: "0.5.21+12"
   google_sign_in:
     dependency: "direct main"
     description:
@@ -248,7 +255,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.2"
+    version: "1.4.5"
   pedantic:
     dependency: transitive
     description:

@@ -13,7 +13,6 @@ import 'package:untitled3/src/home/home.dart';
 import 'package:untitled3/src/sign/islogin.dart';
 import 'package:untitled3/src/home/notice.dart';
 import 'package:untitled3/src/quiz/quiz.dart';
-import 'package:untitled3/src/etc/startpage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:device_id/device_id.dart';
