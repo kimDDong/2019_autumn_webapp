@@ -79,32 +79,3 @@ exports.sendNoticeNotifi = functions.firestore
                 throw new Error("Profile doesn't exist");
             });
     });
-
-exports.aggregateRatings = functions.firestore
-    .document('quiz/{quizId}/')
-    .onWrite((change, context) => {
-
-        var db = admin.firestore();
-        var ratingVal = change.after.data().answerer[0];
-
-        // Get a reference to the restaurant
-        var restRef = db.collection('quiz').doc(context.params.quizId);
-
-        // Update aggregations in a transaction
-        return db.runTransaction(transaction => {
-            return transaction.get(restRef).then(restDoc => {
-                // Compute new number of ratings
-                var newNumRatings = restDoc.data().numRatings + 1;
-
-                // Compute new average rating
-                var oldRatingTotal = restDoc.data().avgRating * restDoc.data().numRatings;
-                var newAvgRating = (oldRatingTotal + ratingVal) / newNumRatings;
-
-                // Update restaurant info
-                return transaction.update(restRef, {
-                    avgRating: newAvgRating,
-                    numRatings: newNumRatings
-                });
-            });
-        });
-    });

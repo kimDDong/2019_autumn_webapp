@@ -24,15 +24,15 @@ class _HomeState extends State<Home> {
       Members(),
       Gallery(),
       Publication(),
-      CoursePage2(),
+//      CoursePage2(),
     ];
     final _kTabs = <Tab>[
-      Tab(child: Text("Home")),
-      Tab(child: Text("Research"),),
-      Tab(child: Text("Members"),),
-      Tab(child: Text("Gallery"),),
-      Tab(child: Text("Publication"),),
-      Tab(child: Text("Course"),),
+      Tab(child: Text("HOME")),
+      Tab(child: Text("RESEARCH"),),
+      Tab(child: Text("MEMBERS"),),
+      Tab(child: Text("GALLERY"),),
+      Tab(child: Text("PUBLICATION"),),
+//      Tab(child: Text("Course"),),
     ];
     return DefaultTabController(
       length: _kTabs.length,
