@@ -3,9 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled3/src/home/notice.dart';
-import 'package:untitled3/src/etc/course2.dart';
+import 'package:untitled3/src/home/course.dart';
 import 'package:date_format/date_format.dart';
-import '../etc/menubar.dart';
 
 class LabHome extends StatelessWidget {
   @override

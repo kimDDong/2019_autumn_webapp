@@ -3,11 +3,8 @@ import 'dart:ui' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/etc/info.dart';
 import 'package:untitled3/src/sign/islogin.dart';
 import 'package:untitled3/src/sign/sign_in.dart';
-import 'package:untitled3/src/etc/startpage.dart';
-import '../etc/menubar.dart';
 
 class LoginPage extends StatefulWidget {
   @override

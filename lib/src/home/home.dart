@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:untitled3/src/home/contact.dart';
-import 'package:untitled3/src/etc/course2.dart';
+import 'package:untitled3/src/home/course.dart';
 import 'package:untitled3/src/home/labHome.dart';
 import 'package:untitled3/src/home/members.dart';
-import 'package:untitled3/src/etc/gallery.dart';
+import 'package:untitled3/src/home/gallery.dart';
 import 'package:untitled3/src/home/about.dart';
 import 'package:untitled3/src/home/publication.dart';
 
