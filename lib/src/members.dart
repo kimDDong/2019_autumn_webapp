@@ -165,7 +165,9 @@ class Detail extends StatelessWidget {
                   margin: EdgeInsets.only(top : 10)
                   ,),
                 Container(child:
-                Text(document['position']),),
+                Text(document['position'],
+                  style: TextStyle(color: Colors.black),),
+                ),
               ],),),
 
             make_title("E-mail"),
@@ -208,7 +210,7 @@ class Detail extends StatelessWidget {
       child: Text(
         con,
         style: TextStyle(
-            fontSize: 19.0,
+            fontSize: 15.0,
             color: Colors.grey[500],
             fontFamily: 'Raleway-ExtraBold',
         ),
@@ -220,3 +222,7 @@ class Detail extends StatelessWidget {
   }
 }
 
+//
+//class a extends StatelessWidget(
+//
+//)

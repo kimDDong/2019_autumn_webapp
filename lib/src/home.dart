@@ -51,7 +51,7 @@ class _TabsState extends State<Tabs> {
       Tab(text: 'Home'),
       Tab(text: 'Research'),
       Tab(text: 'Members'),
-      Tab(text: 'Galery'),
+      Tab(text: 'Gallery'),
       Tab(text: 'Publication'),
     ];
     return DefaultTabController(
