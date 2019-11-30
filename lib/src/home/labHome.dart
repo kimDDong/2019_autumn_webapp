@@ -14,6 +14,22 @@ class LabHome extends StatelessWidget {
     return Material(
       child: Column(
         children: <Widget>[
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+          Container(child: Image.asset('images/hanyang.png'),margin: EdgeInsets.only(left: 30,right: 30),),
+
+=======
+          Image.asset(
+      'images/logo.png ',
+            width: size.width,
+            height: 150,
+          ),
+>>>>>>> Stashed changes
+          noticeBanner(context),
+          notice(context),
+          courseBanner(context),
+          course(),
+=======
           Container(
             margin: EdgeInsets.only(bottom: 5),
             decoration: BoxDecoration(color: Colors.black38),
@@ -45,6 +61,7 @@ class LabHome extends StatelessWidget {
               ],
             ),
           ),
+>>>>>>> flutterV2
         ],
         crossAxisAlignment: CrossAxisAlignment.center,
       ),
