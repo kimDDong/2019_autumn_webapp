@@ -339,8 +339,8 @@ class About extends StatelessWidget {
   @override
   Widget Make_hexagon(img, size) {
     return Container(
-      width: 150,
-      height: 150,
+      width: 140,
+      height: 140,
       child: ClipPolygon(
         sides: 6,
         borderRadius: 5.0,

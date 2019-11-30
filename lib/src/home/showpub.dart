@@ -28,8 +28,8 @@ class ShowPublication extends StatelessWidget {
                 children: <Widget>[
                   _buildListItem(context, snapshot.data.documents[index]),
                   Divider(
-                    height: 10,
-                    color: Colors.black45,
+                    color: Colors.white,
+                    thickness: 2,
                     indent: 10,
                     endIndent: 10,
                   )

@@ -8,12 +8,11 @@ import 'package:untitled3/src/home/notice.dart';
 import 'package:untitled3/src/home/publication.dart';
 import 'package:untitled3/src/etc/setting.dart';
 import 'package:untitled3/src/etc/startpage.dart';
-import 'package:untitled3/src/etc/research.dart';
 import 'package:untitled3/src/home/members.dart';
 import 'package:untitled3/src/etc/gallery.dart';
 import 'package:untitled3/src/etc/my_test.dart';
 
-import 'contact.dart';
+import 'package:untitled3/src/home/contact.dart';
 
 class MenuForGraduate extends StatelessWidget {
   @override
@@ -106,8 +105,8 @@ class MenuForGraduate extends StatelessWidget {
               textScaleFactor: 1.5,
             ),
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Research()));
+//              Navigator.of(context)
+//                  .push(MaterialPageRoute(builder: (context) => Research()));
             },
           ),
           Divider(),
