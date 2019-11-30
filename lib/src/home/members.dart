@@ -35,7 +35,7 @@ class Members extends StatelessWidget {
   Widget makeRowItem(BuildContext ctx, DocumentSnapshot document) {
     return Container(
           decoration: BoxDecoration(
-            color: Colors.white38,
+            color: Colors.grey[800],
             borderRadius: BorderRadius.all(Radius.circular(20))
           ),
           margin: EdgeInsets.only(left: 10,right: 10,top: 7.5,bottom: 7.5),
@@ -63,7 +63,7 @@ class Members extends StatelessWidget {
                   Container(
                     child: Text(document['name'],
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 19, color: Colors.black)),
+                        style: TextStyle(fontSize: 19, color: Colors.white)),
                   ),
                   Container(
                     child: Text(document['position'],
@@ -71,7 +71,7 @@ class Members extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
-                            color: Colors.orange)),
+                            color: Colors.orange[300])),
                   ),
                 ],
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,7 +165,7 @@ class Detail extends StatelessWidget {
         tit,
         style: TextStyle(
             fontSize: 25,
-            color: Colors.black,
+            color: Colors.orange[200],
             fontFamily: 'Raleway-Black',
             fontWeight: FontWeight.bold,
         ),
@@ -184,7 +184,7 @@ class Detail extends StatelessWidget {
         con,
         style: TextStyle(
             fontSize: 19.0,
-            color: Colors.grey[500],
+            color: Colors.grey[300],
             fontFamily: 'Raleway-ExtraBold',
         ),
       ),
