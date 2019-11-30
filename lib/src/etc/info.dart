@@ -19,8 +19,8 @@
 // SOFTWARE.
 
 import 'package:flutter/material.dart';
-import 'package:untitled3/src/login.dart';
-import 'package:untitled3/src/sign_in.dart';
+import 'package:untitled3/src/sign/login.dart';
+import 'package:untitled3/src/sign/sign_in.dart';
 
 class Information extends StatelessWidget {
   @override

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/graduateschool.dart';
-import 'package:untitled3/src/islogin.dart';
-import 'package:untitled3/src/login.dart';
-import 'package:untitled3/src/sign_in.dart';
-import 'package:untitled3/src/undergraduate.dart';
+import 'package:untitled3/src/etc/graduateschool.dart';
+import 'package:untitled3/src/sign/islogin.dart';
+import 'package:untitled3/src/sign/login.dart';
+import 'package:untitled3/src/sign/sign_in.dart';
+import 'package:untitled3/src/etc/undergraduate.dart';
 
 class StartUp extends StatelessWidget {
   @override

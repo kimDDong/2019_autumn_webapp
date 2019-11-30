@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/islogin.dart';
+import 'package:untitled3/src/quiz/addQuiz.dart';
+import 'package:untitled3/src/quiz/leaderBoard.dart';
+import 'package:untitled3/src/sign/islogin.dart';
 
 class Quiz extends StatefulWidget {
   @override
@@ -34,14 +36,37 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+
+  @override
+  void dispose() {
+    _everySecond.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final counter = Provider.of<Counter>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quiz"),
+        centerTitle: true,
+        title: Container(height:100,child: Image.asset('images/logo.png')),
         elevation: 0,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddQuiz()));
+            },
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LeaderBoard()));
+        },
+        backgroundColor: Colors.white30,
+        child: Icon(Icons.school,color: Colors.white,),
       ),
       body: getQuiz(),
     );
@@ -62,7 +87,13 @@ class _QuizState extends State<Quiz> {
           );
         } else {
           if (snapshot.data.documents.isEmpty)
-            return Center(child: Text("준비중"));
+            return Center(child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircularProgressIndicator(),
+                Container(margin:EdgeInsets.only(top:20),child: Text("Building Quiz....")),
+              ],
+            ));
           else {
             if (snapshot.data.documents[0]['startTime']
                     .toDate()
@@ -84,7 +115,7 @@ class _QuizState extends State<Quiz> {
                       textScaleFactor: 3,
                     ),
                     Text("Answerer is " +
-                        snapshot.data.documents[0]['answerer'][1])
+                        snapshot.data.documents[0]['Winner is'][0])
                   ],
                 ),
               );
@@ -97,7 +128,7 @@ class _QuizState extends State<Quiz> {
   }
 
   Widget blankQBuild(DocumentSnapshot document) {
-    var questions = document['question'].replaceAll("\\n", "\n").split("\\b\\");
+    var questions = document['question'].replaceAll("\\n", "\n").split("\\blank\\");
     List<Widget> list = new List<Widget>();
     list.add(Container(
       margin: EdgeInsets.only(bottom: 20),
@@ -128,16 +159,15 @@ class _QuizState extends State<Quiz> {
               key: _formKey,
               child: new TextFormField(
                 decoration: new InputDecoration(
-                  labelStyle: TextStyle(color: Colors.black45),
-                  labelText: "Answer",
-                  fillColor: Colors.black,
+                  labelStyle: TextStyle(color: Colors.orange),
+                  fillColor: Colors.orange,
                   focusedBorder: new OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(25.0),
-                    borderSide: new BorderSide(color: Colors.black45),
+                    borderSide: new BorderSide(color: Colors.orange),
                   ),
                   border: new OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(25.0),
-                    borderSide: new BorderSide(color: Colors.black45),
+                    borderSide: new BorderSide(color: Colors.orange),
                   ),
                 ),
                 style: TextStyle(
@@ -170,17 +200,23 @@ class _QuizState extends State<Quiz> {
               _showDialog(context);
             }
           },
-          child: Text(
-            "Submit",
-            style: TextStyle(color: Colors.white),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "Submit",
+                textScaleFactor: 2,
+                style: TextStyle(color: Colors.white),
+              ),
+              quizEndTime(document)
+            ],
           ),
-          color: Colors.blue,
+          color: Colors.orange,
         )));
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        quizEndTime(document),
         Container(
           margin: EdgeInsets.all(10),
           child: Column(
@@ -223,7 +259,7 @@ class _QuizState extends State<Quiz> {
               height: 20,
               child: Center(
                   child: Text(
-                i.toString(),
+                    (i+1).toString(),
                 style: TextStyle(color: Colors.white),
               )),
             ),
@@ -263,17 +299,23 @@ class _QuizState extends State<Quiz> {
                     isSubmit = true;
                   });
                 },
-          child: Text(
-            "Submit",
-            style: TextStyle(color: Colors.white),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "Submit",
+                textScaleFactor: 2,
+                style: TextStyle(color: Colors.white),
+              ),
+              quizEndTime(document)
+            ],
           ),
-          color: isSubmit ? Colors.black12 : Colors.blue,
+          color: isSubmit ? Colors.black12 : Colors.orange,
         )));
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        quizEndTime(document),
         Container(
           margin: EdgeInsets.all(10),
           child: Column(
@@ -374,20 +416,16 @@ class _QuizState extends State<Quiz> {
   Widget quizEndTime(DocumentSnapshot document) {
     return Center(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(
-            "END IN  ",
-            textScaleFactor: 3,
-          ),
           Text(
             document['endTime']
                 .toDate()
                 .difference(now)
                 .toString()
                 .split('.')[0],
-            textScaleFactor: 3,
+            textScaleFactor:1,
           )
         ],
       ),

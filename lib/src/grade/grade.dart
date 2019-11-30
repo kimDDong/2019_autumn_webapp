@@ -5,9 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/islogin.dart';
-import 'package:untitled3/src/login.dart';
-import 'package:untitled3/src/sign_in.dart';
+import 'package:untitled3/src/newlog/pages/login_signup_page.dart';
+import 'package:untitled3/src/sign/islogin.dart';
+import 'package:untitled3/src/sign/login.dart';
+import 'package:untitled3/src/sign/sign_in.dart';
 
 class BarChartSample1 extends StatefulWidget {
   @override

@@ -1,23 +1,23 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/islogin.dart';
+import 'package:untitled3/src/sign/islogin.dart';
 
 import 'addnotice.dart';
 
 
 
 class Notice extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     final counter = Provider.of<Counter>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notice'),
+        centerTitle: true,
+        title: Container(height:100,child: Image.asset('images/logo.png')),
         actions: <Widget>[
           counter.getCounter()==0?
           Container():IconButton(
@@ -57,6 +57,8 @@ class Notice extends StatelessWidget {
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
+    final counter = Provider.of<Counter>(context);
+
     final String date = document['date'].toDate().toString();
     final db = Firestore.instance;
     return ExpandablePanel(
@@ -95,13 +97,14 @@ class Notice extends StatelessWidget {
                       style: TextStyle(fontStyle: FontStyle.italic),
                     ),
                   ),
+                  counter.getCounter()!=0?
                   IconButton(
                     icon: Icon(Icons.delete_forever),
                     iconSize: 40,
                     onPressed: () {
                       _showDialog(context, db, document);
-                    },
-                  )
+                    }
+                  ):Container()
                 ],
               ))
         ],

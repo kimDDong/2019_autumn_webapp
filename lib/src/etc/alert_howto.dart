@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/islogin.dart';
+import 'package:untitled3/src/sign/islogin.dart';
 
 class HowtoReceive extends StatefulWidget {
   @override
