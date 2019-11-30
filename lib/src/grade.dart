@@ -69,64 +69,72 @@ class BarChartSample1State extends State<BarChartSample1> {
         Container(
           height: 300,
         ),
-        Text('30점 만점 기준'),
         AspectRatio(
           aspectRatio: 1,
-          child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-            color: Colors.black12,
-            child: Stack(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Text(
-                        'Grade',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        '$name',
-                        style: TextStyle(
-                            color: Colors.white30,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 38,
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: BarChart(
-                            mainBarData(),
-                            swapAnimationDuration: animDuration,
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: Card(
+              shape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+              color: Colors.black12,
+              child: Stack(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Container(
+                      margin: EdgeInsets.all(5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Text(
+                            'Grade',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
                           ),
-                        ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            '$name',
+                            style: TextStyle(
+                                color: Colors.white30,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: BarChart(
+                                mainBarData(),
+                                swapAnimationDuration: animDuration,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                        ],
                       ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                  ),
-                )
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -165,7 +173,7 @@ class BarChartSample1State extends State<BarChartSample1> {
 //    print(a);
         switch (i) {
           case 0:
-            return makeGroupData(0, (16 - a) * 30 / 16,
+            return makeGroupData(0, (10 - a) * 30 / 10,
                 isTouched: i == touchedIndex);
           case 1:
             return makeGroupData(1, b, isTouched: i == touchedIndex);
@@ -199,8 +207,18 @@ class BarChartSample1State extends State<BarChartSample1> {
                     weekDay = 'Quiz';
                     break;
                 }
-                return BarTooltipItem(weekDay + '\n' + (rod.y).toString(),
-                    TextStyle(color: Colors.yellow));
+                if(group.x.toInt()==0){
+                  return  BarTooltipItem(weekDay + '\n' + (rod.y *10/30).toString()+' / 10.0',
+                      TextStyle(color: Colors.yellow));
+                }
+                else if(group.x.toInt()==3 || group.x.toInt()==0){
+                  return  BarTooltipItem(weekDay + '\n' + (rod.y *10/30).toString()+' / 16.0',
+                      TextStyle(color: Colors.yellow));
+                }
+                else{
+                  return BarTooltipItem(weekDay + '\n' + (rod.y ).toString()+' / 30.0',
+                      TextStyle(color: Colors.yellow));
+                }
               }),
           ),
       titlesData: FlTitlesData(
@@ -214,7 +232,7 @@ class BarChartSample1State extends State<BarChartSample1> {
               print("check");
               switch (value.toInt()) {
                 case 0:
-                  return 'Attendance\n'+a.toString();
+                  return 'Attendance\n'+(10-a).toString();
                 case 1:
                   return 'Midterm\n'+b.toString();
                 case 2:
@@ -226,7 +244,7 @@ class BarChartSample1State extends State<BarChartSample1> {
               }
             }),
         leftTitles: const SideTitles(
-          showTitles: true,
+          showTitles: false,
           interval: 5,
         ),
       ),
