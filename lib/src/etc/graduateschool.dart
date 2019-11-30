@@ -1,8 +1,6 @@
 import 'dart:ui' as prefix0;
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import 'menubar.dart';
 
 class GraduateSchool extends StatelessWidget {
