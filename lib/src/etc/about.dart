@@ -351,11 +351,10 @@ class About extends StatelessWidget {
 //          PolygonBoxShadow(color: Colors., elevation: 1.0),
           PolygonBoxShadow(color: Colors.amberAccent, elevation: 4.0)
         ],
-        child: Image.network(
-          img,
-
-          cacheWidth: size,
-        ),
+        child: Container(
+            child: Image.network(
+              img, cacheWidth: size,
+            ), color: Colors.white),
       ),
     );
   }
