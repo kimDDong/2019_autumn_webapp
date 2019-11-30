@@ -11,7 +11,7 @@ class LabHome extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Material(
-      child: Column(
+      child: ListView(
         children: <Widget>[
 
 
@@ -47,7 +47,6 @@ class LabHome extends StatelessWidget {
             ),
           ),
         ],
-        crossAxisAlignment: CrossAxisAlignment.center,
       ),
     );
   }

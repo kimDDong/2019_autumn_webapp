@@ -24,7 +24,7 @@ class _ContactState extends State<Contact> {
         title: Container(height: 100, child: Image.asset('images/logo.png')),
         elevation: 0,
       ),
-      body: Column(
+      body: ListView(
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(left: 10, right: 10),
