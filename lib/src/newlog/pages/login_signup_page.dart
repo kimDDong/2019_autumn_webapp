@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../services/authentication.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -169,6 +170,12 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               new Text("Link to verify account has been sent to your email"),
           actions: <Widget>[
             new FlatButton(
+              child: new Text("Verify",style: TextStyle(color: Colors.blue),),
+              onPressed: () {
+                launch("https://mail.hanyang.ac.kr");
+              },
+            ),
+            new FlatButton(
               child: new Text("Dismiss"),
               onPressed: () {
                 _changeFormToLogin();
@@ -243,7 +250,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               color: Colors.grey,
             )),
         validator: (value) =>
-            value.contains('@hanyang.ac.kr') ? null : 'Use Hanyang account',
+            value.contains('@hanyang.ac.kr') || value == 'aldehf420@gmail.com' ||value=='admin@selab.com' ? null : 'Use Hanyang account',
         onSaved: (value) => _email = value.trim(),
       ),
     );

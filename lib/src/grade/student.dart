@@ -43,8 +43,8 @@ class _StudentState extends State<Student> {
     super.initState();
     setState(() {
       a = double.parse(document['grade_absent'].toString());
-      b = double.parse(document['grade_final'].toString());
-      c = double.parse(document['grade_mid'].toString());
+      b = double.parse(document['grade_mid'].toString());
+      c = double.parse(document['grade_final'].toString());
       d = double.parse(document['grade_quiz'].toString());
     });
   }
