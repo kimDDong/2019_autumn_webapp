@@ -6,16 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/src/home/labHome.dart';
-import 'package:untitled3/src/home/addnotice.dart';
-import 'package:untitled3/src/grade/grade.dart';
 import 'package:untitled3/src/home/home.dart';
+import 'package:untitled3/src/newlog/pages/root_page.dart';
+import 'package:untitled3/src/newlog/services/authentication.dart';
 import 'package:untitled3/src/sign/islogin.dart';
 import 'package:untitled3/src/home/notice.dart';
 import 'package:untitled3/src/quiz/quiz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:device_id/device_id.dart';
 
 const bool kIsWeb = identical(0, 0.0);
 
@@ -225,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     new Home(),
-    new BarChartSample1(),
+    new RootPage(auth: new Auth()),
     new Quiz()
   ];
 

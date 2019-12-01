@@ -1,9 +1,6 @@
-import 'dart:ui' as prefix0;
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled3/src/newlog/services/authentication.dart';
-
+import '../services/authentication.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 String email2;
 String studentID;
@@ -11,22 +8,19 @@ String major;
 String name2 ;
 
 
-class LoginPage extends StatefulWidget {
-  LoginPage({this.auth, this.onSignedIn});
-
+class LoginSignUpPage extends StatefulWidget {
+  LoginSignUpPage({this.auth, this.onSignedIn});
 
   final BaseAuth auth;
   final VoidCallback onSignedIn;
 
   @override
-  State<StatefulWidget> createState() => new _LoginPageState();
+  State<StatefulWidget> createState() => new _LoginSignUpPageState();
 }
 
 enum FormMode { LOGIN, SIGNUP }
 
-class _LoginPageState extends State<LoginPage> {
-
-
+class _LoginSignUpPageState extends State<LoginSignUpPage> {
   final _formKey = new GlobalKey<FormState>();
 
   final databaseReference = Firestore.instance;
@@ -97,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
           _isLoading = false;
         });
 
-        if (userId.endsWith('hanyang.ac.kr') && userId.length > 0 && userId != null && _formMode == FormMode.LOGIN) {
+        if (userId.length > 0 && userId != null && _formMode == FormMode.LOGIN) {
           widget.onSignedIn();
         }
 
@@ -117,7 +111,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-
     _errorMessage = "";
     _isLoading = false;
     super.initState();
@@ -329,16 +322,16 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-
+ 
 
   Widget _showSecondaryButton() {
     return new FlatButton(
       child: _formMode == FormMode.LOGIN
           ? new Text('Create an account',
-          style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300))
+              style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300))
           : new Text('Have an account? Sign in',
-          style:
-          new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
+              style:
+                  new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
       onPressed: _formMode == FormMode.LOGIN
           ? _changeFormToSignUp
           : _changeFormToLogin,
@@ -351,15 +344,15 @@ class _LoginPageState extends State<LoginPage> {
         child: SizedBox(
           height: 40.0,
           child: new RaisedButton(
-              elevation: 5.0,
-              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-              color: Colors.blue,
-              child: _formMode == FormMode.LOGIN
-                  ? new Text('Login',
-                  style: new TextStyle(fontSize: 20.0, color: Colors.white))
-                  : new Text('Create account',
-                  style: new TextStyle(fontSize: 20.0, color: Colors.white)),
-              onPressed: _validateAndSubmit
+            elevation: 5.0,
+            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+            color: Colors.blue,
+            child: _formMode == FormMode.LOGIN
+                ? new Text('Login',
+                    style: new TextStyle(fontSize: 20.0, color: Colors.white))
+                : new Text('Create account',
+                    style: new TextStyle(fontSize: 20.0, color: Colors.white)),
+            onPressed: _validateAndSubmit
           ),
         ));
   }
