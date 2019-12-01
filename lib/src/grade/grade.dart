@@ -36,7 +36,7 @@ class BarChartSample1State extends State<BarChartSample1> {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Container(height:100,child: Image.asset('images/logo.png')),
+          title: Container(height: 100, child: Image.asset('images/logo.png')),
           elevation: 0,
         ),
         body: StreamBuilder<QuerySnapshot>(
@@ -61,11 +61,15 @@ class BarChartSample1State extends State<BarChartSample1> {
               }
             }),
       );
-    }
-    else{
-      return Center(child: FlatButton(child: Text("Login"),onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>RootPage(auth: new Auth())));
-      },));
+    } else {
+      return Center(
+          child: FlatButton(
+        child: Text("Login"),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => RootPage(auth: new Auth())));
+        },
+      ));
     }
   }
 
@@ -75,13 +79,29 @@ class BarChartSample1State extends State<BarChartSample1> {
     c = double.parse(document['grade_final'].toString());
     d = double.parse(document['grade_project'].toString());
     e = double.parse(document['grade_quiz'].toString());
+    double total = (16 - a) * 10 / 16 + b + c + d + e;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        Container(
+            margin: EdgeInsets.all(10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black38,
+                borderRadius: BorderRadius.circular(18)
+              ),
+              child: Center(
+                child: Text(
+                  "G  R  A  D  E",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  textScaleFactor: 3,
+                ),
+              ),
+            )),
         AspectRatio(
           aspectRatio: 1,
           child: Container(
-            margin: EdgeInsets.all(10),
+            margin: EdgeInsets.only(bottom: 10,right: 10,left: 10),
             child: Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18)),
@@ -148,6 +168,46 @@ class BarChartSample1State extends State<BarChartSample1> {
             ),
           ),
         ),
+        Container(
+          margin: EdgeInsets.only(left: 10, right: 10),
+          padding: EdgeInsets.only(top: 20,bottom: 20),
+          decoration: BoxDecoration(
+            color: Colors.black38,
+            borderRadius: BorderRadius.circular(18)
+          ),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "Total Score",
+                      textScaleFactor: 1.5,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      total.toString(),
+                      textScaleFactor: 5,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                  child: Center(
+                      child: Text(
+                getGrade(total),
+                textScaleFactor: 5.5,
+                style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.double,
+                    color: Colors.orangeAccent),
+              )))
+            ],
+          ),
+        )
       ],
     );
   }
@@ -192,7 +252,7 @@ class BarChartSample1State extends State<BarChartSample1> {
           case 3:
             return makeGroupData(3, d, isTouched: i == touchedIndex);
           case 4:
-            return makeGroupData(4, e , isTouched: i == touchedIndex);
+            return makeGroupData(4, e, isTouched: i == touchedIndex);
           default:
             return null;
         }
@@ -201,41 +261,41 @@ class BarChartSample1State extends State<BarChartSample1> {
   BarChartData mainBarData() {
     return BarChartData(
       barTouchData: BarTouchData(
-          touchTooltipData: BarTouchTooltipData(
-              tooltipBgColor: Colors.black26,
-              getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                String weekDay;
-                switch (group.x.toInt()) {
-                  case 0:
-                    weekDay = 'Attendence';
-                    break;
-                  case 1:
-                    weekDay = 'Midterm';
-                    break;
-                  case 2:
-                    weekDay = 'Finals';
-                    break;
-                  case 3:
-                    weekDay = 'Project';
-                    break;
-                  case 4:
-                    weekDay = 'Quiz';
-                    break;
-                }
-                if(group.x.toInt()==0){
-                  return  BarTooltipItem(weekDay + '\n' + (rod.y*10/30).toString()+' / 10.0',
-                      TextStyle(color: Colors.yellow));
-                }
-                else if(group.x.toInt()==4 ){
-                  return  BarTooltipItem(weekDay + '\n' + (rod.y ).toString(),
-                      TextStyle(color: Colors.yellow));
-                }
-                else{
-                  return BarTooltipItem(weekDay + '\n' + (rod.y ).toString()+' / 30.0',
-                      TextStyle(color: Colors.yellow));
-                }
-              }),
-          ),
+        touchTooltipData: BarTouchTooltipData(
+            tooltipBgColor: Colors.black26,
+            getTooltipItem: (group, groupIndex, rod, rodIndex) {
+              String weekDay;
+              switch (group.x.toInt()) {
+                case 0:
+                  weekDay = 'Attendence';
+                  break;
+                case 1:
+                  weekDay = 'Midterm';
+                  break;
+                case 2:
+                  weekDay = 'Finals';
+                  break;
+                case 3:
+                  weekDay = 'Project';
+                  break;
+                case 4:
+                  weekDay = 'Quiz';
+                  break;
+              }
+              if (group.x.toInt() == 0) {
+                return BarTooltipItem(
+                    weekDay + '\n' + (rod.y * 10 / 30).toString() + ' / 10.0',
+                    TextStyle(color: Colors.yellow));
+              } else if (group.x.toInt() == 4) {
+                return BarTooltipItem(weekDay + '\n' + (rod.y).toString(),
+                    TextStyle(color: Colors.yellow));
+              } else {
+                return BarTooltipItem(
+                    weekDay + '\n' + (rod.y).toString() + ' / 30.0',
+                    TextStyle(color: Colors.yellow));
+              }
+            }),
+      ),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
@@ -253,9 +313,9 @@ class BarChartSample1State extends State<BarChartSample1> {
                 case 2:
                   return 'Final\n' + c.toString();
                 case 3:
-                  return 'Project\n'+d.toString();
+                  return 'Project\n' + d.toString();
                 case 4:
-                  return 'Quiz\n'+e.toString();
+                  return 'Quiz\n' + e.toString();
                 default:
                   return '';
               }
@@ -270,5 +330,26 @@ class BarChartSample1State extends State<BarChartSample1> {
       ),
       barGroups: showingGroups(),
     );
+  }
+
+  String getGrade(double total) {
+    if (total >= 95)
+      return "A + ";
+    else if (total >= 90)
+      return " A ";
+    else if (total >= 85)
+      return "B + ";
+    else if (total >= 80)
+      return " B ";
+    else if (total >= 75)
+      return "C + ";
+    else if (total >= 70)
+      return " C ";
+    else if (total >= 65)
+      return "D + ";
+    else if (total >= 60)
+      return " D ";
+    else
+      return " F ";
   }
 }
