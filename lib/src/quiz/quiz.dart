@@ -38,7 +38,6 @@ class _QuizState extends State<Quiz> {
     });
   }
 
-
   @override
   void dispose() {
     _everySecond.cancel();
@@ -48,64 +47,96 @@ class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     final counter = Provider.of<Counter>(context);
-    if (counter.getCounter() == 1){
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Container(height:100,child: Image.asset('images/logo.png')),
-        elevation: 0,
-        actions: <Widget>[
-          counter.getCounter() ==2 ?
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddQuiz()));
-            },
-          ):Text('')
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LeaderBoard()));
-        },
-        backgroundColor: Colors.white30,
-        child: Icon(Icons.school,color: Colors.white,),
-      ),
-      body: getQuiz(),
-    );
-    }
-    if (counter.getCounter() == 2){
+    if (counter.getCounter() >= 1) {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Container(height:100,child: Image.asset('images/logo.png')),
+          title: Container(height: 100, child: Image.asset('images/logo.png')),
           elevation: 0,
           actions: <Widget>[
-            counter.getCounter() ==2 ?
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddQuiz()));
-              },
-            ):Text('')
+            counter.getCounter() == 2
+                ? IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => AddQuiz()));
+                    },
+                  )
+                : Text('')
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LeaderBoard()));
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => LeaderBoard()));
           },
           backgroundColor: Colors.white30,
-          child: Icon(Icons.school,color: Colors.white,),
+          child: Icon(
+            Icons.school,
+            color: Colors.white,
+          ),
         ),
         body: getQuiz(),
       );
+    } else {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                child: Image.asset('images/logo.png'),
+                margin: EdgeInsets.all(10),
+                decoration: new BoxDecoration(
+                    color: Colors.black38,
+                    borderRadius: BorderRadius.circular(18))),
+            FlatButton(
+              padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "SIGN ",
+                    textScaleFactor: 3,
+                  ),
+                  Text(
+                    "IN",
+                    textScaleFactor: 3,
+                    style: TextStyle(color: Colors.orangeAccent),
+                  ),
+                ],
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => RootPage(auth: new Auth())));
+              },
+            ),
+          ],
+        ),
+//        child: Column(
+//          children: <Widget>[
+//            Container(
+//                alignment: Alignment.center,
+//                width: 300.0,
+//                height: 300.0,
+//                child: Image.asset('images/logo.png'),
+//                decoration: new BoxDecoration(
+//                )),
+//            RaisedButton(
+//              padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+//              color: Colors.amberAccent,
+//              child: Text(
+//                "Login",
+//                textScaleFactor: 3,
+//              ),
+//              onPressed: () {
+//                Navigator.of(context).push(MaterialPageRoute(
+//                    builder: (context) => RootPage(auth: new Auth())));
+//              },
+//            ),
+//          ],
+//        ),
+      );
     }
-    else{
-      return Center(child: FlatButton(child: Text("Login"),onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>RootPage(auth: new Auth())));
-      },));
-    }
-
   }
 
   Widget getQuiz() {
@@ -123,11 +154,14 @@ class _QuizState extends State<Quiz> {
           );
         } else {
           if (snapshot.data.documents.isEmpty)
-            return Center(child: Column(
+            return Center(
+                child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CircularProgressIndicator(),
-                Container(margin:EdgeInsets.only(top:20),child: Text("Building Quiz....")),
+                Container(
+                    margin: EdgeInsets.only(top: 20),
+                    child: Text("Quiz isn't ready....")),
               ],
             ));
           else {
@@ -150,8 +184,19 @@ class _QuizState extends State<Quiz> {
                       "Today Quiz is over",
                       textScaleFactor: 3,
                     ),
-                    Text("Answerer is " +
-                        snapshot.data.documents[0]['answerer'][0])
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Winner is "),
+                        Text(
+                          snapshot.data.documents[0]['answerer'][0],
+                          style: TextStyle(
+                              color: Colors.orange,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               );
@@ -164,13 +209,15 @@ class _QuizState extends State<Quiz> {
   }
 
   Widget blankQBuild(DocumentSnapshot document) {
-    var questions = document['question'].replaceAll("\\n", "\n").split("\\blank\\");
+    var questions =
+        document['question'].replaceAll("\\n", "\n").split("\\blank\\");
     List<Widget> list = new List<Widget>();
     list.add(Container(
       margin: EdgeInsets.only(bottom: 20),
       child: Text(
         "QUESTION!",
         style: TextStyle(
+            color: Colors.orange,
             fontSize: MediaQuery.of(context).size.height * 0.04,
             fontWeight: FontWeight.bold,
             fontStyle: FontStyle.italic),
@@ -226,16 +273,41 @@ class _QuizState extends State<Quiz> {
         margin: EdgeInsets.only(top: 50),
         width: MediaQuery.of(context).size.width,
         child: RaisedButton(
-          onPressed: () async {
-            if (_formKey.currentState.validate()) {
-              answerer.add("aldehf420@gmail.com");
-              await Firestore.instance
-                  .collection('quiz')
-                  .document(document.documentID)
-                  .updateData({"answerer": FieldValue.arrayUnion(answerer)});
-              _showDialog(context);
-            }
-          },
+          onPressed: isSubmit
+              ? null
+              : () async {
+                  if (_formKey.currentState.validate()) {
+                    answerer.add("$email3");
+                    await Firestore.instance
+                        .collection('quiz')
+                        .document(document.documentID)
+                        .updateData(
+                            {"answerer": FieldValue.arrayUnion(answerer)});
+                    _showDialog(context);
+
+                    setState(() {
+                      isSubmit = true;
+                    });
+                  }
+                },
+//          onPressed: isSubmit
+//              ? null
+//              : () async {
+//            if (!isSubmit && _selectNum == document['answer']) {
+//              answerer.add('$email3');
+//              await Firestore.instance
+//                  .collection('quiz')
+//                  .document(document.documentID)
+//                  .updateData(
+//                  {"answerer": FieldValue.arrayUnion(answerer)});
+//              _showDialog(context);
+//            }
+//
+//            setState(() {
+//              isSubmit = true;
+//            });
+//          },
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -271,6 +343,7 @@ class _QuizState extends State<Quiz> {
     list.add(Text(
       "QUESTION!",
       style: TextStyle(
+          color: Colors.orange,
           fontStyle: FontStyle.italic,
           fontWeight: FontWeight.bold,
           fontSize: MediaQuery.of(context).size.height * 0.04),
@@ -295,7 +368,7 @@ class _QuizState extends State<Quiz> {
               height: 20,
               child: Center(
                   child: Text(
-                    (i+1).toString(),
+                (i + 1).toString(),
                 style: TextStyle(color: Colors.white),
               )),
             ),
@@ -322,7 +395,7 @@ class _QuizState extends State<Quiz> {
               ? null
               : () async {
                   if (!isSubmit && _selectNum == document['answer']) {
-                    answerer.add("aldehf420@gmail.com");
+                    answerer.add('$email3');
                     await Firestore.instance
                         .collection('quiz')
                         .document(document.documentID)
@@ -429,21 +502,43 @@ class _QuizState extends State<Quiz> {
           Text(
             "START IN",
             textScaleFactor: 4,
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Icon(
             Icons.timer,
             size: MediaQuery.of(context).size.width * 0.5,
+            color: Colors.orangeAccent,
           ),
 //          Text(document['startTime'].toDate().toString()),
 //          Text(now.toString().split('.')[0]),
-          Text(
-            document['startTime']
-                .toDate()
-                .difference(now)
-                .toString()
-                .split('.')[0],
-            textScaleFactor: 4,
-          )
+          document['startTime'].toDate().difference(now) <=
+                  Duration(
+                    days: 0,
+                    hours: 0,
+                    minutes: 0,
+                    seconds: 10,
+                  )
+              ? Text(
+                  document['startTime']
+                      .toDate()
+                      .difference(now)
+                      .toString()
+                      .split('.')[0],
+                  textScaleFactor: 4,
+              style: TextStyle(
+                  color: Colors.red,
+                fontWeight: FontWeight.bold
+              )
+                )
+              : Text(
+                  document['startTime']
+                      .toDate()
+                      .difference(now)
+                      .toString()
+                      .split('.')[0],
+                  textScaleFactor: 4,
+
+                )
         ],
       ),
     );
@@ -461,7 +556,7 @@ class _QuizState extends State<Quiz> {
                 .difference(now)
                 .toString()
                 .split('.')[0],
-            textScaleFactor:1,
+            textScaleFactor: 1,
           )
         ],
       ),

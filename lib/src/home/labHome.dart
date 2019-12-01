@@ -132,6 +132,7 @@ class LabHome extends StatelessWidget {
 //    'CSE6050 Advanced Software Engineering',
 //    )
     return Container(
+      padding: EdgeInsets.only(bottom: 10),
         child: Row(
       children: <Widget>[
         Expanded(

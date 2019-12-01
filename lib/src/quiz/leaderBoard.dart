@@ -21,8 +21,10 @@ class _LeaderBoardState extends State<LeaderBoard> {
             .orderBy('startTime')
             .snapshots(),
         builder: (context, snapshot) {
-          if(!snapshot.hasData){
-            return Center(child: CircularProgressIndicator(),);
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
           return ListView.builder(
               itemCount: snapshot.data.documents.length,
@@ -49,44 +51,64 @@ class _LeaderBoardState extends State<LeaderBoard> {
                 "The " + int2Ordinal(index + 1) + " Quiz Winner",
                 textScaleFactor: 2,
                 style: TextStyle(
-                    fontStyle: FontStyle.italic, fontWeight: FontWeight.bold,color: Colors.orangeAccent),
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.orangeAccent),
               ),
             ],
           ),
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                   getWinnerName(document['answerer'][0]),
-                    Text(document['answerer'][0],textScaleFactor: 0.8,style: TextStyle(color: Colors.white70),)
-                  ],
-                ),
-                Container(margin: EdgeInsets.only(left: 20),child: Text("#1/"+document['answerer'].length.toString(),textScaleFactor:2,))
-              ],
-            ),
-          )
+          document['answerer'] != null && document['answerer'].length != 0
+              ? Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          getWinnerName(document['answerer'][0]),
+                          Text(
+                            document['answerer'][0],
+                            textScaleFactor: 0.8,
+                            style: TextStyle(color: Colors.white70),
+                          )
+                        ],
+                      ),
+                      Container(
+                          margin: EdgeInsets.only(left: 20),
+                          child: Text(
+                            "#1/" + document['answerer'].length.toString(),
+                            textScaleFactor: 2,
+                          ))
+                    ],
+                  ),
+                )
+              : Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Text(""),
+                )
         ],
       ),
     );
   }
 
-
-  Widget getWinnerName(String studentId){
+  Widget getWinnerName(String studentId) {
     return StreamBuilder(
-      stream: Firestore.instance.collection('student').document(studentId).snapshots(),
-      builder: (context,snapshot){
-        if(!snapshot.hasData){
+      stream: Firestore.instance
+          .collection('student')
+          .document(studentId)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
           return Text("Not Found..");
         }
-        return Text(snapshot.data['name'],textScaleFactor: 2,);
+        return Text(
+          snapshot.data['name'],
+          textScaleFactor: 2,
+        );
       },
     );
   }
-
 
   String int2Ordinal(int i) {
     switch (i % 10) {

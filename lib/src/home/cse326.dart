@@ -25,11 +25,22 @@ class CSE326 extends StatelessWidget {
     final Set dbSet2 = {"lecture", "lab"};
     final List dbList2 = dbSet2.toList();
     final _kTabPages = <Widget>[
-      Card(
-        child: Image.asset('images/picture.png'),
-        margin: EdgeInsets.all(10),
-        color: Colors.black12,
+      ListView(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(top: 10,bottom: 10),
+            width: MediaQuery.of(context).size.width,
+            child: Image.asset('images/courses.png'),
+            margin: EdgeInsets.all(10),
+
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+              color: Colors.black38,
+            ),
+          ),
+        ],
       ),
+
       StreamBuilder(
         // This is HOME Tab
         stream:
@@ -71,7 +82,6 @@ class CSE326 extends StatelessWidget {
           ),
         ),
         body: TabBarView(
-
           children: _kTabPages,
         ),
       ),

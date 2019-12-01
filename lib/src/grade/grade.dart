@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled3/src/grade/manageStudent.dart';
@@ -22,10 +24,47 @@ class BarChartSample1State extends State<BarChartSample1> {
   double d = 0;
   double e = 0;
 
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+
   final Color barBackgroundColor = const Color(0xff72d8bf);
   final Duration animDuration = Duration(milliseconds: 250);
 
   int touchedIndex;
+
+  void _showDialog(BuildContext context) {
+    final counter = Provider.of<Counter>(context);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return CupertinoAlertDialog(
+          title: new Text("Alert"),
+          content: new Text("Do you want Sign Out?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Confirm"),
+              onPressed: () async {
+                counter.decrement();
+                _firebaseAuth.signOut();
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.blue,
+            ),
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.red,
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +77,22 @@ class BarChartSample1State extends State<BarChartSample1> {
           centerTitle: true,
           title: Container(height: 100, child: Image.asset('images/logo.png')),
           elevation: 0,
+          actions: <Widget>[
+            counter.getCounter() == 0
+                ? IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () =>
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => RootPage(auth: Auth())))
+              ,
+            )
+                : IconButton(
+              icon: Icon(Icons.person_outline),
+              onPressed: () =>
+                  _showDialog(context)
+              ,
+            )
+          ],
         ),
         body: StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance
@@ -60,16 +115,71 @@ class BarChartSample1State extends State<BarChartSample1> {
                   );
               }
             }),
+
       );
-    } else {
+
+    }
+    else {
       return Center(
-          child: FlatButton(
-        child: Text("Login"),
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => RootPage(auth: new Auth())));
-        },
-      ));
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                  child: Image.asset('images/logo.png'),
+                  margin: EdgeInsets.all(10),
+                  decoration: new BoxDecoration(
+                    color: Colors.black38,
+                    borderRadius: BorderRadius.circular(18)
+                  )),
+              FlatButton(
+                padding: EdgeInsets.only(
+                    top: 5, bottom: 5, left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "SIGN ",
+                      textScaleFactor: 3,
+                    ),Text(
+                      "IN",
+                      textScaleFactor: 3,
+                      style: TextStyle(
+                        color: Colors.orangeAccent
+                      ),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => RootPage(auth: new Auth())));
+                },
+              ),
+            ],
+        ),
+//        child: Column(
+//          children: <Widget>[
+//            Container(
+//                alignment: Alignment.center,
+//                width: 300.0,
+//                height: 300.0,
+//                child: Image.asset('images/logo.png'),
+//                decoration: new BoxDecoration(
+//                )),
+//            RaisedButton(
+//              padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+//              color: Colors.amberAccent,
+//              child: Text(
+//                "Login",
+//                textScaleFactor: 3,
+//              ),
+//              onPressed: () {
+//                Navigator.of(context).push(MaterialPageRoute(
+//                    builder: (context) => RootPage(auth: new Auth())));
+//              },
+//            ),
+//          ],
+//        ),
+      );
     }
   }
 
