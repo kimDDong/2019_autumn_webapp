@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_signup_page.dart';
-import '../services/authentication.dart';
-import 'home_page.dart';
+import 'authentication.dart';
 
 class RootPage extends StatefulWidget {
   RootPage({this.auth});
@@ -81,11 +80,8 @@ class _RootPageState extends State<RootPage> {
         break;
       case AuthStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
-          return new HomePage(
-            userId: _userId,
-            auth: widget.auth,
-            onSignedOut: _onSignedOut,
-          );
+          Navigator.of(context).pop();
+          return CircularProgressIndicator();
         } else return _buildWaitingScreen();
         break;
       default:

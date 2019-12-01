@@ -6,8 +6,9 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled3/src/grade/manageStudent.dart';
-import 'package:untitled3/src/newlog/services/authentication.dart';
-import 'package:untitled3/src/sign/islogin.dart';
+import 'package:untitled3/src/signInOut/root_page.dart';
+import 'package:untitled3/src/signInOut/authentication.dart';
+import 'package:untitled3/src/signInOut/islogin.dart';
 
 class BarChartSample1 extends StatefulWidget {
   @override
@@ -28,45 +29,43 @@ class BarChartSample1State extends State<BarChartSample1> {
   @override
   Widget build(BuildContext context) {
     final counter = Provider.of<Counter>(context);
-    if (counter.getCounter() == 2){
+    if (counter.getCounter() == 2) {
       return ManageStudent();
-    }
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Container(height: 100, child: Image.asset('images/logo.png')),
-        elevation: 0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ManageStudent()));
-            },
-          )
-        ],
-      ),
-      body: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance
-              .collection('student')
-              .where('email', isEqualTo: '$email3')
-              .snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) return new Text('Error : ${snapshot.error}');
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return new Text('Loading...');
-              default:
-                return new Wrap(
+    } else if (counter.getCounter() == 1) {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Container(height:100,child: Image.asset('images/logo.png')),
+          elevation: 0,
+        ),
+        body: StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance
+                .collection('student')
+                .where('email', isEqualTo: '$email3')
+                .snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError)
+                return new Text('Error : ${snapshot.error}');
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return new Text('Loading...');
+                default:
+                  return new Wrap(
 //                  itemExtent: 80,
-                  children: snapshot.data.documents
-                      .map((document) => _buildListItem(context, document))
-                      .toList(),
-                );
-            }
-          }),
-    );
+                    children: snapshot.data.documents
+                        .map((document) => _buildListItem(context, document))
+                        .toList(),
+                  );
+              }
+            }),
+      );
+    }
+    else{
+      return Center(child: FlatButton(child: Text("Login"),onPressed: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>RootPage(auth: new Auth())));
+      },));
+    }
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
@@ -77,7 +76,6 @@ class BarChartSample1State extends State<BarChartSample1> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text('30점 만점 기준'),
         AspectRatio(
           aspectRatio: 1,
           child: Container(
