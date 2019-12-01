@@ -50,6 +50,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
       'grade_final': 0,
       'grade_mid': 0,
       'grade_quiz': 0,
+      'grade_project':0,
       'img': 'https://i.stack.imgur.com/l60Hf.png',
     });
   }
