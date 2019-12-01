@@ -29,7 +29,7 @@ class _ManageStudentState extends State<ManageStudent> {
           return GridView.builder(
               gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: MediaQuery.of(context).size.width*1.25 /
+                childAspectRatio: MediaQuery.of(context).size.width*1.23 /
                     (MediaQuery.of(context).size.height ),
               ),
               itemCount: snapshot.data.documents.length,

@@ -20,6 +20,7 @@ class BarChartSample1State extends State<BarChartSample1> {
   double b = 0;
   double c = 0;
   double d = 0;
+  double e = 0;
 
   final Color barBackgroundColor = const Color(0xff72d8bf);
   final Duration animDuration = Duration(milliseconds: 250);
@@ -70,9 +71,10 @@ class BarChartSample1State extends State<BarChartSample1> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     a = double.parse(document['grade_absent'].toString());
-    b = double.parse(document['grade_final'].toString());
-    c = double.parse(document['grade_mid'].toString());
-    d = double.parse(document['grade_quiz'].toString());
+    b = double.parse(document['grade_mid'].toString());
+    c = double.parse(document['grade_final'].toString());
+    d = double.parse(document['grade_project'].toString());
+    e = double.parse(document['grade_quiz'].toString());
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -177,18 +179,20 @@ class BarChartSample1State extends State<BarChartSample1> {
     );
   }
 
-  List<BarChartGroupData> showingGroups() => List.generate(4, (i) {
+  List<BarChartGroupData> showingGroups() => List.generate(5, (i) {
 //    print(a);
         switch (i) {
           case 0:
-            return makeGroupData(0, (10 - a) * 30 / 10,
+            return makeGroupData(0, (16 - a) * 30 / 16,
                 isTouched: i == touchedIndex);
           case 1:
             return makeGroupData(1, b, isTouched: i == touchedIndex);
           case 2:
             return makeGroupData(2, c, isTouched: i == touchedIndex);
           case 3:
-            return makeGroupData(3, d * 30 / 16, isTouched: i == touchedIndex);
+            return makeGroupData(3, d, isTouched: i == touchedIndex);
+          case 4:
+            return makeGroupData(4, e , isTouched: i == touchedIndex);
           default:
             return null;
         }
@@ -197,39 +201,41 @@ class BarChartSample1State extends State<BarChartSample1> {
   BarChartData mainBarData() {
     return BarChartData(
       barTouchData: BarTouchData(
-        touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: Colors.black26,
-            getTooltipItem: (group, groupIndex, rod, rodIndex) {
-              String weekDay;
-              switch (group.x.toInt()) {
-                case 0:
-                  weekDay = 'Attendence';
-                  break;
-                case 1:
-                  weekDay = 'Midterm';
-                  break;
-                case 2:
-                  weekDay = 'Finals';
-                  break;
-                case 3:
-                  weekDay = 'Quiz';
-                  break;
-              }
-              if (group.x.toInt() == 0) {
-                return BarTooltipItem(
-                    weekDay + '\n' + (rod.y * 10 / 30).toString() + ' / 10.0',
-                    TextStyle(color: Colors.yellow));
-              } else if (group.x.toInt() == 3 || group.x.toInt() == 0) {
-                return BarTooltipItem(
-                    weekDay + '\n' + (rod.y * 10 / 30).toString() + ' / 16.0',
-                    TextStyle(color: Colors.yellow));
-              } else {
-                return BarTooltipItem(
-                    weekDay + '\n' + (rod.y).toString() + ' / 30.0',
-                    TextStyle(color: Colors.yellow));
-              }
-            }),
-      ),
+          touchTooltipData: BarTouchTooltipData(
+              tooltipBgColor: Colors.black26,
+              getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                String weekDay;
+                switch (group.x.toInt()) {
+                  case 0:
+                    weekDay = 'Attendence';
+                    break;
+                  case 1:
+                    weekDay = 'Midterm';
+                    break;
+                  case 2:
+                    weekDay = 'Finals';
+                    break;
+                  case 3:
+                    weekDay = 'Project';
+                    break;
+                  case 4:
+                    weekDay = 'Quiz';
+                    break;
+                }
+                if(group.x.toInt()==0){
+                  return  BarTooltipItem(weekDay + '\n' + (rod.y*10/30).toString()+' / 10.0',
+                      TextStyle(color: Colors.yellow));
+                }
+                else if(group.x.toInt()==4 ){
+                  return  BarTooltipItem(weekDay + '\n' + (rod.y ).toString(),
+                      TextStyle(color: Colors.yellow));
+                }
+                else{
+                  return BarTooltipItem(weekDay + '\n' + (rod.y ).toString()+' / 30.0',
+                      TextStyle(color: Colors.yellow));
+                }
+              }),
+          ),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
@@ -247,7 +253,9 @@ class BarChartSample1State extends State<BarChartSample1> {
                 case 2:
                   return 'Final\n' + c.toString();
                 case 3:
-                  return 'Quiz\n' + d.toString();
+                  return 'Project\n'+d.toString();
+                case 4:
+                  return 'Quiz\n'+e.toString();
                 default:
                   return '';
               }
