@@ -29,7 +29,7 @@ Widget _myListView(BuildContext context) {
         child: ListTile(
           onTap: () {
   Navigator.of(context)
-      .push(MaterialPageRoute(builder: (context) => WebApplicationDevelopment()
+      .push(MaterialPageRoute(builder: (context) => CSE326()
   ));
 
   },

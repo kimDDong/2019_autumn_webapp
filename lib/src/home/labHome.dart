@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled3/src/home/cse326.dart';
 import 'package:untitled3/src/home/notice.dart';
 import 'package:untitled3/src/home/course.dart';
 import 'package:date_format/date_format.dart';
@@ -138,24 +139,30 @@ class LabHome extends StatelessWidget {
               decoration: BoxDecoration(color: Colors.black26),
               margin: EdgeInsets.only(left: 10, right: 10),
               height: MediaQuery.of(context).size.height * 0.2,
-              child: Center(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'CSE326',
-                    textScaleFactor: 2,
-                    style: TextStyle(
-                        color: Colors.orangeAccent,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Web Application Development',
-                    textScaleFactor: 0.8,
-                  ),
-                ],
-              ))),
+              child: FlatButton(
+                padding: EdgeInsets.all(0),
+                child: Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'CSE326',
+                      textScaleFactor: 2,
+                      style: TextStyle(
+                          color: Colors.orangeAccent,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Web Application Development',
+                      textScaleFactor: 0.8,
+                    ),
+                  ],
+                )),
+                onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CSE326()));
+                },
+              )),
         ),
         Expanded(
           child: Container(
@@ -226,26 +233,4 @@ class LabHome extends StatelessWidget {
   }
 }
 
-Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
-  String time = formatDate(document['date'].toDate(), [mm, "/", dd]);
-  return Container(
-      child: Column(
-    children: <Widget>[
-      Text(document['title']),
-      Text(time),
-    ],
-  ));
-}
 
-Widget course() {
-  return Container(
-//      padding: const EdgeInsets.all(32),
-    child: Text(
-      'CSE326 Web Application Development\n'
-      'CSE6050 Advanced Software Engineering',
-      style: TextStyle(
-        fontSize: 20,
-      ),
-    ),
-  );
-}

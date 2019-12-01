@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class WebApplicationDevelopment extends StatelessWidget {
+class CSE326 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Set dbSet = {
@@ -165,7 +165,7 @@ Widget _buildListItem2(
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    Text(gridState[i][0]),
+                    Text(gridState[i][0],textScaleFactor: 0.9,),
                   ],
 //              mainAxisAlignment: MainAxisAlignment.center,
 //                crossAxisAlignment: CrossAxisAlignment.center,
@@ -231,7 +231,7 @@ Widget _buildListItem2(
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        Text(gridState[i][0]),
+                        Text(gridState[i][0],textScaleFactor: 0.9,),
                       ],
 //              mainAxisAlignment: MainAxisAlignment.center,
 //                crossAxisAlignment: CrossAxisAlignment.center,
