@@ -26,26 +26,26 @@ class _StudentState extends State<Student> {
   final _formKey = GlobalKey<FormState>();
 
   int absent;
-
   int quiz;
-
   int midtermExam;
-
   int finalExam;
+  int project;
 
   double a = 0;
   double b = 0;
   double c = 0;
   double d = 0;
+  double e = 0;
 
   @override
-  initState(){
+  initState() {
     super.initState();
     setState(() {
       a = double.parse(document['grade_absent'].toString());
       b = double.parse(document['grade_mid'].toString());
       c = double.parse(document['grade_final'].toString());
-      d = double.parse(document['grade_quiz'].toString());
+      d = double.parse(document['grade_project'].toString());
+      e = double.parse(document['grade_quiz'].toString());
     });
   }
 
@@ -151,8 +151,6 @@ class _StudentState extends State<Student> {
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
-
-
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -243,8 +241,8 @@ class _StudentState extends State<Student> {
     );
   }
 
-  List<BarChartGroupData> showingGroups() => List.generate(4, (i) {
-
+  List<BarChartGroupData> showingGroups() => List.generate(5, (i) {
+//    print(a);
         switch (i) {
           case 0:
             return makeGroupData(0, (16 - a) * 30 / 16,
@@ -254,7 +252,9 @@ class _StudentState extends State<Student> {
           case 2:
             return makeGroupData(2, c, isTouched: i == touchedIndex);
           case 3:
-            return makeGroupData(3, d * 30 / 16, isTouched: i == touchedIndex);
+            return makeGroupData(3, d, isTouched: i == touchedIndex);
+          case 4:
+            return makeGroupData(4, e, isTouched: i == touchedIndex);
           default:
             return null;
         }
@@ -278,11 +278,24 @@ class _StudentState extends State<Student> {
                   weekDay = 'Finals';
                   break;
                 case 3:
+                  weekDay = 'Project';
+                  break;
+                case 4:
                   weekDay = 'Quiz';
                   break;
               }
-              return BarTooltipItem(weekDay + '\n' + (rod.y).toString(),
-                  TextStyle(color: Colors.yellow));
+              if (group.x.toInt() == 0) {
+                return BarTooltipItem(
+                    weekDay + '\n' + (rod.y*10/30).toString() + ' / 10.0',
+                    TextStyle(color: Colors.yellow));
+              } else if (group.x.toInt() == 4) {
+                return BarTooltipItem(weekDay + '\n' + (rod.y).toString(),
+                    TextStyle(color: Colors.yellow));
+              } else {
+                return BarTooltipItem(
+                    weekDay + '\n' + (rod.y).toString() + ' / 30.0',
+                    TextStyle(color: Colors.yellow));
+              }
             }),
       ),
       titlesData: FlTitlesData(
@@ -296,13 +309,15 @@ class _StudentState extends State<Student> {
               print("check");
               switch (value.toInt()) {
                 case 0:
-                  return 'Attendance\n' + a.toString();
+                  return 'Attendance\n'+(16-a).toString();
                 case 1:
-                  return 'Midterm\n' + b.toString();
+                  return 'Midterm\n'+b.toString();
                 case 2:
-                  return 'Final\n' + c.toString();
+                  return 'Final\n'+c.toString();
                 case 3:
-                  return 'Quiz\n' + d.toString();
+                  return 'Project\n'+d.toString();
+                case 4:
+                  return 'Quiz\n'+e.toString();
                 default:
                   return '';
               }
@@ -324,6 +339,7 @@ class _StudentState extends State<Student> {
     quiz = document['grade_quiz'];
     midtermExam = document['grade_mid'];
     finalExam = document['grade_final'];
+    project = document['grade_project'];
 
     showModalBottomSheet(
         context: context,
@@ -451,12 +467,49 @@ class _StudentState extends State<Student> {
                       ),
                     ),
                     Container(
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text("Project"),
+                                FlatButton(
+                                  child: Text(project.toString()),
+                                  onPressed: () {
+                                    Picker(
+                                        adapter: NumberPickerAdapter(data: [
+                                          NumberPickerColumn(begin: 0, end: 30)
+                                        ]),
+                                        hideHeader: true,
+                                        title:
+                                        Center(child: new Text("Project")),
+                                        onConfirm: (Picker picker, List value) {
+                                          setState(() {
+                                            project = value[0];
+                                          });
+                                        }).showDialog(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(" ")
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
                       margin: EdgeInsets.only(left: 10, right: 10),
                       child: RaisedButton(
                         child: Container(
                             width: MediaQuery.of(context).size.width,
                             child: Center(child: Text("Update!"))),
-                        onPressed: (){
+                        onPressed: () {
                           _showDialog(context);
                         },
                         color: Colors.orangeAccent,
@@ -484,15 +537,16 @@ class _StudentState extends State<Student> {
             new FlatButton(
               child: new Text("Confirm"),
               onPressed: () async {
-                await Firestore.instance.collection('student').document(document.documentID).setData(
-                    {
-                      'grade_absent':absent,
-                      'grade_quiz':quiz,
-                      'grade_mid':midtermExam,
-                      'grade_final':finalExam
-                    }
-                    ,merge: true
-                );
+                await Firestore.instance
+                    .collection('student')
+                    .document(document.documentID)
+                    .setData({
+                  'grade_absent': absent,
+                  'grade_quiz': quiz,
+                  'grade_mid': midtermExam,
+                  'grade_final': finalExam,
+                  'grade_project' : project
+                }, merge: true);
 
                 int count = 0;
                 Navigator.of(context).popUntil((_) => count++ >= 3);
