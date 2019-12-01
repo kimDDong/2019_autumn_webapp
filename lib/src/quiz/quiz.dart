@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,8 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   bool isSubmit = false;
   int _selectNum;
@@ -47,7 +50,7 @@ class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     final counter = Provider.of<Counter>(context);
-    if (counter.getCounter() >= 1) {
+    if (counter.getCounter() == 2) {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -78,7 +81,45 @@ class _QuizState extends State<Quiz> {
         ),
         body: getQuiz(),
       );
-    } else {
+    }
+    else if (counter.getCounter() == 1) {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Container(height: 100, child: Image.asset('images/logo.png')),
+          elevation: 0,
+          actions: <Widget>[
+            counter.getCounter() == 0
+                ? IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () =>
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => RootPage(auth: Auth())))
+              ,
+            )
+                : IconButton(
+              icon: Icon(Icons.person_outline),
+              onPressed: () =>
+                  _showDialog2(context)
+              ,
+            )
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => LeaderBoard()));
+          },
+          backgroundColor: Colors.white30,
+          child: Icon(
+            Icons.school,
+            color: Colors.white,
+          ),
+        ),
+        body: getQuiz(),
+      );
+    }
+    else {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -560,6 +601,40 @@ class _QuizState extends State<Quiz> {
           )
         ],
       ),
+    );
+  }
+
+  void _showDialog2(BuildContext context) {
+    final counter = Provider.of<Counter>(context);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return CupertinoAlertDialog(
+          title: new Text("Alert"),
+          content: new Text("Do you want Sign Out?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Confirm"),
+              onPressed: () async {
+                counter.decrement();
+                _firebaseAuth.signOut();
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.blue,
+            ),
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.red,
+            ),
+          ],
+        );
+      },
     );
   }
 }
