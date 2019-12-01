@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,14 +20,12 @@ class Home extends StatefulWidget {
 
   @override
   _HomeState createState() => _HomeState();
-
-
 }
 
 class _HomeState extends State<Home> {
 //  final BaseAuth auth;
 //  final VoidCallback onSignedOut;
-
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +68,20 @@ class _HomeState extends State<Home> {
           },),
           elevation: 0,
           actions: <Widget>[
-
-            counter.getCounter()==0?
-            IconButton(icon: Icon(Icons.person),onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>RootPage(auth: new Auth())));
-            },): IconButton(icon: Icon(Icons.person_outline),onPressed: (){
-              _showDialog(context);
-            },)
+            counter.getCounter() == 0
+                ? IconButton(
+                    icon: Icon(Icons.person),
+                    onPressed: () =>
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RootPage(auth: Auth())))
+                    ,
+                  )
+                : IconButton(
+                    icon: Icon(Icons.person_outline),
+                    onPressed: () =>
+                      _showDialog(context)
+                    ,
+                  )
           ],
           bottom: TabBar(
             indicatorColor: Colors.orangeAccent,
@@ -91,7 +97,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
 
   void _showDialog(BuildContext context) {
     final counter = Provider.of<Counter>(context);
@@ -109,6 +114,7 @@ class _HomeState extends State<Home> {
               child: new Text("Confirm"),
               onPressed: () async {
                 counter.decrement();
+                _firebaseAuth.signOut();
                 Navigator.of(context).pop();
               },
               textColor: Colors.blue,
@@ -126,4 +132,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-

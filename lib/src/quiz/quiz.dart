@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled3/src/quiz/addQuiz.dart';
 import 'package:untitled3/src/quiz/leaderBoard.dart';
+import 'package:untitled3/src/signInOut/authentication.dart';
 import 'package:untitled3/src/signInOut/islogin.dart';
+import 'package:untitled3/src/signInOut/root_page.dart';
 
 class Quiz extends StatefulWidget {
   @override
@@ -46,19 +48,20 @@ class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     final counter = Provider.of<Counter>(context);
-
+    if (counter.getCounter() == 1){
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Container(height:100,child: Image.asset('images/logo.png')),
         elevation: 0,
         actions: <Widget>[
+          counter.getCounter() ==2 ?
           IconButton(
             icon: Icon(Icons.add),
             onPressed: (){
               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddQuiz()));
             },
-          )
+          ):Text('')
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -70,6 +73,39 @@ class _QuizState extends State<Quiz> {
       ),
       body: getQuiz(),
     );
+    }
+    if (counter.getCounter() == 2){
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Container(height:100,child: Image.asset('images/logo.png')),
+          elevation: 0,
+          actions: <Widget>[
+            counter.getCounter() ==2 ?
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddQuiz()));
+              },
+            ):Text('')
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LeaderBoard()));
+          },
+          backgroundColor: Colors.white30,
+          child: Icon(Icons.school,color: Colors.white,),
+        ),
+        body: getQuiz(),
+      );
+    }
+    else{
+      return Center(child: FlatButton(child: Text("Login"),onPressed: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>RootPage(auth: new Auth())));
+      },));
+    }
+
   }
 
   Widget getQuiz() {
