@@ -307,6 +307,15 @@ class About extends StatelessWidget {
 //        rotate: 90.0,
         // Default 0.0 degrees
         boxShadows: [
+<<<<<<< HEAD
+//          PolygonBoxShadow(color: Colors., elevation: 1.0),
+          PolygonBoxShadow(color: Colors.amberAccent, elevation: 4.0)
+        ],
+        child: Container(
+            child: Image.network(
+              img, cacheWidth: size,
+            ), color: Colors.white),
+=======
 
           PolygonBoxShadow(color: Colors.orangeAccent, elevation: 5),
           PolygonBoxShadow(color: Colors.orangeAccent, elevation: 5,),
@@ -318,6 +327,7 @@ class About extends StatelessWidget {
               image: DecorationImage(
                   image: NetworkImage(img), fit: BoxFit.contain)),
         ),
+>>>>>>> flutterV2
       ),
     );
   }
