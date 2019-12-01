@@ -115,7 +115,8 @@ class _LoginPageState extends State<LoginPage> {
           _isLoading = false;
         });
 
-        if ( userId.length > 0 && userId != null && _formMode == FormMode.LOGIN) {
+
+        if (userId.length > 0 && userId != null && _formMode == FormMode.LOGIN) {
           widget.onSignedIn();
         }
 

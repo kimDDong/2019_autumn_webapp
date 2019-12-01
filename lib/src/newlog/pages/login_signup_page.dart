@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../services/authentication.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 String email2;
-int studentID;
+String studentID;
 String major;
 String name2;
 
@@ -28,7 +29,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   String _email;
   String _password;
-  int _studentID;
+  String _studentID;
   String _name;
   String _major;
   String _errorMessage;
@@ -169,6 +170,12 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               new Text("Link to verify account has been sent to your email"),
           actions: <Widget>[
             new FlatButton(
+              child: new Text("Verify",style: TextStyle(color: Colors.blue),),
+              onPressed: () {
+                launch("https://mail.hanyang.ac.kr");
+              },
+            ),
+            new FlatButton(
               child: new Text("Dismiss"),
               onPressed: () {
                 _changeFormToLogin();
@@ -243,7 +250,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               color: Colors.grey,
             )),
         validator: (value) =>
-            value.contains('@hanyang.ac.kr') ? null : 'Use Hanyang account',
+            value.contains('@hanyang.ac.kr') || value == 'aldehf420@gmail.com' ||value=='admin@selab.com' ? null : 'Use Hanyang account',
         onSaved: (value) => _email = value.trim(),
       ),
     );
@@ -267,7 +274,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
             )),
         validator: (value) =>
             value.isEmpty ? 'StudentID can\'t be empty' : null,
-        onSaved: (value) => _studentID = int.parse(value),
+        onSaved: (value) => _studentID = value.trim(),
       ),
     );
   }
