@@ -298,6 +298,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final counter = Provider.of<Counter>(context);
     return new Scaffold(
       appBar: new AppBar(
 

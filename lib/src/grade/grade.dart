@@ -4,8 +4,10 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled3/src/grade/manageStudent.dart';
 import 'package:untitled3/src/newlog/services/authentication.dart';
+import 'package:untitled3/src/sign/islogin.dart';
 
 class BarChartSample1 extends StatefulWidget {
   @override
@@ -25,44 +27,46 @@ class BarChartSample1State extends State<BarChartSample1> {
 
   @override
   Widget build(BuildContext context) {
-    {
-      return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Container(height: 100, child: Image.asset('images/logo.png')),
-          elevation: 0,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ManageStudent()));
-              },
-            )
-          ],
-        ),
-        body: StreamBuilder<QuerySnapshot>(
-            stream: Firestore.instance
-                .collection('student')
-              .where('email',isEqualTo: '$email3')
-                .snapshots(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError)
-                return new Text('Error : ${snapshot.error}');
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return new Text('Loading...');
-                default:
-                  return new Wrap(
-//                  itemExtent: 80,
-                    children: snapshot.data.documents
-                        .map((document) => _buildListItem(context, document))
-                        .toList(),
-                  );
-              }
-            }),
-      );
+    final counter = Provider.of<Counter>(context);
+    if (counter.getCounter() == 2){
+      return ManageStudent();
     }
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Container(height: 100, child: Image.asset('images/logo.png')),
+        elevation: 0,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ManageStudent()));
+            },
+          )
+        ],
+      ),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance
+              .collection('student')
+              .where('email', isEqualTo: '$email3')
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) return new Text('Error : ${snapshot.error}');
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return new Text('Loading...');
+              default:
+                return new Wrap(
+//                  itemExtent: 80,
+                  children: snapshot.data.documents
+                      .map((document) => _buildListItem(context, document))
+                      .toList(),
+                );
+            }
+          }),
+    );
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
@@ -73,15 +77,14 @@ class BarChartSample1State extends State<BarChartSample1> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-
         Text('30점 만점 기준'),
         AspectRatio(
           aspectRatio: 1,
           child: Container(
             margin: EdgeInsets.all(10),
             child: Card(
-              shape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18)),
               color: Colors.black12,
               child: Stack(
                 children: <Widget>[
@@ -119,7 +122,8 @@ class BarChartSample1State extends State<BarChartSample1> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
                               child: BarChart(
                                 mainBarData(),
                                 swapAnimationDuration: animDuration,
@@ -195,38 +199,39 @@ class BarChartSample1State extends State<BarChartSample1> {
   BarChartData mainBarData() {
     return BarChartData(
       barTouchData: BarTouchData(
-          touchTooltipData: BarTouchTooltipData(
-              tooltipBgColor: Colors.black26,
-              getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                String weekDay;
-                switch (group.x.toInt()) {
-                  case 0:
-                    weekDay = 'Attendence';
-                    break;
-                  case 1:
-                    weekDay = 'Midterm';
-                    break;
-                  case 2:
-                    weekDay = 'Finals';
-                    break;
-                  case 3:
-                    weekDay = 'Quiz';
-                    break;
-                }
-                if(group.x.toInt()==0){
-                  return  BarTooltipItem(weekDay + '\n' + (rod.y *10/30).toString()+' / 10.0',
-                      TextStyle(color: Colors.yellow));
-                }
-                else if(group.x.toInt()==3 || group.x.toInt()==0){
-                  return  BarTooltipItem(weekDay + '\n' + (rod.y *10/30).toString()+' / 16.0',
-                      TextStyle(color: Colors.yellow));
-                }
-                else{
-                  return BarTooltipItem(weekDay + '\n' + (rod.y ).toString()+' / 30.0',
-                      TextStyle(color: Colors.yellow));
-                }
-              }),
-          ),
+        touchTooltipData: BarTouchTooltipData(
+            tooltipBgColor: Colors.black26,
+            getTooltipItem: (group, groupIndex, rod, rodIndex) {
+              String weekDay;
+              switch (group.x.toInt()) {
+                case 0:
+                  weekDay = 'Attendence';
+                  break;
+                case 1:
+                  weekDay = 'Midterm';
+                  break;
+                case 2:
+                  weekDay = 'Finals';
+                  break;
+                case 3:
+                  weekDay = 'Quiz';
+                  break;
+              }
+              if (group.x.toInt() == 0) {
+                return BarTooltipItem(
+                    weekDay + '\n' + (rod.y * 10 / 30).toString() + ' / 10.0',
+                    TextStyle(color: Colors.yellow));
+              } else if (group.x.toInt() == 3 || group.x.toInt() == 0) {
+                return BarTooltipItem(
+                    weekDay + '\n' + (rod.y * 10 / 30).toString() + ' / 16.0',
+                    TextStyle(color: Colors.yellow));
+              } else {
+                return BarTooltipItem(
+                    weekDay + '\n' + (rod.y).toString() + ' / 30.0',
+                    TextStyle(color: Colors.yellow));
+              }
+            }),
+      ),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
@@ -238,13 +243,13 @@ class BarChartSample1State extends State<BarChartSample1> {
               print("check");
               switch (value.toInt()) {
                 case 0:
-                  return 'Attendance\n'+(10-a).toString();
+                  return 'Attendance\n' + (10 - a).toString();
                 case 1:
-                  return 'Midterm\n'+b.toString();
+                  return 'Midterm\n' + b.toString();
                 case 2:
-                  return 'Final\n'+c.toString();
+                  return 'Final\n' + c.toString();
                 case 3:
-                  return 'Quiz\n'+d.toString();
+                  return 'Quiz\n' + d.toString();
                 default:
                   return '';
               }

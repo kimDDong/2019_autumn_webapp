@@ -34,6 +34,7 @@ class Auth implements BaseAuth {
     print('===========>'+email);
     FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password)).user;
     email3 = email;
+
     return user.uid;
   }
 

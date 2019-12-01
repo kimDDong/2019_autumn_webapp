@@ -2,7 +2,9 @@ import 'dart:ui' as prefix0;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled3/src/newlog/services/authentication.dart';
+import 'package:untitled3/src/sign/islogin.dart';
 
 
 String email2;
@@ -70,8 +72,18 @@ class _LoginPageState extends State<LoginPage> {
     return false;
   }
 
+  @override
+  void initState() {
+
+    _errorMessage = "";
+    _isLoading = false;
+    super.initState();
+  }
+
+
   // Perform login or signup
   void _validateAndSubmit() async {
+    final counter = Provider.of<Counter>(context);
     setState(() {
       _errorMessage = "";
       _isLoading = true;
@@ -82,7 +94,13 @@ class _LoginPageState extends State<LoginPage> {
         if (_formMode == FormMode.LOGIN) {
           userId = await widget.auth.signIn(_email, _password);
           print('Signed in: $userId');
+          if(email3 == 'aldehf420@gmail.com'){
+            counter.admin();
+          }else{
+            counter.increment();
+          }
         } else {
+
           email2 = _email;
           studentID = _studentID;
           major = _major;
@@ -97,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
           _isLoading = false;
         });
 
-        if (userId.endsWith('hanyang.ac.kr') && userId.length > 0 && userId != null && _formMode == FormMode.LOGIN) {
+        if ( userId.length > 0 && userId != null && _formMode == FormMode.LOGIN) {
           widget.onSignedIn();
         }
 
@@ -112,15 +130,6 @@ class _LoginPageState extends State<LoginPage> {
         });
       }
     }
-  }
-
-
-  @override
-  void initState() {
-
-    _errorMessage = "";
-    _isLoading = false;
-    super.initState();
   }
 
   void _changeFormToSignUp() {
