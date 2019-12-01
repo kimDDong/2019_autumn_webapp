@@ -4,11 +4,8 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:untitled3/src/grade/manageStudent.dart';
-import 'package:untitled3/src/sign/islogin.dart';
-import 'package:untitled3/src/sign/login.dart';
-import 'package:untitled3/src/sign/sign_in.dart';
+import 'package:untitled3/src/newlog/services/authentication.dart';
 
 class BarChartSample1 extends StatefulWidget {
   @override
@@ -28,10 +25,7 @@ class BarChartSample1State extends State<BarChartSample1> {
 
   @override
   Widget build(BuildContext context) {
-    final counter = Provider.of<Counter>(context);
-    if (counter.getCounter() == 0) {
-      return LoginPage();
-    } else {
+    {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -49,7 +43,7 @@ class BarChartSample1State extends State<BarChartSample1> {
         body: StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance
                 .collection('student')
-              .where('email',isEqualTo: '$email')
+              .where('email',isEqualTo: '$email3')
                 .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -101,7 +95,7 @@ class BarChartSample1State extends State<BarChartSample1> {
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Text(
-                            'Grade',
+                            document['name'].toString(),
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -111,7 +105,7 @@ class BarChartSample1State extends State<BarChartSample1> {
                             height: 4,
                           ),
                           Text(
-                            '$name',
+                            document['studentID'].toString(),
                             style: TextStyle(
                                 color: Colors.white30,
                                 fontSize: 18,

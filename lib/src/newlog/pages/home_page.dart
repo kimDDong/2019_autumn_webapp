@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled3/src/grade/grade.dart';
 import 'package:untitled3/src/newlog/pages/login_signup_page.dart';
+import 'package:untitled3/src/sign/islogin.dart';
 import '../services/authentication.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
@@ -47,7 +50,6 @@ class _HomePageState extends State<HomePage> {
       _resetPasswordEmail = _resetPasswordEmailFilter.text;
     }
   }
-
   void _emailListen() {
     if (_emailFilter.text.isEmpty) {
       _email = "";
@@ -158,7 +160,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  
+
 
   _signOut() async {
     try {
@@ -169,6 +171,107 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // _addNewTodo(String todoItem) {
+  //   if (todoItem.length > 0) {
+
+  //     Todo todo = new Todo(todoItem.toString(), widget.userId, false);
+  //     _database.reference().child("todo").push().set(todo.toJson());
+  //   }
+  // }
+
+  // _updateTodo(Todo todo){
+  //   //Toggle completed
+  //   todo.completed = !todo.completed;
+  //   if (todo != null) {
+  //     _database.reference().child("todo").child(todo.key).set(todo.toJson());
+  //   }
+  // }
+
+  // _deleteTodo(String todoId, int index) {
+  //   _database.reference().child("todo").child(todoId).remove().then((_) {
+  //     print("Delete $todoId successful");
+  //     setState(() {
+  //       _todoList.removeAt(index);
+  //     });
+  //   });
+  // }
+
+  // _showDialog(BuildContext context) async {
+  //   _textEditingController.clear();
+  //   await showDialog<String>(
+  //       context: context,
+  //     builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           content: new Row(
+  //             children: <Widget>[
+  //               new Expanded(child: new TextField(
+  //                 controller: _textEditingController,
+  //                 autofocus: true,
+  //                 decoration: new InputDecoration(
+  //                   labelText: 'Add new todo',
+  //                 ),
+  //               ))
+  //             ],
+  //           ),
+  //           actions: <Widget>[
+  //             new FlatButton(
+  //                 child: const Text('Cancel'),
+  //                 onPressed: () {
+  //                   Navigator.pop(context);
+  //                 }),
+  //             new FlatButton(
+  //                 child: const Text('Save'),
+  //                 onPressed: () {
+  //                   _addNewTodo(_textEditingController.text.toString());
+  //                   Navigator.pop(context);
+  //                 })
+  //           ],
+  //         );
+  //     }
+  //   );
+  // }
+
+  // Widget _showTodoList() {
+  //   if (_todoList.length > 0) {
+  //     return ListView.builder(
+  //         shrinkWrap: true,
+  //         itemCount: _todoList.length,
+  //         itemBuilder: (BuildContext context, int index) {
+  //           String todoId = _todoList[index].key;
+  //           String subject = _todoList[index].subject;
+  //           bool completed = _todoList[index].completed;
+  //           String userId = _todoList[index].userId;
+  //           return Dismissible(
+  //             key: Key(todoId),
+  //             background: Container(color: Colors.red),
+  //             onDismissed: (direction) async {
+  //               _deleteTodo(todoId, index);
+  //             },
+  //             child: ListTile(
+  //               title: Text(
+  //                 subject,
+  //                 style: TextStyle(fontSize: 20.0),
+  //               ),
+  //               trailing: IconButton(
+  //                   icon: (completed)
+  //                       ? Icon(
+  //                     Icons.done_outline,
+  //                     color: Colors.green,
+  //                     size: 20.0,
+  //                   )
+  //                       : Icon(Icons.done, color: Colors.grey, size: 20.0),
+  //                   onPressed: () {
+  //                     _updateTodo(_todoList[index]);
+  //                   }),
+  //             ),
+  //           );
+  //         });
+  //   } else {
+  //     return Center(child: Text("Welcome. Your list is empty",
+  //       textAlign: TextAlign.center,
+  //       style: TextStyle(fontSize: 30.0),));
+  //   }
+  // }
 
   Widget _showButtonList() {
     return new Container(
@@ -197,7 +300,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Flutter login demo'),
+
         actions: <Widget>[
           new FlatButton(
               child: new Text('Logout',
@@ -205,7 +308,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: _signOut)
         ],
       ),
-      body: _showButtonList(),
+      body: BarChartSample1(),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
       //     _showDialog(context);

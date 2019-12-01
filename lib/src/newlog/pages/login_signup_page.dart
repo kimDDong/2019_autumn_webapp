@@ -76,15 +76,15 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
         if (_formMode == FormMode.LOGIN) {
           userId = await widget.auth.signIn(_email, _password);
           print('Signed in: $userId');
+        } else {
           email2 = _email;
           studentID = _studentID;
           major = _major;
           name2 = _name;
-          createRecord(email2, major, name2, studentID);
-        } else {
           userId = await widget.auth.signUp(_email, _password);
           widget.auth.sendEmailVerification();
           _showVerifyEmailSentDialog();
+          createRecord(email2, major, name2, studentID);
           print('Signed up user: $userId');
         }
         setState(() {
