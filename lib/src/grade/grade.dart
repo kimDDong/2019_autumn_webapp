@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled3/src/grade/manageStudent.dart';
@@ -22,10 +24,47 @@ class BarChartSample1State extends State<BarChartSample1> {
   double d = 0;
   double e = 0;
 
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+
   final Color barBackgroundColor = const Color(0xff72d8bf);
   final Duration animDuration = Duration(milliseconds: 250);
 
   int touchedIndex;
+
+  void _showDialog(BuildContext context) {
+    final counter = Provider.of<Counter>(context);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return CupertinoAlertDialog(
+          title: new Text("Alert"),
+          content: new Text("Do you want Sign Out?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Confirm"),
+              onPressed: () async {
+                counter.decrement();
+                _firebaseAuth.signOut();
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.blue,
+            ),
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.red,
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +75,24 @@ class BarChartSample1State extends State<BarChartSample1> {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Container(height:100,child: Image.asset('images/logo.png')),
+          title: Container(height: 100, child: Image.asset('images/logo.png')),
           elevation: 0,
+          actions: <Widget>[
+            counter.getCounter() == 0
+                ? IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () =>
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => RootPage(auth: Auth())))
+              ,
+            )
+                : IconButton(
+              icon: Icon(Icons.person_outline),
+              onPressed: () =>
+                  _showDialog(context)
+              ,
+            )
+          ],
         ),
         body: StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance
@@ -60,12 +115,70 @@ class BarChartSample1State extends State<BarChartSample1> {
                   );
               }
             }),
+
       );
     }
-    else{
-      return Center(child: FlatButton(child: Text("Login"),onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>RootPage(auth: new Auth())));
-      },));
+    else {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                  child: Image.asset('images/logo.png'),
+                  margin: EdgeInsets.all(10),
+                  decoration: new BoxDecoration(
+                    color: Colors.black38,
+                    borderRadius: BorderRadius.circular(18)
+                  )),
+              FlatButton(
+                padding: EdgeInsets.only(
+                    top: 5, bottom: 5, left: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "SIGN ",
+                      textScaleFactor: 3,
+                    ),Text(
+                      "IN",
+                      textScaleFactor: 3,
+                      style: TextStyle(
+                        color: Colors.orangeAccent
+                      ),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => RootPage(auth: new Auth())));
+                },
+              ),
+            ],
+        ),
+//        child: Column(
+//          children: <Widget>[
+//            Container(
+//                alignment: Alignment.center,
+//                width: 300.0,
+//                height: 300.0,
+//                child: Image.asset('images/logo.png'),
+//                decoration: new BoxDecoration(
+//                )),
+//            RaisedButton(
+//              padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+//              color: Colors.amberAccent,
+//              child: Text(
+//                "Login",
+//                textScaleFactor: 3,
+//              ),
+//              onPressed: () {
+//                Navigator.of(context).push(MaterialPageRoute(
+//                    builder: (context) => RootPage(auth: new Auth())));
+//              },
+//            ),
+//          ],
+//        ),
+      );
     }
   }
 
@@ -192,7 +305,7 @@ class BarChartSample1State extends State<BarChartSample1> {
           case 3:
             return makeGroupData(3, d, isTouched: i == touchedIndex);
           case 4:
-            return makeGroupData(4, e , isTouched: i == touchedIndex);
+            return makeGroupData(4, e, isTouched: i == touchedIndex);
           default:
             return null;
         }
@@ -201,41 +314,41 @@ class BarChartSample1State extends State<BarChartSample1> {
   BarChartData mainBarData() {
     return BarChartData(
       barTouchData: BarTouchData(
-          touchTooltipData: BarTouchTooltipData(
-              tooltipBgColor: Colors.black26,
-              getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                String weekDay;
-                switch (group.x.toInt()) {
-                  case 0:
-                    weekDay = 'Attendence';
-                    break;
-                  case 1:
-                    weekDay = 'Midterm';
-                    break;
-                  case 2:
-                    weekDay = 'Finals';
-                    break;
-                  case 3:
-                    weekDay = 'Project';
-                    break;
-                  case 4:
-                    weekDay = 'Quiz';
-                    break;
-                }
-                if(group.x.toInt()==0){
-                  return  BarTooltipItem(weekDay + '\n' + (rod.y*10/30).toString()+' / 10.0',
-                      TextStyle(color: Colors.yellow));
-                }
-                else if(group.x.toInt()==4 ){
-                  return  BarTooltipItem(weekDay + '\n' + (rod.y ).toString(),
-                      TextStyle(color: Colors.yellow));
-                }
-                else{
-                  return BarTooltipItem(weekDay + '\n' + (rod.y ).toString()+' / 30.0',
-                      TextStyle(color: Colors.yellow));
-                }
-              }),
-          ),
+        touchTooltipData: BarTouchTooltipData(
+            tooltipBgColor: Colors.black26,
+            getTooltipItem: (group, groupIndex, rod, rodIndex) {
+              String weekDay;
+              switch (group.x.toInt()) {
+                case 0:
+                  weekDay = 'Attendence';
+                  break;
+                case 1:
+                  weekDay = 'Midterm';
+                  break;
+                case 2:
+                  weekDay = 'Finals';
+                  break;
+                case 3:
+                  weekDay = 'Project';
+                  break;
+                case 4:
+                  weekDay = 'Quiz';
+                  break;
+              }
+              if (group.x.toInt() == 0) {
+                return BarTooltipItem(
+                    weekDay + '\n' + (rod.y * 10 / 30).toString() + ' / 10.0',
+                    TextStyle(color: Colors.yellow));
+              } else if (group.x.toInt() == 4) {
+                return BarTooltipItem(weekDay + '\n' + (rod.y).toString(),
+                    TextStyle(color: Colors.yellow));
+              } else {
+                return BarTooltipItem(
+                    weekDay + '\n' + (rod.y).toString() + ' / 30.0',
+                    TextStyle(color: Colors.yellow));
+              }
+            }),
+      ),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
@@ -253,9 +366,9 @@ class BarChartSample1State extends State<BarChartSample1> {
                 case 2:
                   return 'Final\n' + c.toString();
                 case 3:
-                  return 'Project\n'+d.toString();
+                  return 'Project\n' + d.toString();
                 case 4:
-                  return 'Quiz\n'+e.toString();
+                  return 'Quiz\n' + e.toString();
                 default:
                   return '';
               }
