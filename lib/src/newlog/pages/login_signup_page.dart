@@ -5,7 +5,7 @@ import '../services/authentication.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 String email2;
-int studentID;
+String studentID;
 String major;
 String name2;
 
@@ -28,7 +28,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   String _email;
   String _password;
-  int _studentID;
+  String _studentID;
   String _name;
   String _major;
   String _errorMessage;
@@ -267,7 +267,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
             )),
         validator: (value) =>
             value.isEmpty ? 'StudentID can\'t be empty' : null,
-        onSaved: (value) => _studentID = int.parse(value),
+        onSaved: (value) => _studentID = value.trim(),
       ),
     );
   }
