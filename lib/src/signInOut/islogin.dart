@@ -16,6 +16,11 @@ class Counter with ChangeNotifier {
     notifyListeners();
   }
 
+  void admin(){
+    _counter=2;
+    notifyListeners();
+  }
+
   final _howto = ['None', 'Push', 'Email'];
   final _categories = ['Notice','Course','CourseSlide'];
   List<String> _selected1 = ['Push','Email'];

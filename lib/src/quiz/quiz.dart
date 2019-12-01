@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled3/src/quiz/addQuiz.dart';
 import 'package:untitled3/src/quiz/leaderBoard.dart';
-import 'package:untitled3/src/sign/islogin.dart';
+import 'package:untitled3/src/signInOut/islogin.dart';
 
 class Quiz extends StatefulWidget {
   @override

@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled3/src/signInOut/islogin.dart';
 
 String email3;
 
 
 
 abstract class BaseAuth {
-  Future<String> signIn(String email, String password);
+  Future<String> signIn(String email, String password,BuildContext context);
 
   Future<String> signUp(String email, String password);
 
@@ -30,10 +33,17 @@ abstract class BaseAuth {
 class Auth implements BaseAuth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<String> signIn(String email, String password) async {
+  Future<String> signIn(String email, String password,BuildContext context) async {
+    final counter = Provider.of<Counter>(context);
+    if(email == 'aldehf420@gmail.com'){
+      counter.admin();
+    }else{
+      counter.increment();
+    }
     print('===========>'+email);
     FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password)).user;
     email3 = email;
+
     return user.uid;
   }
 

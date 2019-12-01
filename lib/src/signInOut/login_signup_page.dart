@@ -1,32 +1,28 @@
-import 'dart:ui' as prefix0;
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled3/src/newlog/services/authentication.dart';
-
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'authentication.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 String email2;
 String studentID;
 String major;
-String name2 ;
+String name2;
 
-
-class LoginPage extends StatefulWidget {
-  LoginPage({this.auth, this.onSignedIn});
-
+class LoginSignUpPage extends StatefulWidget {
+  LoginSignUpPage({this.auth, this.onSignedIn});
 
   final BaseAuth auth;
   final VoidCallback onSignedIn;
 
   @override
-  State<StatefulWidget> createState() => new _LoginPageState();
+  State<StatefulWidget> createState() => new _LoginSignUpPageState();
 }
 
 enum FormMode { LOGIN, SIGNUP }
 
-class _LoginPageState extends State<LoginPage> {
-
-
+class _LoginSignUpPageState extends State<LoginSignUpPage> {
   final _formKey = new GlobalKey<FormState>();
 
   final databaseReference = Firestore.instance;
@@ -43,22 +39,20 @@ class _LoginPageState extends State<LoginPage> {
   bool _isIos;
   bool _isLoading;
 
-  void createRecord(String email,String major,String name,String studentID) async {
-    await databaseReference.collection("student")
-        .document(email)
-        .setData({
+  void createRecord(
+      String email, String major, String name, String studentID) async {
+    await databaseReference.collection("student").document(email).setData({
       'email': email,
       'major': major,
-      'name' : name,
-      'studentID' : studentID,
-      'grade_absent' : 0,
-      'grade_final' : 0,
-      'grade_mid' : 0,
-      'grade_quiz' : 0,
-      'img' : 'https://i.stack.imgur.com/l60Hf.png',
+      'name': name,
+      'studentID': studentID,
+      'grade_absent': 0,
+      'grade_final': 0,
+      'grade_mid': 0,
+      'grade_quiz': 0,
+      'img': 'https://i.stack.imgur.com/l60Hf.png',
     });
   }
-
 
   // Check if form is valid before perform login or signup
   bool _validateAndSave() {
@@ -80,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
       String userId = "";
       try {
         if (_formMode == FormMode.LOGIN) {
-          userId = await widget.auth.signIn(_email, _password);
+          userId = await widget.auth.signIn(_email, _password,context);
           print('Signed in: $userId');
         } else {
           email2 = _email;
@@ -90,17 +84,18 @@ class _LoginPageState extends State<LoginPage> {
           userId = await widget.auth.signUp(_email, _password);
           widget.auth.sendEmailVerification();
           _showVerifyEmailSentDialog();
-          createRecord(email2, major, name2, studentID);
+          createRecord(email2, major, name2, studentID.toString());
           print('Signed up user: $userId');
         }
         setState(() {
           _isLoading = false;
         });
 
-        if (userId.length > 0 && userId != null && _formMode == FormMode.LOGIN) {
+        if (userId.length > 0 &&
+            userId != null &&
+            _formMode == FormMode.LOGIN) {
           widget.onSignedIn();
         }
-
       } catch (e) {
         print('Error: $e');
         setState(() {
@@ -114,10 +109,8 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-
   @override
   void initState() {
-
     _errorMessage = "";
     _isLoading = false;
     super.initState();
@@ -145,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
     return new Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Container(height:100,child: Image.asset('images/logo.png')),
+          title: Container(height: 100, child: Image.asset('images/logo.png')),
           elevation: 0,
         ),
         body: Stack(
@@ -156,11 +149,14 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 
-  Widget _showCircularProgress(){
+  Widget _showCircularProgress() {
     if (_isLoading) {
       return Center(child: CircularProgressIndicator());
-    } return Container(height: 0.0, width: 0.0,);
-
+    }
+    return Container(
+      height: 0.0,
+      width: 0.0,
+    );
   }
 
   void _showVerifyEmailSentDialog() {
@@ -170,8 +166,15 @@ class _LoginPageState extends State<LoginPage> {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Verify your account"),
-          content: new Text("Link to verify account has been sent to your email"),
+          content:
+              new Text("Link to verify account has been sent to your email"),
           actions: <Widget>[
+            new FlatButton(
+              child: new Text("Verify",style: TextStyle(color: Colors.blue),),
+              onPressed: () {
+                launch("https://mail.hanyang.ac.kr");
+              },
+            ),
             new FlatButton(
               child: new Text("Dismiss"),
               onPressed: () {
@@ -185,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _showBody(){
+  Widget _showBody() {
     return new Container(
         padding: EdgeInsets.all(16.0),
         child: new Form(
@@ -196,12 +199,9 @@ class _LoginPageState extends State<LoginPage> {
               _showLogo(),
               _showErrorMessage(),
               _showEmailInput(),
-              _formMode == FormMode.LOGIN?
-              Text(""):_showStudentIdInput(),
-              _formMode == FormMode.LOGIN?
-              Text(""):_showNameInput(),
-              _formMode == FormMode.LOGIN?
-              Text(""):_showMajorInput(),
+              _formMode == FormMode.LOGIN ? Text("") : _showStudentIdInput(),
+              _formMode == FormMode.LOGIN ? Text("") : _showNameInput(),
+              _formMode == FormMode.LOGIN ? Text("") : _showMajorInput(),
               _showPasswordInput(),
               _showPrimaryButton(),
               _showSecondaryButton(),
@@ -249,7 +249,8 @@ class _LoginPageState extends State<LoginPage> {
               Icons.mail,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
+        validator: (value) =>
+            value.contains('@hanyang.ac.kr') || value == 'aldehf420@gmail.com' ||value=='admin@selab.com' ? null : 'Use Hanyang account',
         onSaved: (value) => _email = value.trim(),
       ),
     );
@@ -260,7 +261,10 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly
+        ],
         autofocus: false,
         decoration: new InputDecoration(
             hintText: 'studentID',
@@ -268,7 +272,8 @@ class _LoginPageState extends State<LoginPage> {
               Icons.perm_identity,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'StudentID can\'t be empty' : null,
+        validator: (value) =>
+            value.isEmpty ? 'StudentID can\'t be empty' : null,
         onSaved: (value) => _studentID = value.trim(),
       ),
     );
@@ -279,7 +284,7 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.text,
         autofocus: false,
         decoration: new InputDecoration(
             hintText: 'name',
@@ -287,7 +292,8 @@ class _LoginPageState extends State<LoginPage> {
               Icons.contact_mail,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'StudentID can\'t be empty' : null,
+        validator: (value) =>
+            value.isEmpty ? 'StudentID can\'t be empty' : null,
         onSaved: (value) => _name = value.trim(),
       ),
     );
@@ -298,7 +304,7 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.text,
         autofocus: false,
         decoration: new InputDecoration(
             hintText: 'major',
@@ -306,7 +312,8 @@ class _LoginPageState extends State<LoginPage> {
               Icons.collections_bookmark,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'StudentID can\'t be empty' : null,
+        validator: (value) =>
+            value.isEmpty ? 'StudentID can\'t be empty' : null,
         onSaved: (value) => _major = value.trim(),
       ),
     );
@@ -331,16 +338,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-
-
   Widget _showSecondaryButton() {
     return new FlatButton(
       child: _formMode == FormMode.LOGIN
           ? new Text('Create an account',
-          style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300))
+              style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300))
           : new Text('Have an account? Sign in',
-          style:
-          new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
+              style:
+                  new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
       onPressed: _formMode == FormMode.LOGIN
           ? _changeFormToSignUp
           : _changeFormToLogin,
@@ -349,21 +354,56 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _showPrimaryButton() {
     return new Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
-        child: SizedBox(
-          height: 40.0,
-          child: new RaisedButton(
-              elevation: 5.0,
-              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-              color: Colors.blue,
-              child: _formMode == FormMode.LOGIN
-                  ? new Text('Login',
+      padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
+      child: SizedBox(
+        height: 40.0,
+        child: new RaisedButton(
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
+          color: Colors.orangeAccent,
+          child: _formMode == FormMode.LOGIN
+              ? new Text('Login',
                   style: new TextStyle(fontSize: 20.0, color: Colors.white))
-                  : new Text('Create account',
+              : new Text('Create account',
                   style: new TextStyle(fontSize: 20.0, color: Colors.white)),
-              onPressed: _validateAndSubmit
-          ),
-        ));
+          onPressed: () {
+            _formMode == FormMode.LOGIN? _validateAndSubmit():_showDialog(context);
+
+          },
+        ),
+      ),
+    );
   }
-//  _validateAndSubmit
+
+  void _showDialog(BuildContext context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return CupertinoAlertDialog(
+          title: new Text("Alert"),
+          content: new Text("Are you sure to Sign up?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Confirm"),
+              onPressed: () async {
+                _validateAndSubmit();
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.blue,
+            ),
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.red,
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
