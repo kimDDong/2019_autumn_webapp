@@ -192,6 +192,7 @@ class BarChartSample1State extends State<BarChartSample1> {
     double total = (16 - a) * 10 / 16 + b + c + d + e;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
             margin: EdgeInsets.all(10),
@@ -414,7 +415,6 @@ class BarChartSample1State extends State<BarChartSample1> {
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
             margin: 15,
             getTitles: (double value) {
-              print("check");
               switch (value.toInt()) {
                 case 0:
                   return 'Attendance\n' + (10 - a).toString();

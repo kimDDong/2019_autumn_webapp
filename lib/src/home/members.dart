@@ -35,13 +35,13 @@ class Members extends StatelessWidget {
   Widget makeRowItem(BuildContext ctx, DocumentSnapshot document) {
     return Container(
           decoration: BoxDecoration(
-            color: Colors.grey[800],
+            color: Colors.black26,
             borderRadius: BorderRadius.all(Radius.circular(20))
           ),
           margin: EdgeInsets.only(left: 10,right: 10,top: 7.5,bottom: 7.5),
           child: ListTile(
             leading: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 CircleAvatar(
                   radius: 25.0,
@@ -113,46 +113,62 @@ class Detail extends StatelessWidget {
         // 없으면, 화면을 벗어났을 때 볼 수 없음 (스크롤 지원)
         child: Column(
           children: <Widget>[
-            Row(children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top : 30),
-                width: 120,
-                height: 120,
-//                decoration: BoxDecoration(
-//                  border: Border.all(),
-//                )
-                child: CircleAvatar(
-                  radius: 50.0,
-                  backgroundImage: NetworkImage(document['image']),
-                  backgroundColor: Colors.transparent,
-                )
-              ),
-            ],
-              mainAxisAlignment: MainAxisAlignment.center,
+            Container(
+              margin: EdgeInsets.only(top : 15,left: 15,right: 15),
+              padding: EdgeInsets.all(20),
+              width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.black26
+                      ,borderRadius: BorderRadius.circular(18)
+                ),
+              child: Column(
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 50.0,
+                    backgroundImage: NetworkImage(document['image']),
+                    backgroundColor: Colors.transparent,
+                  ),
+                  Column(children: <Widget>[
+                    Container(child:
+                    Text(document['name'], style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                    ),),
+                      margin: EdgeInsets.only(top : 10)
+                      ,),
+                    Container(child:
+                    Text(document['position'],
+                      style: TextStyle(color: Colors.white),),
+                    ),
+                  ],),
+                ],
+              )
             ),
 
-            Container(child:
-              Column(children: <Widget>[
-                Container(child:
-                  Text(document['name'], style: TextStyle(
-                    fontSize: 20,
-                  ),),
-                  margin: EdgeInsets.only(top : 10)
-                  ,),
-                Container(child:
-                Text(document['position'],
-                  style: TextStyle(color: Colors.black),),
-                ),
-              ],),),
+            Container(
+              margin: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.black12
+                    ,borderRadius: BorderRadius.circular(18)
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  make_title("E-mail"),
+                  make_content((document['email'])),
+                  make_title("Connect Link"),
+                  make_content((document['site'])),
+                  make_title("Detail"),
+                  make_content((document['detail'])),
+                  make_title(str),
+                  make_content(str2.replaceAll("\\nl", "\n")),
+                ],
+              ),
+            ),
 
-            make_title("E-mail"),
-            make_content((document['email'])),
-            make_title("Connect Link"),
-            make_content((document['site'])),
-            make_title("Detail"),
-            make_content((document['detail'])),
-            make_title(str),
-            make_content(str2.replaceAll("\\nl", "\n")),
+
+
+
           ],
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -170,10 +186,11 @@ class Detail extends StatelessWidget {
             color: Colors.orangeAccent,
             fontFamily: 'Raleway-Black',
             fontWeight: FontWeight.bold,
+          fontStyle: FontStyle.italic
         ),
 
       ),
-      padding: EdgeInsets.only(left: 20, top: 20, bottom: 5),
+      padding: EdgeInsets.only(left: 15, top: 15, bottom: 5),
 //        textAlign : Left;
 //        width : 150,
     );
@@ -186,11 +203,11 @@ class Detail extends StatelessWidget {
         con,
         style: TextStyle(
             fontSize: 15.0,
-            color: Colors.grey[500],
+            color: Colors.white70,
             fontFamily: 'Raleway-ExtraBold',
         ),
       ),
-      padding: EdgeInsets.only(left: 20, bottom: 20, right: 25),
+      padding: EdgeInsets.only(left: 30, bottom: 20, right: 10),
 //      width : 400,
     );
     return container;

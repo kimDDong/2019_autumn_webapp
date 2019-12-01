@@ -305,7 +305,6 @@ class _StudentState extends State<Student> {
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
             margin: 15,
             getTitles: (double value) {
-              print("check");
               switch (value.toInt()) {
                 case 0:
                   return 'Attendance\n'+(16-a).toString();
