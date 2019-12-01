@@ -184,6 +184,8 @@ class BarChartSample1State extends State<BarChartSample1> {
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
+
+
     a = double.parse(document['grade_absent'].toString());
     b = double.parse(document['grade_mid'].toString());
     c = double.parse(document['grade_final'].toString());
@@ -195,7 +197,7 @@ class BarChartSample1State extends State<BarChartSample1> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
-            margin: EdgeInsets.all(10),
+            margin: EdgeInsets.all(0),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.black38,
@@ -212,6 +214,7 @@ class BarChartSample1State extends State<BarChartSample1> {
         AspectRatio(
           aspectRatio: 1,
           child: Container(
+
             margin: EdgeInsets.only(bottom: 10,right: 10,left: 10),
             child: Card(
               shape: RoundedRectangleBorder(
