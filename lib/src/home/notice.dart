@@ -19,14 +19,14 @@ class Notice extends StatelessWidget {
         centerTitle: true,
         title: Container(height:100,child: Image.asset('images/logo.png')),
         actions: <Widget>[
-          counter.getCounter()==0?
-          Container():IconButton(
+          counter.getCounter()==2?
+          IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => AddNotice()));
             },
-          )
+          ):Text('')
         ],
       ),
       body: StreamBuilder(
