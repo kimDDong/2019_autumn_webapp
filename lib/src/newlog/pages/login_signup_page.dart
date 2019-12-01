@@ -1,12 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../services/authentication.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 String email2;
-String studentID;
+int studentID;
 String major;
-String name2 ;
-
+String name2;
 
 class LoginSignUpPage extends StatefulWidget {
   LoginSignUpPage({this.auth, this.onSignedIn});
@@ -27,7 +28,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   String _email;
   String _password;
-  String _studentID;
+  int _studentID;
   String _name;
   String _major;
   String _errorMessage;
@@ -37,22 +38,20 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   bool _isIos;
   bool _isLoading;
 
-  void createRecord(String email,String major,String name,String studentID) async {
-    await databaseReference.collection("student")
-        .document(email)
-        .setData({
+  void createRecord(
+      String email, String major, String name, String studentID) async {
+    await databaseReference.collection("student").document(email).setData({
       'email': email,
       'major': major,
-      'name' : name,
-      'studentID' : studentID,
-      'grade_absent' : 0,
-      'grade_final' : 0,
-      'grade_mid' : 0,
-      'grade_quiz' : 0,
-      'img' : 'https://i.stack.imgur.com/l60Hf.png',
+      'name': name,
+      'studentID': studentID,
+      'grade_absent': 0,
+      'grade_final': 0,
+      'grade_mid': 0,
+      'grade_quiz': 0,
+      'img': 'https://i.stack.imgur.com/l60Hf.png',
     });
   }
-
 
   // Check if form is valid before perform login or signup
   bool _validateAndSave() {
@@ -84,17 +83,18 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
           userId = await widget.auth.signUp(_email, _password);
           widget.auth.sendEmailVerification();
           _showVerifyEmailSentDialog();
-          createRecord(email2, major, name2, studentID);
+          createRecord(email2, major, name2, studentID.toString());
           print('Signed up user: $userId');
         }
         setState(() {
           _isLoading = false;
         });
 
-        if (userId.length > 0 && userId != null && _formMode == FormMode.LOGIN) {
+        if (userId.length > 0 &&
+            userId != null &&
+            _formMode == FormMode.LOGIN) {
           widget.onSignedIn();
         }
-
       } catch (e) {
         print('Error: $e');
         setState(() {
@@ -107,7 +107,6 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
       }
     }
   }
-
 
   @override
   void initState() {
@@ -136,8 +135,10 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   Widget build(BuildContext context) {
     _isIos = Theme.of(context).platform == TargetPlatform.iOS;
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Flutter Firebase Authentication'),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Container(height: 100, child: Image.asset('images/logo.png')),
+          elevation: 0,
         ),
         body: Stack(
           children: <Widget>[
@@ -147,11 +148,14 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
         ));
   }
 
-  Widget _showCircularProgress(){
+  Widget _showCircularProgress() {
     if (_isLoading) {
       return Center(child: CircularProgressIndicator());
-    } return Container(height: 0.0, width: 0.0,);
-
+    }
+    return Container(
+      height: 0.0,
+      width: 0.0,
+    );
   }
 
   void _showVerifyEmailSentDialog() {
@@ -161,7 +165,8 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Verify your account"),
-          content: new Text("Link to verify account has been sent to your email"),
+          content:
+              new Text("Link to verify account has been sent to your email"),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Dismiss"),
@@ -176,7 +181,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     );
   }
 
-  Widget _showBody(){
+  Widget _showBody() {
     return new Container(
         padding: EdgeInsets.all(16.0),
         child: new Form(
@@ -187,12 +192,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               _showLogo(),
               _showErrorMessage(),
               _showEmailInput(),
-              _formMode == FormMode.LOGIN?
-              Text(""):_showStudentIdInput(),
-              _formMode == FormMode.LOGIN?
-              Text(""):_showNameInput(),
-              _formMode == FormMode.LOGIN?
-              Text(""):_showMajorInput(),
+              _formMode == FormMode.LOGIN ? Text("") : _showStudentIdInput(),
+              _formMode == FormMode.LOGIN ? Text("") : _showNameInput(),
+              _formMode == FormMode.LOGIN ? Text("") : _showMajorInput(),
               _showPasswordInput(),
               _showPrimaryButton(),
               _showSecondaryButton(),
@@ -240,7 +242,8 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               Icons.mail,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
+        validator: (value) =>
+            value.contains('@hanyang.ac.kr') ? null : 'Use Hanyang account',
         onSaved: (value) => _email = value.trim(),
       ),
     );
@@ -251,7 +254,10 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly
+        ],
         autofocus: false,
         decoration: new InputDecoration(
             hintText: 'studentID',
@@ -259,8 +265,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               Icons.perm_identity,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'StudentID can\'t be empty' : null,
-        onSaved: (value) => _studentID = value.trim(),
+        validator: (value) =>
+            value.isEmpty ? 'StudentID can\'t be empty' : null,
+        onSaved: (value) => _studentID = int.parse(value),
       ),
     );
   }
@@ -270,7 +277,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.text,
         autofocus: false,
         decoration: new InputDecoration(
             hintText: 'name',
@@ -278,7 +285,8 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               Icons.contact_mail,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'StudentID can\'t be empty' : null,
+        validator: (value) =>
+            value.isEmpty ? 'StudentID can\'t be empty' : null,
         onSaved: (value) => _name = value.trim(),
       ),
     );
@@ -289,7 +297,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.text,
         autofocus: false,
         decoration: new InputDecoration(
             hintText: 'major',
@@ -297,7 +305,8 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
               Icons.collections_bookmark,
               color: Colors.grey,
             )),
-        validator: (value) => value.isEmpty ? 'StudentID can\'t be empty' : null,
+        validator: (value) =>
+            value.isEmpty ? 'StudentID can\'t be empty' : null,
         onSaved: (value) => _major = value.trim(),
       ),
     );
@@ -322,8 +331,6 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     );
   }
 
- 
-
   Widget _showSecondaryButton() {
     return new FlatButton(
       child: _formMode == FormMode.LOGIN
@@ -340,21 +347,56 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   Widget _showPrimaryButton() {
     return new Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
-        child: SizedBox(
-          height: 40.0,
-          child: new RaisedButton(
-            elevation: 5.0,
-            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-            color: Colors.blue,
-            child: _formMode == FormMode.LOGIN
-                ? new Text('Login',
-                    style: new TextStyle(fontSize: 20.0, color: Colors.white))
-                : new Text('Create account',
-                    style: new TextStyle(fontSize: 20.0, color: Colors.white)),
-            onPressed: _validateAndSubmit
-          ),
-        ));
+      padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
+      child: SizedBox(
+        height: 40.0,
+        child: new RaisedButton(
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
+          color: Colors.orangeAccent,
+          child: _formMode == FormMode.LOGIN
+              ? new Text('Login',
+                  style: new TextStyle(fontSize: 20.0, color: Colors.white))
+              : new Text('Create account',
+                  style: new TextStyle(fontSize: 20.0, color: Colors.white)),
+          onPressed: () {
+            _formMode == FormMode.LOGIN? _validateAndSubmit():_showDialog(context);
+
+          },
+        ),
+      ),
+    );
   }
-//  _validateAndSubmit
+
+  void _showDialog(BuildContext context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return CupertinoAlertDialog(
+          title: new Text("Alert"),
+          content: new Text("Are you sure to Sign up?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Confirm"),
+              onPressed: () async {
+                _validateAndSubmit();
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.blue,
+            ),
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.red,
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

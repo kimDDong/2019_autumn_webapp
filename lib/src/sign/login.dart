@@ -143,8 +143,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     _isIos = Theme.of(context).platform == TargetPlatform.iOS;
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Flutter Firebase Authentication'),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Container(height:100,child: Image.asset('images/logo.png')),
+          elevation: 0,
         ),
         body: Stack(
           children: <Widget>[

@@ -59,7 +59,7 @@ class _ManageStudentState extends State<ManageStudent> {
               ),
             ),
             Container(margin: EdgeInsets.only(top: 10,bottom: 10),child: Text(document['name'],textScaleFactor: 1.5,)),
-            Text(document['email'],style: TextStyle(color: Colors.white70),textScaleFactor: 0.9,)
+            Text(document['studentID'],style: TextStyle(color: Colors.white70),textScaleFactor: 0.9,)
 
 
           ],

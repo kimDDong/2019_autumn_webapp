@@ -28,7 +28,7 @@ class _ContactState extends State<Contact> {
     markers.addAll([
       Marker(
           markerId: MarkerId('value'),
-          infoWindow: InfoWindow(title: "학연산터 클러스", snippet: "6층 617호"),
+          infoWindow: InfoWindow(title: "학연산 클러스터", snippet: "6층 617호"),
           position: LatLng(37.296386, 126.838947)),
 
     ]);
