@@ -301,15 +301,16 @@ class About extends StatelessWidget {
       width: 140,
       height: 140,
       child: ClipPolygon(
-        sides: 6,
+        sides: 5,
         borderRadius: 5.0,
         // Default 0.0 degrees
-        rotate: 90.0,
+//        rotate: 90.0,
         // Default 0.0 degrees
         boxShadows: [
 
-//          PolygonBoxShadow(color: Colors.orangeAccent, elevation: 5),
+          PolygonBoxShadow(color: Colors.orangeAccent, elevation: 5),
           PolygonBoxShadow(color: Colors.orangeAccent, elevation: 5,),
+
         ],
         child: Container(
           decoration: BoxDecoration(
