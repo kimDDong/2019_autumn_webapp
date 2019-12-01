@@ -16,7 +16,7 @@
         android:label="SElab">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCydy-oimk7J7VUZjF6FpANZe0zINPjPUM"/>
+            android:value="AIzaSyBT7foOWSBqwis3K0BF56QebrDKASRlfuQ"/>
 
         <activity
             android:name=".MainActivity"
