@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,14 +12,27 @@ class Contact extends StatefulWidget {
 class _ContactState extends State<Contact> {
   GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
-
+  final LatLng _selab = const LatLng(37.296386, 126.838947);
+  final MarkerId markerId = MarkerId("test");
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
+  Set<Marker> markers = Set();
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
+    markers.addAll([
+      Marker(
+          markerId: MarkerId('value'),
+          infoWindow: InfoWindow(title: "학연산터 클러스", snippet: "6층 617호"),
+          position: LatLng(37.296386, 126.838947)),
+
+    ]);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -35,9 +50,18 @@ class _ContactState extends State<Contact> {
               child: GoogleMap(
                 onMapCreated: _onMapCreated,
                 initialCameraPosition: CameraPosition(
-                  target: _center,
-                  zoom: 11.0,
+                  target: _selab,
+                  zoom: 17,
                 ),
+                compassEnabled: true,
+                zoomGesturesEnabled: true,
+                rotateGesturesEnabled: true,
+                scrollGesturesEnabled: true,
+                tiltGesturesEnabled: true,
+                  gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+                    new Factory<OneSequenceGestureRecognizer>(() => new EagerGestureRecognizer(),),
+                  ].toSet(),
+                markers: markers,
               ),
             ),
           ),
@@ -168,25 +192,9 @@ class _ContactState extends State<Contact> {
               },
             ),
           ),
-
-//          ListTile(
-//            title: Text(
-//                "Engineering Building #3, Room 421 HANYANG UNIVERSITY ERICA CAMPUS 55, Hanyangdaehak-ro, Sangnok-gu, Ansan-si, Gyeonggi-do"),
-//          ),
-//          Divider(),
-//          ListTile(
-//            title: Text("경기도 안산시 상록구 한양대학로 55 제3공학관 421"),
-//          ),
-//          Divider(),
-//          ListTile(
-//            title: Text("email"),
-//          ),
-//          Divider(),
-//          ListTile(
-//            title: Text("만든이"),
-//          ),
         ],
       ),
     );
   }
+
 }
