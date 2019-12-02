@@ -8,8 +8,9 @@
     <a href="https://nodejs.org/ko"><img src="https://img.shields.io/badge/-node.js-lightgreen.svg" alt="nodejs"></a>
 </p>
 
- Making [HYU ERICA SElab](https://github.com/gohdong) Application Project
- ![screenshot](https://github.com/gohdong/2019_autumn_webapp/blob/flutterV2/images/screenshot.jpeg?raw=true) 
+Making [HYU ERICA SElab](https://github.com/gohdong) Application Project
+
+<img src="https://github.com/gohdong/2019_autumn_webapp/blob/flutterV2/images/screenshot.jpeg?raw=true" alt="drawing" width="300"/>
 
 ## Team [S]()upermark[E]()t
  Index| Name |Git|Achievements|
