@@ -9,7 +9,7 @@
 </p>
 
  Making [HYU ERICA SElab](https://github.com/gohdong) Application Project
- ![screenshot](https://github.com/gohdong/2019_autumn_webapp/blob/flutterV2/images/screenshot.jpeg?raw=true) 
+ ![screenshot](https://github.com/gohdong/2019_autumn_webapp/blob/flutterV2/images/screenshot.jpeg?raw=true =250x) 
 
 ## Team [S]()upermark[E]()t
  Index| Name |Git|Achievements|
