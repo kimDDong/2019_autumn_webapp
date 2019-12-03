@@ -8,6 +8,7 @@ class About extends StatelessWidget {
   Widget build(BuildContext context) {
     double title_margin = 10;
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Column(
         children: <Widget>[
           Container(

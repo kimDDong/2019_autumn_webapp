@@ -11,14 +11,12 @@ import 'package:untitled3/src/grade/grade.dart';
 import 'package:untitled3/src/home/home.dart';
 import 'package:untitled3/src/signInOut/root_page.dart';
 import 'package:untitled3/src/signInOut/authentication.dart';
-import 'package:untitled3/src/signInOut/islogin.dart';
 import 'package:untitled3/src/home/notice.dart';
 import 'package:untitled3/src/quiz/quiz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 const bool kIsWeb = identical(0, 0.0);
-
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
@@ -39,7 +37,6 @@ class _MyAppState extends State<MyApp> {
   final db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-
   @override
   initState() {
     //Local Notification
@@ -53,7 +50,7 @@ class _MyAppState extends State<MyApp> {
         initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
-    if(!kIsWeb){
+    if (!kIsWeb) {
       firebaseCloudMessaging_Listeners(); // firebase message
     }
 
@@ -61,31 +58,27 @@ class _MyAppState extends State<MyApp> {
       if (user != null) {
         // send the user to the home page
 //        counter.increment();
-//        email3 = user.email;
-        print(user);
+        setState(() {
+          email3 = user.email;
+        });
 
+        print(user);
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
-
-    return ChangeNotifierProvider(
-      builder: (_)=> Counter(),
-      child: MaterialApp(
-        theme: ThemeData(
+    return MaterialApp(
+      theme: ThemeData(
 //          primaryColor: Colors.white,
-          brightness: Brightness.dark
-        ),
-        debugShowCheckedModeBanner: false,
-
-        title: "Hello",
-        home: MyHomePage(),
-      ),
+          brightness: Brightness.dark),
+      debugShowCheckedModeBanner: false,
+      title: "Hello",
+      home: MyHomePage(),
     );
   }
+
   Future<FirebaseUser> getUser() async {
     return await _auth.currentUser();
   }
@@ -122,7 +115,7 @@ class _MyAppState extends State<MyApp> {
         .push(MaterialPageRoute(builder: (context) => Notice()));
   }
 
-  void firebaseCloudMessaging_Listeners() async{
+  void firebaseCloudMessaging_Listeners() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
     db.document('device');
@@ -131,28 +124,24 @@ class _MyAppState extends State<MyApp> {
       IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
       _firebaseMessaging.getToken().then((token) {
         print(token);
-        db.collection('device').document(iosDeviceInfo.identifierForVendor).setData(
-            {
-              'token': token,
-            }
-            ,merge: true
-        );
+        db
+            .collection('device')
+            .document(iosDeviceInfo.identifierForVendor)
+            .setData({
+          'token': token,
+        }, merge: true);
       });
     }
 
-    if (Platform.isAndroid){
+    if (Platform.isAndroid) {
       AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
       _firebaseMessaging.getToken().then((token) {
         print(token);
-        db.collection('device').document(androidDeviceInfo.androidId).setData(
-            {
-              'token': token,
-            }
-            ,merge: true
-        );
+        db.collection('device').document(androidDeviceInfo.androidId).setData({
+          'token': token,
+        }, merge: true);
       });
     }
-
 
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
@@ -190,16 +179,12 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
 //    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -207,16 +192,13 @@ class _MyHomePageState extends State<MyHomePage> {
 //    ));
 
     return Scaffold(
-
 //      endDrawer: MenuBar(),
-      body:_widgetOptions.elementAt(_selectedIndex),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: bottomBar(),
-
     );
   }
 
-
-  Widget bottomBar(){
+  Widget bottomBar() {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -231,7 +213,6 @@ class _MyHomePageState extends State<MyHomePage> {
           icon: Icon(Icons.question_answer),
           title: Text('QUIZ'),
         ),
-
       ],
       selectedItemColor: Colors.orangeAccent,
       currentIndex: _selectedIndex,
@@ -239,6 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
       unselectedItemColor: Colors.white,
     );
   }
+
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     new Home(),
@@ -251,7 +233,4 @@ class _MyHomePageState extends State<MyHomePage> {
       _selectedIndex = index;
     });
   }
-
-
-
 }

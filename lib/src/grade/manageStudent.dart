@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:untitled3/src/grade/student.dart';
+import 'package:untitled3/src/signInOut/authentication.dart';
 
 class ManageStudent extends StatefulWidget {
   @override
@@ -18,6 +19,9 @@ class _ManageStudentState extends State<ManageStudent> {
       appBar: AppBar(
         centerTitle: true,
         title: Container(height: 100, child: Image.asset('images/logo.png')),
+        leading: email3 == "aldehf420@gmail.com"
+            ? Center(child: Text("  ADMIN",textScaleFactor: 1,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),))
+            : null,
         elevation: 0,
       ),
       body: StreamBuilder(

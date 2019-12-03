@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'package:untitled3/src/grade/manageStudent.dart';
 import 'package:untitled3/src/signInOut/root_page.dart';
 import 'package:untitled3/src/signInOut/authentication.dart';
-import 'package:untitled3/src/signInOut/islogin.dart';
 
 class BarChartSample1 extends StatefulWidget {
   @override
@@ -33,7 +32,6 @@ class BarChartSample1State extends State<BarChartSample1> {
   int touchedIndex;
 
   void _showDialog(BuildContext context) {
-    final counter = Provider.of<Counter>(context);
 
     showDialog(
       context: context,
@@ -47,8 +45,10 @@ class BarChartSample1State extends State<BarChartSample1> {
             new FlatButton(
               child: new Text("Confirm"),
               onPressed: () async {
-                counter.decrement();
                 _firebaseAuth.signOut();
+                setState(() {
+                  email3=null;
+                });
                 Navigator.of(context).pop();
               },
               textColor: Colors.blue,
@@ -68,17 +68,57 @@ class BarChartSample1State extends State<BarChartSample1> {
 
   @override
   Widget build(BuildContext context) {
-    final counter = Provider.of<Counter>(context);
-    if (counter.getCounter() == 2) {
+    if (email3 == "aldehf420@gmail.com") {
       return ManageStudent();
-    } else if (counter.getCounter() == 1) {
+    }
+    else if(email3 == null){
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                child: Image.asset('images/logo.png'),
+                margin: EdgeInsets.all(10),
+                decoration: new BoxDecoration(
+                    color: Colors.black38,
+                    borderRadius: BorderRadius.circular(18)
+                )),
+            FlatButton(
+              padding: EdgeInsets.only(
+                  top: 5, bottom: 5, left: 10, right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "SIGN ",
+                    textScaleFactor: 3,
+                  ),Text(
+                    "IN",
+                    textScaleFactor: 3,
+                    style: TextStyle(
+                        color: Colors.orangeAccent
+                    ),
+                  ),
+                ],
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => RootPage(auth: new Auth())));
+              },
+            ),
+          ],
+        ),
+      );
+    }
+
+    else {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Container(height: 100, child: Image.asset('images/logo.png')),
           elevation: 0,
           actions: <Widget>[
-            counter.getCounter() == 0
+            email3 == null
                 ? IconButton(
               icon: Icon(Icons.person),
               onPressed: () =>
@@ -118,68 +158,6 @@ class BarChartSample1State extends State<BarChartSample1> {
 
       );
 
-    }
-    else {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                  child: Image.asset('images/logo.png'),
-                  margin: EdgeInsets.all(10),
-                  decoration: new BoxDecoration(
-                    color: Colors.black38,
-                    borderRadius: BorderRadius.circular(18)
-                  )),
-              FlatButton(
-                padding: EdgeInsets.only(
-                    top: 5, bottom: 5, left: 10, right: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "SIGN ",
-                      textScaleFactor: 3,
-                    ),Text(
-                      "IN",
-                      textScaleFactor: 3,
-                      style: TextStyle(
-                        color: Colors.orangeAccent
-                      ),
-                    ),
-                  ],
-                ),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => RootPage(auth: new Auth())));
-                },
-              ),
-            ],
-        ),
-//        child: Column(
-//          children: <Widget>[
-//            Container(
-//                alignment: Alignment.center,
-//                width: 300.0,
-//                height: 300.0,
-//                child: Image.asset('images/logo.png'),
-//                decoration: new BoxDecoration(
-//                )),
-//            RaisedButton(
-//              padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
-//              color: Colors.amberAccent,
-//              child: Text(
-//                "Login",
-//                textScaleFactor: 3,
-//              ),
-//              onPressed: () {
-//                Navigator.of(context).push(MaterialPageRoute(
-//                    builder: (context) => RootPage(auth: new Auth())));
-//              },
-//            ),
-//          ],
-//        ),
-      );
     }
   }
 

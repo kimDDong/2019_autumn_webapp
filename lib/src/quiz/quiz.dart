@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:untitled3/src/quiz/addQuiz.dart';
 import 'package:untitled3/src/quiz/leaderBoard.dart';
 import 'package:untitled3/src/signInOut/authentication.dart';
-import 'package:untitled3/src/signInOut/islogin.dart';
 import 'package:untitled3/src/signInOut/root_page.dart';
 
 class Quiz extends StatefulWidget {
@@ -17,7 +16,6 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   bool isSubmit = false;
@@ -49,135 +47,76 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
-    final counter = Provider.of<Counter>(context);
-    if (counter.getCounter() == 2) {
-      return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Container(height: 100, child: Image.asset('images/logo.png')),
-          elevation: 0,
-          actions: <Widget>[
-            counter.getCounter() == 2
-                ? IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => AddQuiz()));
-                    },
-                  )
-                : Text('')
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => LeaderBoard()));
-          },
-          backgroundColor: Colors.white30,
-          child: Icon(
-            Icons.school,
-            color: Colors.white,
-          ),
-        ),
-        body: getQuiz(),
-      );
-    }
-    else if (counter.getCounter() == 1) {
-      return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Container(height: 100, child: Image.asset('images/logo.png')),
-          elevation: 0,
-          actions: <Widget>[
-            counter.getCounter() == 0
-                ? IconButton(
-              icon: Icon(Icons.person),
-              onPressed: () =>
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => RootPage(auth: Auth())))
-              ,
-            )
-                : IconButton(
-              icon: Icon(Icons.person_outline),
-              onPressed: () =>
-                  _showDialog2(context)
-              ,
-            )
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => LeaderBoard()));
-          },
-          backgroundColor: Colors.white30,
-          child: Icon(
-            Icons.school,
-            color: Colors.white,
-          ),
-        ),
-        body: getQuiz(),
-      );
-    }
-    else {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-                child: Image.asset('images/logo.png'),
-                margin: EdgeInsets.all(10),
-                decoration: new BoxDecoration(
-                    color: Colors.black38,
-                    borderRadius: BorderRadius.circular(18))),
-            FlatButton(
-              padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "SIGN ",
-                    textScaleFactor: 3,
-                  ),
-                  Text(
-                    "IN",
-                    textScaleFactor: 3,
-                    style: TextStyle(color: Colors.orangeAccent),
-                  ),
-                ],
-              ),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => RootPage(auth: new Auth())));
-              },
+    return email3 != null
+        ? Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title:
+                  Container(height: 100, child: Image.asset('images/logo.png')),
+              leading: email3 == "aldehf420@gmail.com"
+                  ? Center(child: Text("  ADMIN",textScaleFactor: 1,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),))
+                  : null,
+              elevation: 0,
+              actions: <Widget>[
+                email3 == "aldehf420@gmail.com"
+                    ? IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AddQuiz()));
+                        },
+                      )
+                    : Text('')
+              ],
             ),
-          ],
-        ),
-//        child: Column(
-//          children: <Widget>[
-//            Container(
-//                alignment: Alignment.center,
-//                width: 300.0,
-//                height: 300.0,
-//                child: Image.asset('images/logo.png'),
-//                decoration: new BoxDecoration(
-//                )),
-//            RaisedButton(
-//              padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
-//              color: Colors.amberAccent,
-//              child: Text(
-//                "Login",
-//                textScaleFactor: 3,
-//              ),
-//              onPressed: () {
-//                Navigator.of(context).push(MaterialPageRoute(
-//                    builder: (context) => RootPage(auth: new Auth())));
-//              },
-//            ),
-//          ],
-//        ),
-      );
-    }
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => LeaderBoard()));
+              },
+              backgroundColor: Colors.white30,
+              child: Icon(
+                Icons.school,
+                color: Colors.white,
+              ),
+            ),
+            body: getQuiz(),
+          )
+        : Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                    child: Image.asset('images/logo.png'),
+                    margin: EdgeInsets.all(10),
+                    decoration: new BoxDecoration(
+                        color: Colors.black38,
+                        borderRadius: BorderRadius.circular(18))),
+                FlatButton(
+                  padding:
+                      EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "SIGN ",
+                        textScaleFactor: 3,
+                      ),
+                      Text(
+                        "IN",
+                        textScaleFactor: 3,
+                        style: TextStyle(color: Colors.orangeAccent),
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => RootPage(auth: new Auth())));
+                  },
+                ),
+              ],
+            ),
+          );
   }
 
   Widget getQuiz() {
@@ -566,11 +505,8 @@ class _QuizState extends State<Quiz> {
                       .toString()
                       .split('.')[0],
                   textScaleFactor: 4,
-              style: TextStyle(
-                  color: Colors.red,
-                fontWeight: FontWeight.bold
-              )
-                )
+                  style:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold))
               : Text(
                   document['startTime']
                       .toDate()
@@ -578,7 +514,6 @@ class _QuizState extends State<Quiz> {
                       .toString()
                       .split('.')[0],
                   textScaleFactor: 4,
-
                 )
         ],
       ),
@@ -605,7 +540,6 @@ class _QuizState extends State<Quiz> {
   }
 
   void _showDialog2(BuildContext context) {
-    final counter = Provider.of<Counter>(context);
 
     showDialog(
       context: context,
@@ -619,7 +553,6 @@ class _QuizState extends State<Quiz> {
             new FlatButton(
               child: new Text("Confirm"),
               onPressed: () async {
-                counter.decrement();
                 _firebaseAuth.signOut();
                 Navigator.of(context).pop();
               },

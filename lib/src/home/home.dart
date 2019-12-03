@@ -13,7 +13,6 @@ import 'package:untitled3/src/home/publication.dart';
 import 'package:untitled3/src/signInOut/login_signup_page.dart';
 import 'package:untitled3/src/signInOut/root_page.dart';
 import 'package:untitled3/src/signInOut/authentication.dart';
-import 'package:untitled3/src/signInOut/islogin.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -29,7 +28,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final counter = Provider.of<Counter>(context);
     final _kTabPages = <Widget>[
       LabHome(),
       About(),
@@ -59,28 +57,30 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
+          leading: email3 == "aldehf420@gmail.com"
+              ? Center(child: Text("  ADMIN",textScaleFactor: 1,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),))
+              : null,
           title: FlatButton(
-              padding: EdgeInsets.all(0),
-              child: Container(
-                  height: 100, child: Image.asset('images/logo.png')),
-          onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Contact()));
-          },),
+            padding: EdgeInsets.all(0),
+            child:
+                Container(height: 100, child: Image.asset('images/logo.png')),
+            onPressed: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Contact()));
+            },
+          ),
           elevation: 0,
           actions: <Widget>[
-            counter.getCounter() == 0
+            email3 == null
                 ? IconButton(
                     icon: Icon(Icons.person),
-                    onPressed: () =>
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => RootPage(auth: Auth())))
-                    ,
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => RootPage(auth: Auth()))),
                   )
                 : IconButton(
                     icon: Icon(Icons.person_outline),
-                    onPressed: () =>
-                      _showDialog(context)
-                    ,
+                    onPressed: () => _showDialog(context),
                   )
           ],
           bottom: TabBar(
@@ -99,8 +99,6 @@ class _HomeState extends State<Home> {
   }
 
   void _showDialog(BuildContext context) {
-    final counter = Provider.of<Counter>(context);
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -113,8 +111,10 @@ class _HomeState extends State<Home> {
             new FlatButton(
               child: new Text("Confirm"),
               onPressed: () async {
-                counter.decrement();
                 _firebaseAuth.signOut();
+                setState(() {
+                  email3 = null;
+                });
                 Navigator.of(context).pop();
               },
               textColor: Colors.blue,
