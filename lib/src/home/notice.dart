@@ -38,6 +38,8 @@ class Notice extends StatelessWidget {
           if (!snapshot.hasData)
             return const Text('Loading...');
           return ListView.builder(
+            physics: BouncingScrollPhysics(),
+
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, index) {
               return Column(

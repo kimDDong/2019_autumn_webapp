@@ -13,6 +13,8 @@ class LabHome extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Material(
       child: ListView(
+        physics: BouncingScrollPhysics(),
+
         children: <Widget>[
 
 

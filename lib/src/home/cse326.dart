@@ -26,6 +26,8 @@ class CSE326 extends StatelessWidget {
     final List dbList2 = dbSet2.toList();
     final _kTabPages = <Widget>[
       ListView(
+        physics: BouncingScrollPhysics(),
+
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 10,bottom: 10),
@@ -48,6 +50,8 @@ class CSE326 extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData) return const Text('Loading...');
           return ListView.builder(
+            physics: BouncingScrollPhysics(),
+
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, index) {
               return Column(

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -36,6 +37,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final db = Firestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
 
   @override
   initState() {
@@ -53,6 +56,16 @@ class _MyAppState extends State<MyApp> {
     if(!kIsWeb){
       firebaseCloudMessaging_Listeners(); // firebase message
     }
+
+    getUser().then((user) {
+      if (user != null) {
+        // send the user to the home page
+//        counter.increment();
+//        email3 = user.email;
+        print(user);
+
+      }
+    });
   }
 
   @override
@@ -66,10 +79,15 @@ class _MyAppState extends State<MyApp> {
 //          primaryColor: Colors.white,
           brightness: Brightness.dark
         ),
+        debugShowCheckedModeBanner: false,
+
         title: "Hello",
         home: MyHomePage(),
       ),
     );
+  }
+  Future<FirebaseUser> getUser() async {
+    return await _auth.currentUser();
   }
 
   Future<void> onDidReceiveLocalNotification(

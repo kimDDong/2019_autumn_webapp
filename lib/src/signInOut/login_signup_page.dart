@@ -195,6 +195,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
         child: new Form(
           key: _formKey,
           child: new ListView(
+            physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             children: <Widget>[
               _showLogo(),

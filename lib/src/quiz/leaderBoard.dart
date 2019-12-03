@@ -26,7 +26,9 @@ class _LeaderBoardState extends State<LeaderBoard> {
               child: CircularProgressIndicator(),
             );
           }
+
           return ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: snapshot.data.documents.length,
               itemBuilder: (context, index) {
                 return quizCard(index, snapshot.data.documents[index]);

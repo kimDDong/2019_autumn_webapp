@@ -23,6 +23,7 @@ class _BlankQuizState extends State<BlankQuiz> {
   Widget build(BuildContext context) {
     return Material(
       child: ListView(
+        physics: BouncingScrollPhysics(),
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(left: 10, right: 10),

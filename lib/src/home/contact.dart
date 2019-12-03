@@ -40,6 +40,8 @@ class _ContactState extends State<Contact> {
         elevation: 0,
       ),
       body: ListView(
+        physics: BouncingScrollPhysics(),
+
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(left: 10, right: 10),

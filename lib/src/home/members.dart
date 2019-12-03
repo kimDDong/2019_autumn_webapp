@@ -22,6 +22,8 @@ class Members extends StatelessWidget {
                 return new Text('Loading...');
               default:
                 return new ListView(
+                  physics: BouncingScrollPhysics(),
+
                   itemExtent: 90,
                   children: snapshot.data.documents
                       .map((document) => makeRowItem(context, document))

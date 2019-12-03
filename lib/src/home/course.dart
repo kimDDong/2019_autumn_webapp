@@ -25,6 +25,8 @@ class BodyLayout extends StatelessWidget {
 Widget _myListView(BuildContext context) {
   final Size size = MediaQuery.of(context).size;
   return ListView(
+    physics: BouncingScrollPhysics(),
+
     children: <Widget>[
       Container(
         margin: EdgeInsets.only(left: 10,right: 10,top: 10),

@@ -78,6 +78,8 @@ class ChoiceCard extends StatelessWidget {
                   return new Text('Loading...');
                 default:
                   return ListView(
+                    physics: BouncingScrollPhysics(),
+
                     //itemExtent: 300,
                     children: snapshot.data.documents.map((document) => makeRowItem(context, document, text)).toList(),
                   );
@@ -99,6 +101,8 @@ class ChoiceCard extends StatelessWidget {
                   return new Text('Loading...');
                 default:
                   return ListView(
+                    physics: BouncingScrollPhysics(),
+
                     //itemExtent: 300,
                     children: snapshot.data.documents.map((document) => makeRowItem(context, document, text)).toList(),
                   );

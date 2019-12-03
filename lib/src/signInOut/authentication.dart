@@ -44,6 +44,9 @@ class Auth implements BaseAuth {
     FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password)).user;
     email3 = email;
 
+    final FirebaseUser currentUser = await _firebaseAuth.currentUser();
+    assert(user.uid == currentUser.uid);
+
     return user.uid;
   }
 

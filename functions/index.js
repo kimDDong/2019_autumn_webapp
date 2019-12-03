@@ -27,8 +27,6 @@ exports.sendQuizNotifi = functions.firestore
         const querySnapshot = await db.collection('device').get();
         const getTokens = querySnapshot.docs.map(snap => snap.data().token);
 
-
-
         const message = {
             notification: {
                 title: 'SELAB Quiz',
