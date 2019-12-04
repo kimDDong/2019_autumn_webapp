@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:untitled3/src/grade/student.dart';
 import 'package:untitled3/src/signInOut/authentication.dart';
+import 'package:untitled3/src/signInOut/root_page.dart';
 
 class ManageStudent extends StatefulWidget {
   @override
@@ -10,7 +13,7 @@ class ManageStudent extends StatefulWidget {
 }
 
 class _ManageStudentState extends State<ManageStudent> {
-
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 
   @override
@@ -23,6 +26,22 @@ class _ManageStudentState extends State<ManageStudent> {
             ? Center(child: Text("  ADMIN",textScaleFactor: 1,style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),))
             : null,
         elevation: 0,
+        actions: <Widget>[
+          email3 == null
+              ? IconButton(
+            icon: Icon(Icons.person),
+            onPressed: () =>
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => RootPage(auth: Auth())))
+            ,
+          )
+              : IconButton(
+            icon: Icon(Icons.person_outline),
+            onPressed: () =>
+                _showDialog(context)
+            ,
+          )
+        ],
       ),
       body: StreamBuilder(
         stream: Firestore.instance.collection('student').orderBy('name').snapshots(),
@@ -72,6 +91,41 @@ class _ManageStudentState extends State<ManageStudent> {
           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Student(document)));
         },
       ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return CupertinoAlertDialog(
+          title: new Text("Alert"),
+          content: new Text("Do you want Sign Out?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Confirm"),
+              onPressed: () async {
+                _firebaseAuth.signOut();
+                setState(() {
+                  email3=null;
+                });
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.blue,
+            ),
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.red,
+            ),
+          ],
+        );
+      },
     );
   }
 

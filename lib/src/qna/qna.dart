@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled3/src/qna/question.dart';
@@ -13,6 +14,7 @@ class QNA extends StatefulWidget {
 }
 
 class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   TabController _controller;
 
   @override
@@ -116,6 +118,23 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                           fontWeight: FontWeight.bold, color: Colors.red),
                     ))
                   : null,
+              actions: <Widget>[
+                email3 == null
+                    ? IconButton(
+                  icon: Icon(Icons.person),
+                  onPressed: () =>
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RootPage(auth: Auth())))
+                  ,
+                )
+                    : IconButton(
+                  icon: Icon(Icons.person_outline),
+                  onPressed: () =>
+                      _showDialog(context)
+                  ,
+                )
+              ],
+
             ),
             floatingActionButton: email3 != "aldehf420@gmail.com"
                 ? FloatingActionButton(
@@ -565,6 +584,41 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
       icon: Icon(Icons.delete_forever),
       onPressed: () {
         _confirmDelAnswer(context, document);
+      },
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return CupertinoAlertDialog(
+          title: new Text("Alert"),
+          content: new Text("Do you want Sign Out?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Confirm"),
+              onPressed: () async {
+                _firebaseAuth.signOut();
+                setState(() {
+                  email3=null;
+                });
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.blue,
+            ),
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              textColor: Colors.red,
+            ),
+          ],
+        );
       },
     );
   }
