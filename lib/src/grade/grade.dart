@@ -11,12 +11,12 @@ import 'package:untitled3/src/grade/manageStudent.dart';
 import 'package:untitled3/src/signInOut/root_page.dart';
 import 'package:untitled3/src/signInOut/authentication.dart';
 
-class BarChartSample1 extends StatefulWidget {
+class StudentGrade extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => BarChartSample1State();
+  State<StatefulWidget> createState() => StudentGradeState();
 }
 
-class BarChartSample1State extends State<BarChartSample1> {
+class StudentGradeState extends State<StudentGrade> {
   double a = 0;
   double b = 0;
   double c = 0;

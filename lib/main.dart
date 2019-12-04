@@ -9,6 +9,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled3/src/grade/grade.dart';
 import 'package:untitled3/src/home/home.dart';
+import 'package:untitled3/src/qna/qna.dart';
 import 'package:untitled3/src/signInOut/root_page.dart';
 import 'package:untitled3/src/signInOut/authentication.dart';
 import 'package:untitled3/src/home/notice.dart';
@@ -74,7 +75,7 @@ class _MyAppState extends State<MyApp> {
 //          primaryColor: Colors.white,
           brightness: Brightness.dark),
       debugShowCheckedModeBanner: false,
-      title: "Hello",
+      title: "SELAB",
       home: MyHomePage(),
     );
   }
@@ -195,6 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //      endDrawer: MenuBar(),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: bottomBar(),
+
     );
   }
 
@@ -211,20 +213,28 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.question_answer),
+          title: Text('Q&A'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.search),
           title: Text('QUIZ'),
         ),
+
       ],
       selectedItemColor: Colors.orangeAccent,
       currentIndex: _selectedIndex,
       onTap: _onItemTapped,
       unselectedItemColor: Colors.white,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
     );
   }
 
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     new Home(),
-    new BarChartSample1(),
+    new StudentGrade(),
+    new QNA(),
     new Quiz()
   ];
 
