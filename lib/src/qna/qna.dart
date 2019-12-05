@@ -267,7 +267,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                                 color: Colors.orangeAccent,
                                 fontWeight: FontWeight.bold),
                           ),
-                          email3 == "aldehf420@gmail.com"
+                          email3 == document['questioner'] || email3 == "aldehf420@gmail.com"
                               ? Expanded(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -288,7 +288,9 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                       Row(
                         children: <Widget>[
                           Text(
-                            "By " + document['questioner'],
+                            "By "+document['questioner']
+                                .toString()
+                                .split('@')[0],
                             style: TextStyle(
                                 color: Colors.white70,
                                 fontStyle: FontStyle.italic),
@@ -319,7 +321,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                     ],
                   ),
                   onPressed: () {
-                    email3 == "aldehf420@gmail.com"
+                    email3 != null
                         ? Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
                                 AddReply(document.documentID)))
@@ -350,7 +352,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                             color: Colors.orangeAccent,
                             fontWeight: FontWeight.bold),
                       ),
-                      email3 == "aldehf420@gmail.com"
+                      email3 == document['questioner'] || email3== "aldehf420@gmail.com"
                           ? Expanded(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -372,7 +374,9 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                     children: <Widget>[
                       Text(
                         document['anonymous']?
-                        "By Anonymous"  :"By " + document['questioner'],
+                        "By Anonymous"  :"By " + "By "+document['questioner']
+                            .toString()
+                            .split('@')[0],
                         style: TextStyle(
                             color: Colors.white70, fontStyle: FontStyle.italic),
                       ),
@@ -402,7 +406,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                 ],
               ),
               onPressed: () {
-                email3 == "aldehf420@gmail.com"
+                email3 != null
                     ? Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => AddReply(document.documentID)))
                     : null;
@@ -441,7 +445,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                     style: TextStyle(
                         color: Colors.cyanAccent, fontWeight: FontWeight.bold),
                   ),
-                  email3 == "aldehf420@gmail.com"
+                  email3 == snapshot.data.documents[0]['writer'] || email3== "aldehf420@gmail.com"
                       ? Expanded(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -462,7 +466,9 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
               Row(
                 children: <Widget>[
                   Text(
-                    "By Scott Uk-Jin Lee",
+                    "By "+snapshot.data.documents[0]['writer']
+                        .toString()
+                        .split('@')[0],
                     style: TextStyle(
                         color: Colors.white70, fontStyle: FontStyle.italic),
                   ),
