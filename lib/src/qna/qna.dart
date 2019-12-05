@@ -371,7 +371,8 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                   Row(
                     children: <Widget>[
                       Text(
-                        "By " + document['questioner'],
+                        document['anonymous']?
+                        "By Anonymous"  :"By " + document['questioner'],
                         style: TextStyle(
                             color: Colors.white70, fontStyle: FontStyle.italic),
                       ),
