@@ -427,77 +427,8 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
             child: CircularProgressIndicator(),
           );
         }
-        return Container(
-          margin: EdgeInsets.only(left: 50, right: 10, top: 10),
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-              color: Colors.black26, borderRadius: BorderRadius.circular(18)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Icon(Icons.subdirectory_arrow_right),
-                  Text(
-                    snapshot.data.documents[0]['title'],
-                    textScaleFactor: 2,
-                    style: TextStyle(
-                        color: Colors.cyanAccent, fontWeight: FontWeight.bold),
-                  ),
-                  email3 == snapshot.data.documents[0]['writer'] || email3== "aldehf420@gmail.com"
-                      ? Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              removeAnswer(snapshot.data.documents[0])
-                            ],
-                          ),
-                        )
-                      : Container()
-                ],
-              ),
-              Text(
-                snapshot.data.documents[0]['description'],
-              ),
-              Divider(
-                thickness: 2,
-              ),
-              Row(
-                children: <Widget>[
-                  Text(
-                    "By "+snapshot.data.documents[0]['writer']
-                        .toString()
-                        .split('@')[0],
-                    style: TextStyle(
-                        color: Colors.white70, fontStyle: FontStyle.italic),
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Text(
-                          snapshot.data.documents[0]['date']
-                                  .toDate()
-                                  .toString()
-                                  .split(':')[0] +
-                              ":" +
-                              snapshot.data.documents[0]['date']
-                                  .toDate()
-                                  .toString()
-                                  .split(':')[1],
-                          style: TextStyle(
-                              color: Colors.white70,
-                              fontStyle: FontStyle.italic),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        );
+        return ListView.builder(
+            ,zitemBuilder: );
       },
     );
   }
