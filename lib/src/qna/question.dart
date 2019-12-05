@@ -189,6 +189,7 @@ class _AddQuestionState extends State<AddQuestion> {
                   'anonymous' : anonymous,
                       });
 
+
 //                Navigator.of(context)
 //                    .popUntil(MaterialPageRoute(builder: (context) => Notice()));
                 int count = 0;
@@ -208,34 +209,5 @@ class _AddQuestionState extends State<AddQuestion> {
         );
       },
     );
-  }
-
-  showPickerModal(BuildContext context) {
-    const PickerData = '''
-[
-    {
-        "Category": [
-                    "Class",
-                    "Exam",
-                    "Lab",
-                    "Admission",
-                    "Etc"
-                   
-                ]
-    }
-]
-    ''';
-
-    new Picker(
-        adapter: PickerDataAdapter<String>(
-            pickerdata: new JsonDecoder().convert(PickerData)),
-        changeToFirst: true,
-        hideHeader: false,
-        backgroundColor: Colors.black12,
-        textStyle: TextStyle(color: Colors.white),
-        onConfirm: (Picker picker, List value) {
-          print(value.toString()[1]);
-          print(picker.adapter.toString());
-        }).showModal(this.context); //_scaffoldKey.currentState);
   }
 }

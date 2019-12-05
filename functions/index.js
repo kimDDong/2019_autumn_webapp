@@ -12,6 +12,8 @@ require("firebase/firestore");
 firebase.initializeApp(config.api());
 admin.initializeApp();
 
+var db = admin.firestore();
+
 // exports.helloWorld = functions.https.onRequest((request, response) => {
 //     response.send("Hello from Firebase!");
 // });
@@ -21,7 +23,6 @@ exports.sendQuizNotifi = functions.firestore
     .document('quiz/{quizId}')
     .onCreate(async snapshot => {
 
-        var db = admin.firestore();
 
         const quiz = snapshot.data();
         const querySnapshot = await db.collection('tokens').get();
@@ -29,8 +30,8 @@ exports.sendQuizNotifi = functions.firestore
 
         const message = {
             notification: {
-                title: 'SELAB Quiz',
-                body: 'Quiz Will be on '+quiz.startTime.toDate().toLocaleString('ko-KR', {timeZone: "Asia/Seoul"}),
+                title: 'Quiz Will be on ',
+                body: quiz.startTime.toDate().toLocaleString('ko-KR', {timeZone: "Asia/Seoul"}),
             },
             tokens: getTokens
         };
@@ -51,7 +52,6 @@ exports.sendNoticeNotifi = functions.firestore
     .document('notice/{noticeId}')
     .onCreate(async snapshot => {
 
-        var db = admin.firestore();
 
         const notice = snapshot.data();
         const querySnapshot = await db.collection('tokens').get();
@@ -60,8 +60,8 @@ exports.sendNoticeNotifi = functions.firestore
 
         const message = {
             notification: {
-                title: 'SELAB Notice',
-                body: notice.title,
+                title: notice.title,
+                body: notice.description,
             },
             tokens: getTokens
         };
@@ -82,17 +82,16 @@ exports.sendQuestionNotifi2Adimin = functions.firestore
     .document('question/{questionId}')
     .onCreate(async snapshot => {
 
-        var db = admin.firestore();
 
         const question = snapshot.data();
-        const querySnapshot = await db.collection('admin').get();
+        const querySnapshot = await db.collection('tokens').get();
         const getTokens = querySnapshot.docs.map(snap => snap.data().token);
 
 
         const message = {
             notification: {
-                title: 'SELAB Q&A',
-                body: "New Question : " + question.title,
+                title: "New Question !",
+                body: question.title,
             },
             tokens: getTokens
         };
@@ -113,17 +112,19 @@ exports.sendAnswerNotifi2Questioner = functions.firestore
     .document('answer/{answerId}')
     .onCreate(async snapshot => {
 
-        var db = admin.firestore();
-
         const answer = snapshot.data();
-        const querySnapshot = await db.collection('admin').doc(answer.questioner).get();
+        const querySnapshot = await db.collection('tokens').get();
         const getTokens = querySnapshot.docs.map(snap => snap.data().token);
+
+        const test = await db.collection('question').doc(answer.question).get();
+
+
 
 
         const message = {
             notification: {
-                title: 'SELAB Q&A',
-                body: "Reply for your Question",
+                title: "Reply for "+test.data().title,
+                body: answer.title,
             },
             tokens: getTokens
         };
@@ -138,4 +139,5 @@ exports.sendAnswerNotifi2Questioner = functions.firestore
                 console.log('Error sending message:', error);
                 throw new Error("Profile doesn't exist");
             });
+
     });
