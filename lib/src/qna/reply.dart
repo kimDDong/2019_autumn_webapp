@@ -139,6 +139,7 @@ class _AddReplyState extends State<AddReply> {
                   'description': _description.text,
                   'date': DateTime.now(),
                   'question': questionId,
+                  'writer' : email3
                 });
 
                 await Firestore.instance
