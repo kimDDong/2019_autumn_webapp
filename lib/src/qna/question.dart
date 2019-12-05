@@ -179,22 +179,14 @@ class _AddQuestionState extends State<AddQuestion> {
             new FlatButton(
               child: new Text("Confirm"),
               onPressed: () async {
-                anonymous
-                    ? await Firestore.instance.collection('question').add({
-                        'title': _title.text,
-                        'description': _description.text,
-                        'questioner': 'Anonymous',
-                        'category': category,
-                        'date': DateTime.now(),
-                        'reply': false
-                      })
-                    : await Firestore.instance.collection('question').add({
+                await Firestore.instance.collection('question').add({
                         'title': _title.text,
                         'description': _description.text,
                         'questioner': email3,
                         'category': category,
                         'date': DateTime.now(),
-                        'reply': false
+                        'reply': false,
+                  'anonymous' : anonymous,
                       });
 
 //                Navigator.of(context)
