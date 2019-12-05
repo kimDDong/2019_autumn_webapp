@@ -136,8 +136,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
               ],
 
             ),
-            floatingActionButton: email3 != "aldehf420@gmail.com"
-                ? FloatingActionButton(
+            floatingActionButton: FloatingActionButton(
                     child: Icon(
                       Icons.add_comment,
                       color: Colors.white,
@@ -147,8 +146,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => AddQuestion()));
                     },
-                  )
-                : null,
+                  ),
             body: Column(
               children: <Widget>[storeTab(), storeTabView()],
             ));
@@ -557,11 +555,6 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
             new FlatButton(
               child: new Text("Confirm"),
               onPressed: () async {
-                await Firestore.instance
-                    .collection('question')
-                    .document(document['question'])
-                    .updateData({"reply": false});
-
                 await Firestore.instance
                     .collection('answer')
                     .document(document.documentID)
