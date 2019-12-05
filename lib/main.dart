@@ -216,7 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text('Q&A'),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
+          icon: Icon(Icons.edit),
           title: Text('QUIZ'),
         ),
 
