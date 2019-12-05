@@ -185,10 +185,8 @@ class _AddQuestionState extends State<AddQuestion> {
                         'questioner': email3,
                         'category': category,
                         'date': DateTime.now(),
-                        'reply': false,
                   'anonymous' : anonymous,
                       });
-
 
 //                Navigator.of(context)
 //                    .popUntil(MaterialPageRoute(builder: (context) => Notice()));

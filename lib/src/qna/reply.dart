@@ -142,10 +142,10 @@ class _AddReplyState extends State<AddReply> {
                   'writer' : email3
                 });
 
-                await Firestore.instance
-                    .collection('question')
-                    .document(questionId)
-                    .updateData({"reply": true});
+//                await Firestore.instance
+//                    .collection('question')
+//                    .document(questionId)
+//                    .updateData({"reply": true});
 
 //                Navigator.of(context)
 //                    .popUntil(MaterialPageRoute(builder: (context) => Notice()));

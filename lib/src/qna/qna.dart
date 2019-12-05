@@ -243,7 +243,8 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
           margin: EdgeInsets.only(left: 10, right: 50, top: 10),
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-              color: Colors.black26, borderRadius: BorderRadius.circular(18)),
+              color: Colors.black26,
+              borderRadius: BorderRadius.circular(18)),
           child: FlatButton(
             padding: EdgeInsets.all(0),
             child: Column(
@@ -259,16 +260,15 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                           color: Colors.orangeAccent,
                           fontWeight: FontWeight.bold),
                     ),
-                    email3 == "aldehf420@gmail.com" ||
-                            email3 == document['questioner']
+                    email3 == "aldehf420@gmail.com" || email3 == document['questioner']
                         ? Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                removeQuestion(document.documentID)
-                              ],
-                            ),
-                          )
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          removeQuestion(document.documentID)
+                        ],
+                      ),
+                    )
                         : Container()
                   ],
                 ),
@@ -281,16 +281,21 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                 Row(
                   children: <Widget>[
                     Text(
-                      "By " + document['questioner'].split("@")[0],
+                      document['questioner']== "aldehf420@gmail.com"?
+                      "By Admin": document['anonymous']?"By Anonymous":"By " + document['questioner'].split("@")[0],
                       style: TextStyle(
-                          color: Colors.white70, fontStyle: FontStyle.italic),
+                          color: Colors.white70,
+                          fontStyle: FontStyle.italic),
                     ),
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           Text(
-                            document['date'].toDate().toString().split(':')[0] +
+                            document['date']
+                                .toDate()
+                                .toString()
+                                .split(':')[0] +
                                 ":" +
                                 document['date']
                                     .toDate()
@@ -310,7 +315,8 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
             onPressed: () {
               email3 != null
                   ? Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AddReply(document.documentID)))
+                  builder: (context) =>
+                      AddReply(document.documentID)))
                   : null;
             },
           ),
@@ -382,6 +388,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
           Row(
             children: <Widget>[
               Text(
+                document['writer']== "aldehf420@gmail.com"?"By Admin":
                 "By " + document['writer'].split('@')[0],
                 style: TextStyle(
                     color: Colors.white70, fontStyle: FontStyle.italic),
