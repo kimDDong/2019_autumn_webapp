@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -31,10 +33,36 @@ abstract class BaseAuth {
 
 class Auth implements BaseAuth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
 
   Future<String> signIn(String email, String password,BuildContext context) async {
     FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password)).user;
     email3 = email;
+
+    if(email == "aldehf420@gmail.com"){
+      _firebaseMessaging.getToken().then((token) {
+        print(token);
+        Firestore.instance
+            .collection('admin')
+            .document(email)
+            .setData({
+          'token': token,
+        }, merge: true);
+      });
+    }
+
+    _firebaseMessaging.getToken().then((token) {
+      print(token);
+      Firestore.instance
+          .collection('tokens')
+          .document(email)
+          .setData({
+        'token': token,
+      }, merge: true);
+    });
+
+
 
     final FirebaseUser currentUser = await _firebaseAuth.currentUser();
     assert(user.uid == currentUser.uid);

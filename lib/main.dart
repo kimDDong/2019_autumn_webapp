@@ -175,7 +175,7 @@ class _MyAppState extends State<MyApp> {
     var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
-        0, 'SElab 공지사항', body, platformChannelSpecifics,
+        0, 'SElab Notification', body, platformChannelSpecifics,
         payload: 'item x');
   }
 }
