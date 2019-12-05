@@ -268,7 +268,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                                 color: Colors.orangeAccent,
                                 fontWeight: FontWeight.bold),
                           ),
-                          email3 == "aldehf420@gmail.com"
+                          email3 == "aldehf420@gmail.com" || email3 == document['questioner']
                               ? Expanded(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -320,7 +320,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                     ],
                   ),
                   onPressed: () {
-                    email3 == "aldehf420@gmail.com"
+                    email3 != null
                         ? Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
                                 AddReply(document.documentID)))
@@ -351,7 +351,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                             color: Colors.orangeAccent,
                             fontWeight: FontWeight.bold),
                       ),
-                      email3 == "aldehf420@gmail.com"
+                      email3 == "aldehf420@gmail.com" || email3== document['questioner']
                           ? Expanded(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -403,7 +403,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                 ],
               ),
               onPressed: () {
-                email3 == "aldehf420@gmail.com"
+                email3 != null
                     ? Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => AddReply(document.documentID)))
                     : null;
@@ -454,7 +454,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                 style: TextStyle(
                     color: Colors.cyanAccent, fontWeight: FontWeight.bold),
               ),
-              email3 == "aldehf420@gmail.com"
+              email3 == "aldehf420@gmail.com" || email3 == document['writer']
                   ? Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -475,7 +475,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
           Row(
             children: <Widget>[
               Text(
-                "By Scott Uk-Jin Lee",
+                "By " + document['writer'].split('@')[0],
                 style: TextStyle(
                     color: Colors.white70, fontStyle: FontStyle.italic),
               ),
