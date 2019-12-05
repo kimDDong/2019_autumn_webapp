@@ -289,7 +289,8 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                       Row(
                         children: <Widget>[
                           Text(
-                            "By " + document['questioner'].split("@")[0],
+                      document['questioner']== "aldehf420@gmail.com"?
+                            "By Admin":"By " + document['questioner'].split("@")[0],
                             style: TextStyle(
                                 color: Colors.white70,
                                 fontStyle: FontStyle.italic),
@@ -475,6 +476,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
           Row(
             children: <Widget>[
               Text(
+                document['writer']== "aldehf420@gmail.com"?"By Admin":
                 "By " + document['writer'].split('@')[0],
                 style: TextStyle(
                     color: Colors.white70, fontStyle: FontStyle.italic),
