@@ -146,7 +146,7 @@ class _MyAppState extends State<MyApp> {
 
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
-        showNotification(message['notification']['body'].toString());
+        showNotification(message['notification']['title'].toString(),message['notification']['body'].toString());
         print('on message $message');
       },
       onResume: (Map<String, dynamic> message) async {
@@ -167,7 +167,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  Future<void> showNotification(String body) async {
+  Future<void> showNotification(String title,String body) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'your channel id', 'your channel name', 'your channel description',
         importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
@@ -175,7 +175,7 @@ class _MyAppState extends State<MyApp> {
     var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
-        0, 'SElab Notification', body, platformChannelSpecifics,
+        0, title, body, platformChannelSpecifics,
         payload: 'item x');
   }
 }

@@ -167,6 +167,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
           );
         }
         return ListView.builder(
+
             physics: BouncingScrollPhysics(),
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, index) {
@@ -267,7 +268,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                                 color: Colors.orangeAccent,
                                 fontWeight: FontWeight.bold),
                           ),
-                          email3 == document['questioner'] || email3 == "aldehf420@gmail.com"
+                          email3 == "aldehf420@gmail.com" || email3 == document['questioner']
                               ? Expanded(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -288,9 +289,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                       Row(
                         children: <Widget>[
                           Text(
-                            "By "+document['questioner']
-                                .toString()
-                                .split('@')[0],
+                            "By " + document['questioner'].split("@")[0],
                             style: TextStyle(
                                 color: Colors.white70,
                                 fontStyle: FontStyle.italic),
@@ -352,7 +351,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                             color: Colors.orangeAccent,
                             fontWeight: FontWeight.bold),
                       ),
-                      email3 == document['questioner'] || email3== "aldehf420@gmail.com"
+                      email3 == "aldehf420@gmail.com" || email3== document['questioner']
                           ? Expanded(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -374,9 +373,7 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
                     children: <Widget>[
                       Text(
                         document['anonymous']?
-                        "By Anonymous"  :"By " + "By "+document['questioner']
-                            .toString()
-                            .split('@')[0],
+                        "By Anonymous"  :"By " + document['questioner'].split("@")[0],
                         style: TextStyle(
                             color: Colors.white70, fontStyle: FontStyle.italic),
                       ),
@@ -427,10 +424,88 @@ class _QNAState extends State<QNA> with SingleTickerProviderStateMixin {
             child: CircularProgressIndicator(),
           );
         }
-        return ListView.builder(
-            ,zitemBuilder: );
+        return  ListView.builder(itemCount: snapshot.data.documents.length,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+        itemBuilder: (context,index){
+
+          return buildReplyTile(snapshot.data.documents[index]);
+        },);
       },
     );
+  }
+
+  Widget buildReplyTile(DocumentSnapshot document){
+    return Container(
+      margin: EdgeInsets.only(left: 50, right: 10, top: 10),
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+          color: Colors.black26, borderRadius: BorderRadius.circular(18)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Icon(Icons.subdirectory_arrow_right),
+              Text(
+                document['title'],
+                textScaleFactor: 2,
+                style: TextStyle(
+                    color: Colors.cyanAccent, fontWeight: FontWeight.bold),
+              ),
+              email3 == "aldehf420@gmail.com" || email3 == document['writer']
+                  ? Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    removeAnswer(document)
+                  ],
+                ),
+              )
+                  : Container()
+            ],
+          ),
+          Text(
+            document['description'],
+          ),
+          Divider(
+            thickness: 2,
+          ),
+          Row(
+            children: <Widget>[
+              Text(
+                "By " + document['writer'].split('@')[0],
+                style: TextStyle(
+                    color: Colors.white70, fontStyle: FontStyle.italic),
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      document['date']
+                          .toDate()
+                          .toString()
+                          .split(':')[0] +
+                          ":" +
+                          document['date']
+                              .toDate()
+                              .toString()
+                              .split(':')[1],
+                      style: TextStyle(
+                          color: Colors.white70,
+                          fontStyle: FontStyle.italic),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+
   }
 
   void _confirmDelQuestion(BuildContext context, String questionID) {
